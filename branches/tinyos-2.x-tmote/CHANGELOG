@@ -1,0 +1,94 @@
+April 27th - Luca
+- All timing aspects handled based on the value of EPOCH
+- TLConf.h contains only modifiable configuration parameters, 
+  all others moved to TupleSpace.h
+- Got rid of NeighborTimer in LocalTeenyLime
+- Added definitions for TL_LOCAL and TL_NEIGHBORHOOD
+- Renamed BridgeTupleSpace.systemIn in BridgeTupleSpace.remove
+- BridgeTupleSpace.remove changed signature
+- Removed references to TLTarget in ReliableGenericComm
+- Introduced param MAX_RETURN_TUPLES
+- Got rid of ReliableGenericComm.getSymmetricNeighborsId()	
+- Inlined deleteTuple and initTuple in LocalTeenyLime
+- Added isFailed() in TupleSpace.h
+- Got rid of completedOps in DistributedTeenyLIME
+- Changed licens from GPL to LGPL
+- Bug fix when capability tuples are involved in group operations
+- MutationRouting now uses only 16 bits fields
+- Added benchmark application
+
+Sometime - Laurens
+- #include replaces includes
+- Timer interface declaration must include timer precision in tos2
+- Init and StdControl are separate interfaces in tos2
+
+October 1st - Luca 
+- operationIds are now passed with pointers intead of being
+  returned as result: if the operation is local the opId gets
+  written too late for the application to read it
+- MessageQueue now calls AMControl.start(), otherwise the radio 
+  stays off
+- Added TLDebugM component to replace Leds as used within TL
+- Removed all asm and uart_XXX code (hopefully), use standard TOS2 
+  printf support instead
+- Added printf hooks to a number of components
+- Implemented tupleReplace function to manage the TL system
+- Inlined addTuple in localOut
+- Got rid of msg_t, uint8_t is shorter
+- Changed alignment in TupleMsg
+- Implemented copyTuple to avoid alignment problems while 
+  receiving/sending data from/to the network
+- MessageQueue was using interface NeighborSystem why(?!?)
+- MessageQueue becomes TMoteMsgQueue, mostly because of TOS2 random 
+  timers 
+- TeenyLimeSerializer was sending all messages in broadcast (why?!?)
+- Added timeTick even in BridgeTupleSpace, and used timer in LocalTL
+  to tick in DistributedTL; consequently, StdControl is no longer needed
+  in DistributedTL
+- localTime in DistributedTL is used to signal operation completion, 
+  it saves a timer and fixes the bug with multiple distributed 
+  operations
+- Got rid of Init interface in TeenyLimeM, TMoteMsgQueue and TLSerializer, 
+  they don't need it; LocalTL and DistributedTL wired directly to Main 	 
+
+October 4th - Luca
+- TeenyLimeSerializer and TMoteMsgQueue are now in a single configuration 
+  TMoteTLStack where we implement all the TMote-specific network functions
+- Neighbors are now filtered according to the value of link quality, using 
+  the parameter MIN_LQI in TmoteStackConf.h
+- Neighbor tuples can now use two formal fields of type TYPE_LQI and 
+  TYPE_RSSI that are automatically filled in by the TL System with 
+  link quality estimates and RSSI values
+- Fixed a bug in LocalTL: nghTuple wasn't updated
+- Vaiorus clean-ups of commented out code
+- Added a test for TL system
+- Got rid of StdControl everywhere, as it is meant to control hw devices
+  with on/off power state (see TEP 115)
+
+October, 15th - Luca
+- Added support for TOSSIM simulations in TMote branch (use 
+  Makefile.micaz-tossim to compile)
+- Added TOSSIM-specific components uder tl/system/micaz-tossim 
+- Added compilation flag PRINTF_SUPPORT
+- Removed mydbg all over, TOSSIM2 was segfaulting
+- Added test for tuple expiration, fixed TLLocal so that tuples expire 
+  one epoch earlier (as it should be)	
+
+November, 18th - Luca
+- Added support for telosb compilation target
+- Implemented reliable (unicast) operations using CC2420 L2 PacketLink acks
+- Added atomic where deemed necessary
+- Various clean-ups
+- Modified temporary data structures in LocalTL e DistributedTL 
+  to save stack mem
+- Got rid of TOS2Def 
+
+December, 4th - Luca
+- Added experimental PacketLink layer for TL based on random retransmission 
+  times -> See INSTALL file for info on how to patch the standard TOS2 
+  CC2420 stack
+
+December, 6th - Luca
+- Added tupleSpaceError event in TupleSpace interface. When a reliable 
+  operation does not succeed, the event si signalled with all the data 
+  of the failed operation. Applications must be updated to the new API.

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage
+END
+LTSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/LTSenseTask.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/PrintfClient.java
+END
+LTSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/LTSampler.nc
+END
+LTNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/LTNode.nc
+END
+FakeDataDisseminationLT.nc
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/FakeDataDisseminationLT.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/PrintfMsg.java
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/Makefile
+END

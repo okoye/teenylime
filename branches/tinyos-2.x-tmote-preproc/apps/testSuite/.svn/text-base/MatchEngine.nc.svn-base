@@ -1,0 +1,197 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#ifdef PRINTF_SUPPORT
+#include "printf.h"
+#endif
+
+#include "Constants.h"
+#include "TupleSpace.h"
+
+/**
+ * Test for the correcteness of the matching engine. Under correct
+ * execution, all leds should toggle in sequence.
+ *
+ * @author Stefan Guna
+ *         <a href="mailto:guna@disi.unitn.it">guna@disi.unitn.it</a>
+ *
+ */
+
+#define TIMER 3000
+
+module MatchEngine {
+
+  uses {
+    interface Boot;
+
+    interface Timer<TMilli> as TimerApp;
+
+    interface TupleSpace as TS;
+    interface TeenyLIMESystem;
+
+    interface AMPacket;
+
+    interface Random;
+
+    interface Leds;
+#ifdef PRINTF_SUPPORT
+    interface SplitControl as PrintfControl;
+    interface PrintfFlush;
+#endif
+  }
+}
+
+implementation {
+
+  uint8_t op = 0;
+  tuple<uint16_t> neighborTuple;
+  TLOpId_t eId, dId, lId, gId, leId, geId, anyId, outId; 
+
+  event void Boot.booted() {
+    
+    neighborTuple = newTuple(actualField(call AMPacket.address()));
+    call TimerApp.startPeriodic(TIMER);
+
+#ifdef PRINTF_SUPPORT
+    call PrintfControl.start();
+#endif
+  }
+
+  event void TimerApp.fired() {
+
+    tuple<uint8_t, uint16_t> 
+            t = newTuple(actualField(FAKE_DATA), actualField(FAKE_DATA)),
+            tl = newTuple(actualField(FAKE_DATA), actualField(FAKE_DATA - 1)),
+            tg = newTuple(actualField(FAKE_DATA), actualField(FAKE_DATA + 1)),
+            p_any = newTuple(dontCare(), dontCare()),
+            p_e = newTuple(equal(FAKE_DATA), equal(FAKE_DATA)),
+            p_d = newTuple(equal(FAKE_DATA), different(FAKE_DATA)),
+            p_l = newTuple(equal(FAKE_DATA), lower(FAKE_DATA)),
+            p_g = newTuple(equal(FAKE_DATA), greater(FAKE_DATA)),
+            p_le = newTuple(equal(FAKE_DATA), lowerEqual(FAKE_DATA)),
+            p_ge = newTuple(equal(FAKE_DATA), greaterEqual(FAKE_DATA));
+
+    if (op % 8 == 0) {  
+      call TS.out(&outId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &t);
+      call TS.out(&outId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &tl);
+      call TS.out(&outId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &tg);
+    } else if (op % 8 == 1) {
+      call TS.rdg(&eId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_e);
+    } else if (op % 8 == 2) {
+      call TS.rdg(&dId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_d);
+    } else if (op % 8 == 3) {
+      call TS.rdg(&lId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_l);
+    } else if (op % 8 == 4) {
+      call TS.rdg(&gId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_g);
+    } else if (op % 8 == 5) {
+      call TS.rdg(&leId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_le);
+    } else if (op % 8 == 6) {
+      call TS.rdg(&geId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_ge);
+    } else if (op % 8 == 7) {
+      call TS.ing(&anyId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p_any);
+    }
+    op++;
+  }
+
+  event void TS.tupleReady(TLOpId_t operationId, TupleIterator *iterator) { 
+    tuple<uint8_t, uint16_t> *res = 
+        (tuple<uint8_t, uint16_t> *) call TS.nextTuple(operationId, iterator);
+    int number = 0;
+    if (res != NULL)
+        number++;
+    if (call TS.nextTuple(operationId, iterator) != NULL)
+        number++;
+
+    PROCESS_OP(eId,
+	       if (number == 1
+		   && res->value0 == FAKE_DATA
+		   && res->value1 == FAKE_DATA) {      
+		 call Leds.led0Toggle();
+	       });
+    
+    PROCESS_OP(dId,
+	       if (number == 2) {
+		 call Leds.led1Toggle();
+	       });
+
+    PROCESS_OP(lId,
+	       if (number == 1) {
+		 call Leds.led2Toggle();
+	       });
+    
+    PROCESS_OP(gId,
+	       if (number == 1) {
+		 call Leds.led0Toggle();
+	       });
+
+    PROCESS_OP(leId,
+	       if (number == 2) {
+		 call Leds.led1Toggle();
+	       });
+    
+    PROCESS_OP(geId,
+	       if (number == 2) {
+		 call Leds.led2Toggle();
+	       });
+    
+    PROCESS_OP(anyId,
+	       if(number != 3) {
+		 call Leds.set(0xFF);
+	       });
+  }
+
+  event tuple* TeenyLIMESystem.reifyNeighborTuple() {
+    return (tuple *) &neighborTuple;
+  }
+
+  event void TS.reifyCapabilityTuple(tuple* ct) {
+  }
+
+  event void TS.operationCompleted(uint8_t completionCode, 
+				   TLOpId_t operationId, 
+				   TLTarget_t target,
+                   TLTupleSpace_t ts,
+				   tuple* returningTuple) {
+  }
+
+#ifdef PRINTF_SUPPORT
+  event void PrintfControl.startDone(error_t error) {
+  }
+
+  event void PrintfControl.stopDone(error_t error) {
+  }
+
+  event void PrintfFlush.flushDone(error_t error) {
+  }
+#endif 
+}
+

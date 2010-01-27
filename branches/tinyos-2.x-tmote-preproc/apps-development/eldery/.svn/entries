@@ -1,0 +1,203 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/eldery
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-13T17:45:32.247589Z
+1023
+gianalberto
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+deployment.xml
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+9100df4027bf859e4f4323f826bf4a98
+2009-12-04T14:20:40.652639Z
+987
+sguna
+
+orchestrator
+dir
+
+serial
+dir
+
+buttonMessage
+dir
+
+itea.xml
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+3e15bf7c4a0d3509aed44c868ba8cfa7
+2009-12-14T21:24:34.995284Z
+1000
+sguna
+
+node-build
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+a3e38a4b569b2ba5bc7c35f45cd61e25
+2009-12-15T16:04:17.195229Z
+1003
+sguna
+has-props
+
+logger.config
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+879747f8e6f4df17eb613389368d745b
+2009-12-15T16:04:17.195229Z
+1003
+sguna
+
+.project
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+7feb10b547c4f3f3c0643c608d63d1fb
+2009-11-27T23:04:28.043425Z
+954
+sguna
+
+java-lib
+dir
+
+sensorsData
+dir
+
+ElderyC.nc
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+ee8468bfd77091618361973dd3eb9b2d
+2010-01-13T17:31:43.899023Z
+1022
+gianalberto
+
+casette.xml
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+e9b0130fa35d607cbd8bdc481ab93bb8
+2009-12-03T14:48:58.332295Z
+985
+sguna
+
+README
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+4f065c7c6defa135cf802ede3b797233
+2010-01-13T17:31:43.899023Z
+1022
+gianalberto
+
+build.xml
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+c51ddc9ae1e1b1f52b9b46aa1a6819fc
+2010-01-13T17:31:43.899023Z
+1022
+gianalberto
+
+tree
+dir
+
+.classpath
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+a372d5f44d149b127e7af5137585ce8b
+2009-11-27T23:04:28.043425Z
+954
+sguna
+
+posture
+dir
+
+proximity
+dir
+
+config
+dir
+
+build_info.properties
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+50207916f270dd18f1270a27072d3053
+2009-12-14T21:25:03.943366Z
+1001
+sguna
+
+java-src
+dir
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+86b856c1bc9b31868df93d634533c0e1
+2010-01-13T17:31:43.899023Z
+1022
+gianalberto
+

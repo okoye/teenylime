@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/996/branches/tinyos-2.x-tmote-preproc/apps/tower/java/src/tl/apps/tower/applet
+END
+AppletManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/996/branches/tinyos-2.x-tmote-preproc/apps/tower/java/src/tl/apps/tower/applet/AppletManager.java
+END
+AppletSourceDescriptorTower.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/723/branches/tinyos-2.x-tmote-preproc/apps/tower/java/src/tl/apps/tower/applet/AppletSourceDescriptorTower.java
+END
+AppletSourceTower.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/845/branches/tinyos-2.x-tmote-preproc/apps/tower/java/src/tl/apps/tower/applet/AppletSourceTower.java
+END
+AppletScenarioTower.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/teenylime/!svn/ver/990/branches/tinyos-2.x-tmote-preproc/apps/tower/java/src/tl/apps/tower/applet/AppletScenarioTower.java
+END

@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/console
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2008-12-18T11:15:40.715137Z
+720
+mceriotti
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+UnknownTupleReader.java
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+84f8d49db7c7ac80fc436861c907614a
+2008-12-18T11:15:40.715137Z
+720
+mceriotti
+has-props
+
+StatsLogWriter.java
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+a6b61532ec49db86215932ba86b53a2a
+2008-10-02T08:32:26.203505Z
+688
+mceriotti
+has-props
+

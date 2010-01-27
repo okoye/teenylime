@@ -1,0 +1,87 @@
+#!/bin/bash
+
+
+if [ $# -lt 3 ]
+then
+    echo "syntax: tl-preprocess configuration object_file tl_path [-K] [-Iinclude_path]"
+    exit -1
+fi
+
+script_path=`dirname "$0"`
+keep_objects=0
+tl_path=$3
+tl_path_len=${#tl_path}
+path=
+for i in $*
+do
+    prefix=${i:0:2}
+    holder=${i:2:$tl_path_len}
+    if [[ $prefix = -I && $holder != $tl_path ]]
+    then
+        path=${path}' '${i}
+    fi
+    if [ $i == "-K" ]
+    then
+        keep_objects=1
+    fi
+done
+
+configuration=$1
+object_file=$2
+
+echo "configuration file:" $configuration.nc
+echo "object output to:" $object_file
+
+echo $script_path/conf-parser $configuration.nc $path
+modules=`$script_path/conf-parser $configuration.nc $path`
+if [ $? -ne 0 ]
+then
+    echo "error: $script_path/conf-parser returned with error"
+    echo "error: Usually this happens when you forget to setup TL_COMPONENT in the Makefile."
+    exit -1
+fi
+
+touch $object_file
+
+if [ ${#modules} == 0 ]
+then
+    echo "warning: no modules found to be preprocessed by the TL preprocessor"
+else
+    echo "modules to be preprocessed: '$modules'"
+fi
+
+echo $script_path/tl-parser $object_file $modules $path
+$script_path/tl-parser $object_file $modules $path
+if [ $? -ne 0 ]
+then
+    echo "error: $script_path/tl-parser returned with error"
+    echo "error: Usually this happens when there are syntax errors in your source code." 
+    exit -1
+fi
+
+$script_path/create-code $object_file 
+if [ $? -ne 0 ]
+then
+    echo "error: $script_path/create-code returned with error"
+    exit -1
+fi
+echo "main configuration: $configuration"
+$script_path/rename-id $configuration $modules $path
+if [ $? -ne 0 ]
+then
+    echo "error: $script_path/rename-id returned with error"
+    exit -1
+fi
+#mv tl_objs.h ~/Desktop/branches/tinyos-2.x-tmote-preproc/tl/system
+#mv tl_objs.c ~/Desktop/branches/tinyos-2.x-tmote-preproc/tl/system/TLObjectsParsed.nc
+
+echo "Creating tuple functions. Storing them in 'TLObjectsParsed.nc'"
+mv tl_objs.c TLObjectsParsed.nc
+if [ $keep_objects -eq 0 ]
+then
+    rm $object_file 
+else
+    echo "tuple information is found in file:" $object_file
+fi
+
+

@@ -1,0 +1,94 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/office
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-07-14T12:59:34.845591Z
+884
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+java
+dir
+
+Constants.h
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+2d18a0f295210322c7466c467adb821c
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+rebuildOffice
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+5336f0289999b11f2f171498ecd71ecb
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+none_Node
+dir
+
+accel_force_tilt_Node
+dir
+
+hum_sol_syl_temp_Node
+dir
+
+co_co2_dust_Node
+dir
+
+sink_Node
+dir
+
+buz_mag_mic_pir_Node
+dir
+
+Configuration.h
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+22a176ca25abd8743800b8990be0333c
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+accel_hum_sol_syl_temp_Node
+dir
+
+drivers
+dir
+

@@ -1,0 +1,8 @@
+#!/bin/sh
+OUTPUT=BareME.od
+rm $OUTPUT
+
+# Compiling 
+make -f Makefile.bareMutualExclusion clean
+make -f  Makefile.bareMutualExclusion mica2 
+avr-objdump -zhD ./build/mica2/main.exe >$OUTPUT

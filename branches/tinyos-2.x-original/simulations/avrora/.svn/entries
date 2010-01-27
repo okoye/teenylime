@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-original/simulations/avrora
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2007-11-03T09:31:45.261898Z
+179
+bronwasser
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+compileSampleME.avrora
+file
+
+
+
+
+2010-01-27T03:26:47.000000Z
+0ee6097e825af52afc50f26cba94d401
+2007-11-03T09:31:45.261898Z
+179
+bronwasser
+has-props
+
+compileExample.avrora
+file
+
+
+
+
+2010-01-27T03:26:47.000000Z
+df65b3ab8ee0f577980da4ce5ccf7891
+2007-11-03T09:31:45.261898Z
+179
+bronwasser
+has-props
+

@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps/tower/java/lib
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-08T09:06:38.174898Z
+1011
+mceriotti
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+jsch.jar
+file
+
+
+
+
+2010-01-27T03:26:00.000000Z
+74ea920580077b4c0b51101a8292a529
+2009-10-14T11:51:58.248441Z
+910
+mceriotti
+has-props
+
+jcalendar-1.3.3.jar
+file
+
+
+
+
+2010-01-27T03:26:00.000000Z
+f0a47abf77f85800a8226ae5e05e2520
+2010-01-08T09:06:38.174898Z
+1011
+mceriotti
+has-props
+

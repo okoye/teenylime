@@ -1,0 +1,9 @@
+- MessageQueue: introduce random waiting times, get rid of scattering based on node ids
+
+
+tos2:
+- possibly turn modules that use timers into generic modules to support multiple timer precisions
+- implement ReliableReceive.getPayload() and ReliableReceive.payloadLength().
+- get rid of unnecessary copying in removeReliability() and addReliability()
+- have teenylimeC provide SplitControl in stead of StdControl
+- do we need UINT MAX definitions?

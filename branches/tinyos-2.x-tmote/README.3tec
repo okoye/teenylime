@@ -1,0 +1,57 @@
+Programming 3TEC motes
+======================
+
+First, you need to PATCH the bsl.extra found in the TINYOS directory.
+If you don't have the standard 'bsl.extra', please refer to the note at the
+end of this document.
+
+1. Copy 'patch.bsl.extra' to '$TOSROOT/support/make/msp'.
+2. cd $TOSROOT/support/make/msp
+3. Backup 'bsl.extra'
+4. Apply patch:
+    patch bsl.extra patch.bsl.extra
+
+
+When COMPILING applications for the 3TEC mote, you should do it for the telosb
+platform:
+
+    make telosb
+
+
+When you want to PROGRAM the 3TEC mote, you must:
+1. Make sure that the appropriate jumper (JP2) is set on the programmer board.
+2. Program the device using bsl3, for example:
+
+    make telosb reinstall,11 bsl3,/dev/ttyUSB0
+
+3. If you want to use the reset button on the mote, take out the jumper from
+step 1.
+
+
+Applicatiosn for STANDARD motes can be compiled and programmed as usual (with
+bsl and NOT bsl3):
+
+    make tmote
+    make tmote reinstall,11 bsl,/dev/ttyUSB0
+
+
+
+MANUAL PATCHING OF bsl.extra
+----------------------------
+
+Add the following line:
+
+BSL_MODE ?= 0
+
+before the line (#20):
+
+MSP_BSL_FLAGS ?= --telos 
+
+Then, right after it, add the following lines:
+
+BSL3 ?= -1
+ifneq ($(BSL3),-1)
+MSP_BSL_FLAGS == --invert-test
+BSL = $(BSL3)
+endif
+

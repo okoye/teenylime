@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/dataDissemination/sink
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-05-21T07:46:03.877254Z
+847
+dfacchin
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+DataDissemination.nc
+file
+
+
+
+
+2010-01-27T03:26:32.000000Z
+85deeb3f4b5757b3c539dc8c0aa0e66c
+2009-05-21T07:46:03.877254Z
+847
+dfacchin
+has-props
+
+FakeDataDissemination.nc
+file
+
+
+
+
+2010-01-27T03:26:32.000000Z
+263ee0013c5350d5d210b27f92601c4d
+2009-05-21T07:46:03.877254Z
+847
+dfacchin
+has-props
+

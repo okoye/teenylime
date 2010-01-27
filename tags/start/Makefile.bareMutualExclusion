@@ -1,0 +1,10 @@
+WORKING_DIR = .
+COMPONENT = $(WORKING_DIR)/simulations/tos_apps/BareMutualAppC
+PFLAGS += -I$(WORKING_DIR)/apps/sampleMutualExclusion
+PFLAGS += -I$(WORKING_DIR)/simulations/tos_apps
+PFLAGS += -I$(WORKING_DIR)/services/mutualExclusion
+PFLAGS += -D$(MAKECMDGOALS)
+#MSG_SIZE = 50
+MSG_SIZE = 100
+include $(TOSROOT)/apps/Makerules
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+export TOSROOT="/home/laurens/ph/install/tinyos-2.x"
+export TOSDIR=$TOSROOT/tos
+export MAKERULES=$TOSROOT/support/make/Makerules
+
+export BENCHMARK_NODE=$1
+
+make micaz sim
+if [ $? != "0" ]; then
+	exit;
+fi
+
+python < sim.py

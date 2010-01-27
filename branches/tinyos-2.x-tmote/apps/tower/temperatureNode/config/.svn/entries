@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/config
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2008-03-04T16:32:26.417572Z
+311
+lmottola
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+TMoteStackConf.h
+file
+
+
+
+
+2010-01-27T03:25:51.000000Z
+578e21e3f3ece2aedae4ae85514d96ca
+2008-03-04T10:36:11.524426Z
+305
+lmottola
+has-props
+
+TLConf.h
+file
+
+
+
+
+2010-01-27T03:25:51.000000Z
+b897ef9c2ea836ee99ae45525795c51b
+2008-03-04T16:32:26.417572Z
+311
+lmottola
+has-props
+

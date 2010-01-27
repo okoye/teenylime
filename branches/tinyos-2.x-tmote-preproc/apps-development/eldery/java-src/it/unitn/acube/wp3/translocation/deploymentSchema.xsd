@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://acube-ucd.fbk.eu//deploymentSchema"
+	xmlns:tns="http://acube-ucd.fbk.eu//deploymentSchema"
+	elementFormDefault="qualified">
+
+	<complexType name="linkType">
+		<sequence>
+			<element name="node" type="tns:nodeType" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+		</sequence>
+		<attribute name="neighbor" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="areaType">
+		<sequence>
+			<element name="link" type="tns:linkType" maxOccurs="unbounded"
+				minOccurs="0">
+			</element>
+			<element name="hazard" type="tns:hazardType" maxOccurs="unbounded"
+				minOccurs="0"></element>
+		</sequence>
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="code" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="deploymentType">
+		<sequence>
+			<element name="area" type="tns:areaType" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+			<element name="actor" type="tns:actorType" maxOccurs="unbounded"
+				minOccurs="0"></element>
+		</sequence>
+		<attribute name="name" type="string" use="required"></attribute>
+	</complexType>
+
+	<element name="deployment" type="tns:deploymentType"></element>
+
+	<complexType name="nodeType">
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+
+	<complexType name="hazardType">
+		<sequence>
+			<element name="node" type="tns:nodeType" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+		</sequence>
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="code" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="actorType">
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+</schema>

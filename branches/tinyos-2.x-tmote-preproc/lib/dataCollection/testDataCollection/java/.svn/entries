@@ -1,0 +1,57 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/java
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-05-17T08:52:51.286897Z
+838
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+src
+dir
+
+README
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+bf6b40b173ac40c13def21d68b5badc6
+2009-04-29T10:50:15.071244Z
+785
+mceriotti
+has-props
+
+build.xml
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+bd197559e62777387a9e072e8286984e
+2009-05-17T08:52:51.286897Z
+838
+mceriotti
+has-props
+

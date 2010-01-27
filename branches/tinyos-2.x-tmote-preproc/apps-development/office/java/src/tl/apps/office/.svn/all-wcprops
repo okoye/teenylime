@@ -1,0 +1,209 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office
+END
+CO.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/CO.java
+END
+Microphone.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Microphone.java
+END
+Presence.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Presence.java
+END
+TupleReaderSolarLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderSolarLight.java
+END
+FeatureOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/FeatureOffice.java
+END
+Pressure.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Pressure.java
+END
+SourceDescriptorOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/SourceDescriptorOffice.java
+END
+Tilt.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Tilt.java
+END
+SourceOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/SourceOffice.java
+END
+Dust.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Dust.java
+END
+TupleReaderMagnetic.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderMagnetic.java
+END
+TupleReaderAcceleration.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderAcceleration.java
+END
+Humidity.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Humidity.java
+END
+SynthLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/SynthLight.java
+END
+TupleReaderNodeInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderNodeInfo.java
+END
+TupleReaderCO.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderCO.java
+END
+TupleReaderMicrophone.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderMicrophone.java
+END
+TupleReaderPresence.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderPresence.java
+END
+Launcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Launcher.java
+END
+TupleReaderPressure.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderPressure.java
+END
+SolarLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/SolarLight.java
+END
+TupleReaderTilt.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderTilt.java
+END
+Battery.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Battery.java
+END
+TreeInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TreeInfo.java
+END
+TupleReaderDust.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderDust.java
+END
+TupleReaderCO2.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderCO2.java
+END
+CO2.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/CO2.java
+END
+Magnetic.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Magnetic.java
+END
+TupleReaderHumidity.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderHumidity.java
+END
+Acceleration.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Acceleration.java
+END
+TupleReaderTemperature.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderTemperature.java
+END
+TupleReaderSynthLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/TupleReaderSynthLight.java
+END
+Properties.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Properties.java
+END
+Temperature.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/Temperature.java
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node
+END
+BuzSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/BuzSenseTask.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/PrintfClient.java
+END
+BuzSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/BuzSampler.nc
+END
+MagSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/MagSenseTask.nc
+END
+MagSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/MagSampler.nc
+END
+MicSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/MicSenseTask.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/PrintfMsg.java
+END
+PirSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/PirSenseTask.nc
+END
+MicSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/MicSampler.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/Makefile
+END
+PirSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/PirSampler.nc
+END
+SensorNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/buz_mag_mic_pir_Node/SensorNode.nc
+END

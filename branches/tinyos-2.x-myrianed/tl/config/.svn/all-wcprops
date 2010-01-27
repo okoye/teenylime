@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config
+END
+TupleDefs.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/TupleDefs.h
+END
+MsgQueueConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/MsgQueueConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/TLConf.h
+END
+TeenyLimeC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/TeenyLimeC.nc
+END
+TinyMallocC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/TinyMallocC.nc
+END
+ReliableGenericComm.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/config/ReliableGenericComm.h
+END

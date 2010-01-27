@@ -1,0 +1,551 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 960 $
+ * * DATE
+ * *    $LastChangedDate: 2009-11-29 17:21:18 -0600 (Sun, 29 Nov 2009) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: mceriotti $
+ * *
+ * *	$Id: DataForwarderC.nc 960 2009-11-29 23:21:18Z mceriotti $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#ifdef PRINTF_SUPPORT
+#include "printf.h"
+#endif
+
+#include "Constants.h"
+#include "Configuration.h"
+#include "CollectionTuning.h"
+
+/** 
+ * Module for data forwarding on the collecting tree.
+ *
+ * @author Matteo Ceriotti
+ *         <a href="mailto:ceriotti@fbk.eu">ceriotti@fbk.eu</a>
+ *
+ */
+module DataForwarderC {
+
+  uses {
+    interface Boot;
+
+    interface Timer<TMilli> as TimerReliablePath;
+    interface TupleSpace as TS;
+    interface TLObjects;
+    interface TreeConnection;
+    interface TeenyLIMEExceptions;
+
+    interface AMPacket;
+    interface RetriesInfo;
+
+    interface Leds;
+#ifdef PRINTF_SUPPORT
+    interface SplitControl as PrintfControl;
+    interface PrintfFlush;
+#endif
+  }
+
+  provides {
+    interface CollectionDebug;
+    interface CollectionTuning;
+    interface CollectionInfo;
+  }
+
+}
+
+implementation {
+
+  struct {
+    uint16_t last_loc_id;
+    uint16_t src;
+    uint16_t src_id;
+  } buffer[CHILDREN_HISTORY_SIZE];
+
+  uint16_t forward_id;
+
+  bool set_reliable_path;
+
+  bool rem_reading;
+  uint16_t rem_reading_msg_id, rem_reading_node_id;
+
+  TLOpId_t reactionId, outId, rdRemId, rdgRecoveryId, inId, ingId;
+
+  uint8_t deleted_messages;
+  uint8_t rd_retries;
+  uint16_t recovery_retries, max_recovery_retries;
+  bool failed_rd;
+
+  bool delivering;
+  tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> toDeliver;
+  bool evaluating;
+  tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> toEvaluate;
+
+  bool isRecoveryRequired(uint16_t src, uint16_t src_msg_id);
+  bool isDuplicate(uint16_t src, uint16_t src_msg_id);
+  void fakeLastId(uint16_t node_id, uint16_t faked_last_id);
+  task void deliverMsg();
+  task void evaluateRemoteMsg();
+  task void nextToEvaluate();
+  void installReaction();  
+
+  // Return TRUE if round2 follows round1
+  bool isSecondNewer(uint16_t round1, uint16_t round2){
+    if (round1 == round2){
+      return FALSE;
+    } else if (round1 < round2){
+      if ((round2 - round1) < 0x8000) {
+        return TRUE;
+      } else {
+        return FALSE;
+      }
+    } else {
+      if ((round1 - round2) < 0x8000) {
+        return FALSE;
+      } else {
+        return TRUE;
+      }
+    }
+  }
+
+  bool isRecoveryRequired(uint16_t src, uint16_t src_msg_id){
+    uint8_t ind;
+    uint16_t previous_id;
+    if (src_msg_id == UNRELIABLE_DELIVERY || src == TL_LOCAL)
+      return FALSE;
+    if (src_msg_id == MIN_RELIABLE_MSG_ID)
+      previous_id = MAX_RELIABLE_MSG_ID;
+    else
+      previous_id = src_msg_id - 1;
+    atomic{
+      for (ind = 0; ind < CHILDREN_HISTORY_SIZE; ind++){
+        if (buffer[ind].src == src){
+          if (isSecondNewer(buffer[ind].src_id, previous_id) ||
+              isSecondNewer(src_msg_id + CACHE_SIZE, buffer[ind].src_id))
+            return TRUE;
+          else
+            return FALSE;
+        }
+      }
+    }
+    return TRUE;
+  }
+
+  void fakeLastId(uint16_t node_id, uint16_t faked_last_id){
+    uint8_t ind;
+    uint8_t replace_info = 0;
+    atomic{
+      for (ind = 0; ind < CHILDREN_HISTORY_SIZE; ind++){
+        if (buffer[ind].src == TL_LOCAL ||
+            buffer[ind].src == node_id){
+          replace_info = ind;
+          break;
+        } else if (isSecondNewer(buffer[ind].last_loc_id,
+                                 buffer[replace_info].last_loc_id)){
+          replace_info = ind;
+        }
+      }
+      if (buffer[replace_info].src == node_id){
+        buffer[replace_info].src_id = faked_last_id;
+      } else {
+        buffer[replace_info].src = node_id;
+        buffer[replace_info].src_id = faked_last_id;
+        buffer[replace_info].last_loc_id = 0;
+      }
+    }
+  }
+
+  bool isDuplicate(uint16_t src, uint16_t src_msg_id){
+    uint16_t ind;
+    if (src_msg_id == UNRELIABLE_DELIVERY || src == TL_LOCAL)
+      return FALSE;
+    for (ind = 0; ind < CHILDREN_HISTORY_SIZE; ind++){
+      if (buffer[ind].src == src){
+        if (isSecondNewer(src_msg_id + CACHE_SIZE, buffer[ind].src_id))
+          return FALSE;
+        else if (!isSecondNewer(buffer[ind].src_id, src_msg_id))
+          return TRUE;
+        else
+          return FALSE;
+      }
+    }
+    return FALSE;
+  }
+
+  task void nextToEvaluate(){
+    tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> temp;
+    atomic{
+      if (!evaluating){
+        temp = newTuple(
+                        actualField(MSG_TYPE),
+                        different(TL_LOCAL),
+                        dontCare(),
+                        dontCare());
+        call TS.rdg(&rdgRecoveryId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &temp);
+      }
+    }
+  }
+
+  uint16_t count_e = 0;
+
+  task void deliverMsg(){
+    uint16_t ind, replace_info;
+    uint8_t traffic_class;
+    atomic{
+      if (toDeliver.value2 != UNRELIABLE_DELIVERY){
+        if (forward_id == MAX_RELIABLE_MSG_ID)
+          forward_id = MIN_RELIABLE_MSG_ID;
+        else
+          forward_id++;
+        replace_info = 0;
+        for (ind = 0; ind < CHILDREN_HISTORY_SIZE; ind++){
+          if (buffer[ind].src == toDeliver.value1 ||
+              buffer[ind].src == TL_LOCAL){
+            replace_info = ind;
+            break;
+          } else if (isSecondNewer(buffer[ind].last_loc_id,
+                                   buffer[replace_info].last_loc_id)){
+            replace_info = ind;
+          }
+        }
+        if ((buffer[replace_info].src == toDeliver.value1 &&
+             isSecondNewer(buffer[replace_info].src_id, toDeliver.value2)) ||
+            buffer[replace_info].src != toDeliver.value1){
+          buffer[replace_info].src = toDeliver.value1;
+          buffer[replace_info].src_id = toDeliver.value2;
+        }
+        buffer[replace_info].last_loc_id = forward_id;
+        toDeliver.value2 = RELIABLE_DELIVERY;
+      }
+      if (toDeliver.value2 == UNRELIABLE_DELIVERY){
+        traffic_class = 0;
+      } else if (((toDeliver.value3[0] << 8)+toDeliver.value3[1])==
+                 CLASS_1_END_SESSION){
+        traffic_class = 1;
+      } else if (((toDeliver.value3[0] << 8)+toDeliver.value3[1]) == 
+                 CLASS_1_TYPE){
+        traffic_class = 1;
+        if (set_reliable_path){
+          call TimerReliablePath.stop();
+        } else {
+          signal CollectionInfo.reliablePath(TRUE);
+          set_reliable_path = TRUE;
+        }
+        call TimerReliablePath.startOneShot(RELIABLE_WINDOW * 
+                                            MAX_CLASS_1_REPORT_INTERVAL);
+      } else {
+        traffic_class = 2;
+      }
+      signal CollectionDebug.packetReceived(traffic_class, 
+                                             toDeliver.value1);
+      toDeliver.value1 = TL_LOCAL;
+      call TS.out(&outId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &toDeliver);
+      delivering = FALSE;
+    }
+    post nextToEvaluate();
+  }
+
+  task void evaluateRemoteMsg(){
+    tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> temp;
+    atomic{
+      if (isDuplicate(toEvaluate.value1, toEvaluate.value2)){
+        signal CollectionDebug.droppedDuplicate(toEvaluate.value1);
+        call TS.in(&inId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &toEvaluate);
+        post nextToEvaluate();
+      } else if (isRecoveryRequired(toEvaluate.value1, toEvaluate.value2)){
+        if (!rem_reading){
+          rem_reading = TRUE;
+          rem_reading_node_id = toEvaluate.value1;
+          if (toEvaluate.value2 == MIN_RELIABLE_MSG_ID)
+            rem_reading_msg_id = MAX_RELIABLE_MSG_ID;
+          else
+            rem_reading_msg_id = toEvaluate.value2 - 1;
+          temp = newTuple(
+                          actualField(CACHE_TYPE),
+                          actualField(rem_reading_node_id),
+                          actualField(rem_reading_msg_id),
+                          dontCare());
+          rd_retries = 0;
+          recovery_retries = 0;
+          failed_rd = FALSE;
+          call TS.rd(&rdRemId, TRUE, rem_reading_node_id, RAM_TS, (tuple *) &temp);
+          post nextToEvaluate();
+        }
+      } else if (!delivering){
+        delivering = TRUE;
+        call TLObjects.copy_tuple((tuple *) &toDeliver, (tuple *) &toEvaluate);
+        call TS.in(&inId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &toEvaluate);
+        post deliverMsg();
+      }
+      evaluating = FALSE;
+    }
+  }
+
+  void installReaction(){
+    tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> p;
+    p = newTuple(
+                 actualField(MSG_TYPE),
+                 different(TL_LOCAL), 
+                 dontCare(),
+                 dontCare());
+    call TS.addReaction(&reactionId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p);
+  }
+  
+  event void Boot.booted() {
+    uint8_t ind;
+    delivering = FALSE;
+    evaluating = FALSE;
+    forward_id = MAX_RELIABLE_MSG_ID;
+    rem_reading = FALSE;
+    rem_reading_node_id = TL_LOCAL;
+    failed_rd = FALSE;
+    set_reliable_path = FALSE;
+    max_recovery_retries = MAX_RECOVERY_RETRIES;
+    for (ind = 0; ind < CHILDREN_HISTORY_SIZE; ind++){
+      buffer[ind].last_loc_id = 0;
+      buffer[ind].src = TL_LOCAL;
+      buffer[ind].src_id = 0;
+    }
+    installReaction();
+#ifdef PRINTF_SUPPORT
+    call PrintfControl.start();
+#endif
+  }
+
+  event void TS.tupleReady(TLOpId_t operationId, 
+                           TupleIterator *iterator) {
+    uint16_t msg_id, src;
+    tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> temp,
+      *oldest, *rec;
+    
+    PROCESS_OP(reactionId,
+               rec = (tuple<uint8_t, uint16_t, uint16_t, 
+                      uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> 
+                      *) call TS.nextTuple(operationId,iterator);
+               if (!evaluating && 
+                   (!rem_reading || rem_reading_node_id != rec->value1)){
+                 temp = newTuple(
+                                 actualField(MSG_TYPE),
+                                 actualField(rec->value1),
+                                 dontCare(),
+                                 dontCare());
+                 call TS.rdg(&rdgRecoveryId, FALSE, TL_LOCAL, RAM_TS, (tuple *)
+                             &temp);
+               });
+    
+    PROCESS_OP(rdRemId,
+               rec = (tuple<uint8_t, uint16_t, uint16_t,
+                      uint8_t[TUPLE_MSG_PAYLOAD_SIZE]>
+                      *) call TS.nextTuple(operationId,iterator);
+               signal CollectionDebug.messageRecovery(rec != NULL,
+                                                      rd_retries,
+                                                      rem_reading_node_id);
+               if (failed_rd && recovery_retries < max_recovery_retries){
+                 temp = newTuple(
+                                 actualField(CACHE_TYPE),
+                                 actualField(rem_reading_node_id),
+                                 actualField(rem_reading_msg_id),
+                                 dontCare());
+                 rd_retries = 0;
+                 recovery_retries++;
+                 failed_rd = FALSE;
+                 call TS.rd(&rdRemId, TRUE, rem_reading_node_id, RAM_TS, (tuple *) &temp);
+                 return;
+               }
+               rem_reading = FALSE;
+               if (rec != NULL){
+                 rec->value0 = MSG_TYPE;
+                 rem_reading_node_id = TL_LOCAL;
+                 call TS.out(&outId, FALSE, TL_LOCAL, RAM_TS, (tuple *) rec);
+               } else {
+                 fakeLastId(rem_reading_node_id, rem_reading_msg_id);
+                 temp = newTuple(
+                                 actualField(MSG_TYPE),
+                                 actualField(rem_reading_node_id),
+                                 dontCare(),
+                                 dontCare());
+                 rem_reading_node_id = TL_LOCAL;
+                 if (!evaluating){
+                   call TS.rdg(&rdgRecoveryId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &temp);
+                 }
+               });
+
+    PROCESS_OP(rdgRecoveryId,
+               rec = (tuple<uint8_t, uint16_t, uint16_t, 
+                      uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> 
+                      *) call TS.nextTuple(operationId,iterator);
+               if (rec != NULL) {
+                 src = rec->value1;
+                 msg_id = rec->value2;
+                 oldest = rec;
+                 for (rec = (tuple<uint8_t, uint16_t, uint16_t,
+                             uint8_t[TUPLE_MSG_PAYLOAD_SIZE]>
+                             *) call TS.nextTuple(operationId,iterator);
+                      rec != NULL;
+                      rec = (tuple<uint8_t, uint16_t, uint16_t,
+                             uint8_t[TUPLE_MSG_PAYLOAD_SIZE]>
+                             *) call TS.nextTuple(operationId,iterator)){
+                   if (rem_reading && rec->value1 == rem_reading_node_id){
+                     /* DO NOTHING */
+                   } else if ((rem_reading && src == rem_reading_node_id)
+                              || (rec->value1 == src
+                                  && (msg_id == UNRELIABLE_DELIVERY ||
+                                      (rec->value2 != UNRELIABLE_DELIVERY &&
+                                       isSecondNewer(rec->value2, msg_id))))){
+                     src = rec->value1;
+                     msg_id = rec->value2;
+                     oldest = rec;
+                   }
+                 }
+                 if (!rem_reading || src != rem_reading_node_id){
+                   evaluating = TRUE;
+                   call TLObjects.copy_tuple((tuple *) &toEvaluate, (tuple *) oldest);
+                   post evaluateRemoteMsg();
+                 }
+               }
+               );
+
+    PROCESS_OP(inId,
+               rec = (tuple<uint8_t, uint16_t, uint16_t, 
+                      uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> 
+                      *) call TS.nextTuple(operationId,iterator);
+               if (rec != NULL)
+                 call TS.nextTuple(operationId,iterator);
+               );
+
+    PROCESS_OP(ingId,
+               for (rec = (tuple<uint8_t, uint16_t, uint16_t,
+                           uint8_t[TUPLE_MSG_PAYLOAD_SIZE]>
+                           *) call TS.nextTuple(operationId, iterator);
+                    rec != NULL;
+                    rec = (tuple<uint8_t, uint16_t, uint16_t,
+                           uint8_t[TUPLE_MSG_PAYLOAD_SIZE]>
+                           *) call TS.nextTuple(operationId, iterator)){
+                 deleted_messages++;
+               });
+  }
+  
+  event void TS.operationCompleted(uint8_t completionCode, 
+				TLOpId_t operationId, 
+				TLTarget_t target,  
+				TLTupleSpace_t ts,
+				tuple* returningTuple){
+    CHECK_OP(rdRemId, QUERY_SENT_OK,
+             rd_retries = call RetriesInfo.getRetries();
+             );
+
+    CHECK_OP(rdRemId, RELIABLE_OP_FAIL,
+             failed_rd = TRUE;
+             if (rd_retries == 0)
+               rd_retries = call RetriesInfo.getRetries();
+             );
+  }
+
+  event void TeenyLIMEExceptions.exception(uint8_t exceptionCode, 
+					   void* data) {
+    tuple<uint8_t, uint16_t, uint16_t, uint8_t[TUPLE_MSG_PAYLOAD_SIZE]> p;    
+    switch (exceptionCode) {
+      
+    case TS_FULL:
+      atomic{
+        deleted_messages = 0;
+        p = newTuple(
+                     actualField(MSG_TYPE),
+                     different(TL_LOCAL),
+                     dontCare(),
+                     dontCare());
+        call TS.ing(&ingId, FALSE, TL_LOCAL, RAM_TS, (tuple *) &p);
+        signal CollectionDebug.bufferOverflow(deleted_messages);
+        signal CollectionDebug.treeCongested();
+        call TreeConnection.congested();
+      }
+      break;
+
+    default:
+      
+    }
+  }
+  
+  event void TS.reifyCapabilityTuple(tuple* ct) {
+  }
+
+  event void TimerReliablePath.fired(){
+    atomic{
+      set_reliable_path = FALSE;
+      signal CollectionInfo.reliablePath(FALSE);
+    }
+  }
+
+  command bool CollectionInfo.isPathReliable(){
+    return set_reliable_path;
+  }
+
+  event void TreeConnection.treeRefresh(){
+    signal CollectionDebug.treeBuilt();
+  }
+
+ command error_t CollectionTuning.setImmediate(uint8_t key, uint16_t value){
+    switch (key) {
+    case KEY_RECOVERY_RETRIES:
+      max_recovery_retries = value;
+      return SUCCESS;
+
+    case KEY_REBUILDING_FREQUENCY:
+      call TreeConnection.setRebuildingFrequency(value);
+      return SUCCESS;
+      
+    default:
+      return FAIL;
+    }
+  }
+
+  command uint16_t CollectionDebug.getTotalSend(){
+    return call RetriesInfo.getTotalSend();
+  }
+
+  command uint16_t CollectionDebug.getTotalRetxmit(){
+    return call RetriesInfo.getTotalRetxmit();
+  }
+  
+  // Default event to make it possible not to wire to the interface  
+  default event void CollectionDebug.packetReceived(uint8_t traffic_class, 
+                                                    uint16_t child){}
+  default event void CollectionDebug.treeBuilt(){}
+  default event void CollectionDebug.treeCongested(){}
+  default event void CollectionDebug.bufferOverflow(uint8_t deletedMessages){}
+  default event void CollectionDebug.messageRecovery(bool success,
+                                                     uint8_t retries,
+                                                     uint16_t child){}
+  default event void CollectionDebug.droppedDuplicate(uint16_t child){}
+
+ default event void CollectionInfo.reliablePath(bool reliable){}
+
+#ifdef PRINTF_SUPPORT
+  event void PrintfControl.startDone(error_t error) {}
+
+  event void PrintfControl.stopDone(error_t error) {}
+
+  event void PrintfFlush.flushDone(error_t error) {}
+#endif
+}
+

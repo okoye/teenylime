@@ -1,0 +1,86 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/office/sink_Node
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-07-14T12:59:34.845591Z
+884
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+gateway
+dir
+
+PrintfClient.java
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+4ea6a7cef73d3e9f1bdc0b6adad1f4cb
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+config
+dir
+
+PrintfMsg.java
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+527f4676bb8f2b734f6a62d7da4d4a5d
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+SinkNode.nc
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+313fbf358eb35b9cce6b59081e82bfb7
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+425555e08883d1c3cc9bfdb0c6859c57
+2009-07-14T12:51:17.260632Z
+883
+mceriotti
+has-props
+

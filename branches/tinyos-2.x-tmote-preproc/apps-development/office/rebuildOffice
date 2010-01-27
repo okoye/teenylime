@@ -1,0 +1,33 @@
+#!/bin/sh
+#rm tl_objs && \
+cd sink_Node && \
+make clean && make tmote && \
+cd ../accel_force_tilt_Node && \
+make tmote && \
+cd ../accel_hum_sol_syl_temp_Node && \
+make tmote && \
+cd ../buz_mag_mic_pir_Node && \
+make tmote && \
+cd ../co_co2_dust_Node && \
+make tmote && \
+cd ../hum_sol_syl_temp_Node && \
+make tmote && \
+cd ../none_Node && \
+make tmote && \
+cd ../sink_Node && \
+make tmote && \
+cd ../java && \
+ant clean && ant && \
+cd ../accel_force_tilt_Node && \
+make tmote && \
+cd ../accel_hum_sol_syl_temp_Node && \
+make tmote && \
+cd ../buz_mag_mic_pir_Node && \
+make tmote && \
+cd ../co_co2_dust_Node && \
+make tmote && \
+cd ../hum_sol_syl_temp_Node && \
+make tmote && \
+cd ../none_Node && \
+make tmote && \
+cd ..

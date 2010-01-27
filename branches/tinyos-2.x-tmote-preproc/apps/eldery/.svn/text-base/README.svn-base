@@ -1,0 +1,42 @@
+ELDERY MONITORING APPLICATION
+-----------------------------
+
+This applications targets the monitoring of eldery subjects and provides the
+following facilities:
+- given a description of the location (that can be divided in multiple connected
+  rooms, each room having a "hazard" area), the system monitors the current room
+  a subject is located in and the proximity to one of the hazard areas,
+- detects whether a subject took a fall, and
+- detects whether a subject is immobile.
+
+
+To compile the code to be deployed on the WSN, use the node-build utility. The
+following targets are supported by node-build:
+
+- SINK: this is the mote attached to a serial forwarder from which the Java
+  application (below) infers higher-level events. The node ID of the SINK is 
+  hardcoded to 0.
+- MOBILE: this is the mote carried by monitored subjects, it performs detection
+  of proximity to ANCHORS (below) and detection of posture (falls / immobility).
+  A mobile node can be compiled without support for posture detection. In this
+  case, you should run "./node-build MOBILE NO-POSTURE".
+- ANCHOR: these nodes are fixed nodes that mark hazard areas or links to other
+  rooms and that also provide multi-hop routing between other anchors and the
+  sink.
+- FIXED: these nodes are fixed node that provide multi-hop routing between
+  anchors and the sink.
+
+Once the binary has been produced, you can use make "tmote reinstall,ID DEST" toflash a mote. ID 0 is reserved for the sink. 
+
+
+
+To obtain documentation for the Java application, run "ant doc", which will
+produce Javadoc documentation in the directory "java-doc".
+To compile the Java application, use either "ant" or "ant jar" to produce a jar.
+Use the target "ant release-build" to produce a jar file that is checkpointed
+in the SVN repository and assigned a build number.
+
+To run the Java application, use the "ant run" target. You need to provide a
+deployment descriptor (identified in the build.xml file by the
+"deployment-descriptor" property). The deployment descriptor provides a mapping
+from node identifiers to rooms, hazard areas and subjects.

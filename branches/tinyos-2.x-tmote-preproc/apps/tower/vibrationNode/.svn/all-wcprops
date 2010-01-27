@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/1025/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode
+END
+Compression.nc
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/teenylime/!svn/ver/602/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/Compression.nc
+END
+VibrSenseTaskFlash.nc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/1025/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/VibrSenseTaskFlash.nc
+END
+volumes-stm25p.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/531/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/volumes-stm25p.xml
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/teenylime/!svn/ver/314/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/PrintfClient.java
+END
+VibrationNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/839/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/VibrationNode.nc
+END
+HuffmanCompression.nc
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/662/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/HuffmanCompression.nc
+END
+VibrationSamplerFRAM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/1013/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/VibrationSamplerFRAM.nc
+END
+VibrSenseTaskFRAM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/1025/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/VibrSenseTaskFRAM.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/teenylime/!svn/ver/314/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/PrintfMsg.java
+END
+FakeDataDisseminationVibr.nc
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/850/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/FakeDataDisseminationVibr.nc
+END
+FakeAccel.nc
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/603/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/FakeAccel.nc
+END
+NoCompression.nc
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/602/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/NoCompression.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/1025/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/Makefile
+END
+VibrationSamplerFlash.nc
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/teenylime/!svn/ver/1025/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/VibrationSamplerFlash.nc
+END

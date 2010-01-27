@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 59
+.settings
+.classpath
+.project
+*.a
+*.class
+sample
+inputData
+
+END

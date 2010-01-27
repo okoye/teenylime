@@ -1,0 +1,14 @@
+K 10
+svn:ignore
+V 61
+*.od
+*.tmp
+build
+Copy*
+.project
+TOSSIM.py
+*.so
+*.pyc
+app.xml
+
+END

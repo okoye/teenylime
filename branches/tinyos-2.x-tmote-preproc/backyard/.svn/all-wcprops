@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/teenylime/!svn/ver/868/branches/tinyos-2.x-tmote-preproc/backyard
+END
+CC2420.h.patch
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/868/branches/tinyos-2.x-tmote-preproc/backyard/CC2420.h.patch
+END
+CC2420ActiveMessageC.nc.patch
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/868/branches/tinyos-2.x-tmote-preproc/backyard/CC2420ActiveMessageC.nc.patch
+END

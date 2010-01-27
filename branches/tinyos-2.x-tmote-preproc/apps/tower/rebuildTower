@@ -1,0 +1,24 @@
+#!/bin/sh
+cd sinkNode && \
+make clean && make tmote && \
+cd ../thlNode && \
+make tmote && \
+cd ../tlNode && \
+make tmote && \
+cd ../vibrationNode && \
+make tmote && \
+cd ../dtNode && \
+make tmote && \
+cd ../sinkNode && \
+make tmote && \
+cd ../java && \
+ant clean && ant && \
+cd ../thlNode && \
+make tmote && \
+cd ../tlNode && \
+make tmote && \
+cd ../vibrationNode && \
+make tmote && \
+cd ../dtNode && \
+make tmote && \
+cd ..

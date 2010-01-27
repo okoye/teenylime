@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/config
+END
+Constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/config/Constants.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/config/TLConf.h
+END

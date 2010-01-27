@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote/apps/tower/vibrationNode/config
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2008-03-04T16:31:02.138411Z
+309
+lmottola
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+TMoteStackConf.h
+file
+
+
+
+
+2010-01-27T03:25:51.000000Z
+1740cc8e937150848f2a7c2c3cae50de
+2008-03-04T16:30:42.724882Z
+308
+lmottola
+has-props
+
+TLConf.h
+file
+
+
+
+
+2010-01-27T03:25:51.000000Z
+093950191fbc6b068ff1efeaee69b706
+2008-03-04T16:31:02.138411Z
+309
+lmottola
+has-props
+

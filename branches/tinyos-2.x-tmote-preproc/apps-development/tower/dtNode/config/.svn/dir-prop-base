@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 30
+build
+TL_*
+*.class
+TLObjects*
+
+END

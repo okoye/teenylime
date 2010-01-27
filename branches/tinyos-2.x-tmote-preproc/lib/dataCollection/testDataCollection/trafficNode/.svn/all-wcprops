@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode
+END
+TrafficCl1Task.nc
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/848/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/TrafficCl1Task.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/PrintfClient.java
+END
+TrafficCl2Task.nc
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/848/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/TrafficCl2Task.nc
+END
+TrafficNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/teenylime/!svn/ver/838/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/TrafficNode.nc
+END
+TrafficGenerator.nc
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/TrafficGenerator.nc
+END
+FakeDataDissemination.nc
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/848/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/FakeDataDissemination.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/PrintfMsg.java
+END
+Tuner.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/848/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/Tuner.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/Makefile
+END

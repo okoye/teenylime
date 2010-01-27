@@ -1,0 +1,8 @@
+#!/bin/sh
+OUTPUT=SampleME.od
+rm $OUTPUT
+
+# Compiling 
+make -f Makefile.sampleMutualExclusion clean
+make -f  Makefile.sampleMutualExclusion mica2 
+avr-objdump -zhD ./build/mica2/main.exe >$OUTPUT

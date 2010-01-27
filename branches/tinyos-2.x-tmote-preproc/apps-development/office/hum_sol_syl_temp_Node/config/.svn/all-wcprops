@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/config/TLConf.h
+END

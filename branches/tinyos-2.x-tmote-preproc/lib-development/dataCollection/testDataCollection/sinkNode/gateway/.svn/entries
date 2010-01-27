@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/sinkNode/gateway
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-10-15T21:26:44.961647Z
+913
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+TupleSerialMsg.h
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+5345f56a27aab4fec0233027834f0ec5
+2009-04-29T10:50:15.071244Z
+785
+mceriotti
+has-props
+
+TupleGateway.nc
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+cbf7a755bad08041ab1618038b17b39f
+2009-10-15T21:26:44.961647Z
+913
+mceriotti
+has-props
+

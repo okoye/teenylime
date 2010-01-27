@@ -1,0 +1,134 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 689 $
+ * * DATE
+ * *    $LastChangedDate: 2008-10-07 02:17:12 -0500 (Tue, 07 Oct 2008) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: lmottola $
+ * *
+ * *	$Id: DeserializeBytes.java 689 2008-10-07 07:17:12Z lmottola $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class DeserializeBytes {
+
+	public static void main(String[] args) {
+
+		if (args.length < 2) {
+			System.err
+					.println("Usage: java DeserializeBytes <inputFilename> <outputFilename>\n"
+							+ "<inputFilename> may also be a directory, in which case all files in \n"
+							+ "that directory will be parsed.");
+			System.exit(-1);
+		}
+
+		File f = new File(args[0]);
+		if (f.isDirectory()) {
+			new File(args[1]).mkdir();
+			String[] dir = f.list();
+			for (int i = 0; i < dir.length; i++) {
+				if (!new File(dir[i]).isDirectory() && !dir[i].startsWith(".")) {
+					parseFile(args[0] + "/" + dir[i], args[1] + "/" + dir[i]);
+				}
+			}
+		} else {
+			parseFile(args[0], args[1]);
+		}
+	}
+
+	static void parseFile(String inputFilename, String outputFilename) {
+
+		System.out.print("Deserializing " + inputFilename + " into "
+				+ outputFilename + " ... ");
+
+		BufferedReader input;
+		try {
+			input = new BufferedReader(new FileReader(inputFilename));
+
+			FileWriter output = new FileWriter(outputFilename);
+
+			String s0;
+			while ((s0 = input.readLine()) != null) {
+				
+				while (Character.isLetter(s0.charAt(0))) {
+					s0 = input.readLine();
+				}
+				
+				String s1 = null;
+				do {
+					s1 = input.readLine();
+				} while (s1 != null && Character.isLetter(s1.charAt(0)));
+
+				String s2 = null;
+				do {
+					s2 = input.readLine();
+				} while (s2 != null && Character.isLetter(s2.charAt(0)));
+
+				if (s1 == null || s2 == null) {
+					System.err.println("Serialized data is not consistent in "
+							+ inputFilename + "!");
+					System.exit(-1);
+				}
+
+				short[] buffer = new short[3];
+				buffer[0] = Short.parseShort(s0);
+				buffer[1] = Short.parseShort(s1);
+				buffer[2] = Short.parseShort(s2);
+
+				// System.out.println("0:" + buffer[0]);
+				// System.out.println("1:" + buffer[1]);
+				// System.out.println("2:" + buffer[2]);
+				//
+
+				// This is for simple concatenation
+				int firstReading = (buffer[0] & 0x00FF)
+						+ ((buffer[1] & 0x000F) << 8);
+				int secondReading = ((buffer[1] & 0x00F0) >> 4)
+						+ ((buffer[2] & 0x00FF) << 4);
+
+				output.write(firstReading + "\n");
+				output.write(secondReading + "\n");
+				output.flush();
+			}
+			input.close();
+			output.flush();
+			output.close();
+
+			System.out.println("done!");
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

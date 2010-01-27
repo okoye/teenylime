@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/example
+END
+ADCStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/example/ADCStub.nc
+END
+TemperatureSensor.nc
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/example/TemperatureSensor.nc
+END
+SensorIf.nc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/example/SensorIf.nc
+END
+ExampleC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/example/ExampleC.nc
+END

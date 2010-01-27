@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNode/systemMonitor
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-11T08:32:29.153497Z
+1017
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+SystemMonitorM.nc
+file
+
+
+
+
+2010-01-27T03:26:28.000000Z
+5b906dccb2e4c8cfe9ea404fddd53405
+2010-01-11T08:32:29.153497Z
+1017
+mceriotti
+has-props
+
+SystemMonitorC.nc
+file
+
+
+
+
+2010-01-27T03:26:28.000000Z
+8aed9089b8f400e79b86116040e095c5
+2010-01-11T08:32:29.153497Z
+1017
+mceriotti
+has-props
+

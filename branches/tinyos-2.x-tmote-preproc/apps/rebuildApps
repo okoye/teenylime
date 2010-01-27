@@ -1,0 +1,8 @@
+#!/bin/sh
+cd testSuite && \
+make clean && make tmote && \
+cd ../tower && \
+./rebuildTower && \
+cd ../tunnel && \
+./rebuildTunnel && \
+cd ..

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:deployment name="home"
+	xmlns:tns="http://acube-ucd.fbk.eu//deploymentSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://acube-ucd.fbk.eu//deploymentSchema java-src/it/unitn/acube/wp3/translocation/deploymentSchema.xsd ">
+	<tns:area name="hallway" code="R101">
+		<tns:link neighbor="domotics">
+			<tns:node id="2" />
+		</tns:link>
+	</tns:area>
+	<tns:area name="domotics" code="R102">
+		<tns:link neighbor="hallway">
+			<tns:node id="3" />
+		</tns:link>
+		<tns:hazard name="window" code="W103">
+			<tns:node id="4" />
+		</tns:hazard>
+	</tns:area>
+	<tns:actor name="Giulio" id="1" />
+</tns:deployment>

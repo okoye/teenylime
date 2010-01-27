@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/teenylime/!svn/ver/998/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/605/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/PrintfClient.java
+END
+DTSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/911/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/DTSenseTask.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/605/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/PrintfMsg.java
+END
+DTSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/teenylime/!svn/ver/904/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/DTSampler.nc
+END
+msp430usart.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/605/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/msp430usart.h
+END
+DTNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/904/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/DTNode.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/998/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/Makefile
+END
+FakeDataDisseminationDT.nc
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/850/branches/tinyos-2.x-tmote-preproc/apps/tower/dtNode/FakeDataDisseminationDT.nc
+END

@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 58
+TL_*
+build
+TLObjectsParsed*
+tl_obj*
+bin
+tl.jar
+tunnel_log
+
+END

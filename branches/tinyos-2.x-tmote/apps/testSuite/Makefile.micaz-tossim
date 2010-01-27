@@ -1,0 +1,8 @@
+WORKING_DIR = .
+TL_DIR = ../../tl
+COMPONENT = $(WORKING_DIR)/TestSuite
+include $(TL_DIR)/Makefile.micaz-tossim
+MSG_SIZE = 68
+PFLAGS += -I./config
+
+include $(MAKERULES)

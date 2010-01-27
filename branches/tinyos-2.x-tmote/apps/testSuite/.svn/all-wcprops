@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/375/branches/tinyos-2.x-tmote/apps/testSuite
+END
+PingPongPush.nc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/290/branches/tinyos-2.x-tmote/apps/testSuite/PingPongPush.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/112/branches/tinyos-2.x-tmote/apps/testSuite/PrintfClient.java
+END
+TLSystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/TLSystem.nc
+END
+LocalGroupOps.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/LocalGroupOps.nc
+END
+TestSuite.nc
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/287/branches/tinyos-2.x-tmote/apps/testSuite/TestSuite.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/112/branches/tinyos-2.x-tmote/apps/testSuite/PrintfMsg.java
+END
+PingPongPullMultiple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/teenylime/!svn/ver/331/branches/tinyos-2.x-tmote/apps/testSuite/PingPongPullMultiple.nc
+END
+Makefile.micaz-tossim
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/teenylime/!svn/ver/261/branches/tinyos-2.x-tmote/apps/testSuite/Makefile.micaz-tossim
+END
+LocalOpsCompA.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/LocalOpsCompA.nc
+END
+TupleExpiration.nc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/TupleExpiration.nc
+END
+LocalOpsCompB.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/232/branches/tinyos-2.x-tmote/apps/testSuite/LocalOpsCompB.nc
+END
+Constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/200/branches/tinyos-2.x-tmote/apps/testSuite/Constants.h
+END
+PendingOps.nc
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/PendingOps.nc
+END
+PingPong.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/136/branches/tinyos-2.x-tmote/apps/testSuite/PingPong.py
+END
+LocalOps.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/290/branches/tinyos-2.x-tmote/apps/testSuite/LocalOps.nc
+END
+HammerNail.nc
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/teenylime/!svn/ver/289/branches/tinyos-2.x-tmote/apps/testSuite/HammerNail.nc
+END
+PingPongPull.nc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/290/branches/tinyos-2.x-tmote/apps/testSuite/PingPongPull.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/teenylime/!svn/ver/330/branches/tinyos-2.x-tmote/apps/testSuite/Makefile
+END

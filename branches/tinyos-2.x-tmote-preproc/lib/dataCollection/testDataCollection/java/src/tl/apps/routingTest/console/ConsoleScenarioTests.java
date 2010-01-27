@@ -1,0 +1,182 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 838 $
+ * * DATE
+ * *    $LastChangedDate: 2009-05-17 03:52:51 -0500 (Sun, 17 May 2009) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: mceriotti $
+ * *
+ * *	$Id: ConsoleScenarioTests.java 838 2009-05-17 08:52:51Z mceriotti $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+package tl.apps.routingTest.console;
+
+import java.util.Vector;
+
+import tl.apps.routingTest.Battery;
+import tl.apps.routingTest.Class1Traffic;
+import tl.apps.routingTest.Class2Traffic;
+import tl.apps.routingTest.Constants;
+import tl.apps.routingTest.Properties;
+import tl.apps.routingTest.SourceDescriptorTests;
+import tl.apps.routingTest.SourceTests;
+import tl.apps.routingTest.TreeInfo;
+import tl.apps.routingTest.TupleReaderClass1;
+import tl.apps.routingTest.TupleReaderClass2;
+import tl.apps.routingTest.TupleReaderRoutingInfo;
+import tl.common.serial.SerialComm;
+import tl.common.types.Field;
+import tl.common.types.Tuple;
+import tl.common.types.Uint16;
+import tl.common.types.Uint8;
+import tl.common.types.Uint8Array;
+import tl.lib.dataCollection._CollectionFeature;
+import tl.lib.dataCollection._CollectionFeatureListener;
+import tl.lib.dataCollection._CollectionSamplesMsgListener;
+import tl.lib.dataCollection._CollectionScenario;
+import tl.lib.dataCollection._CollectionSourceDescriptor;
+import tl.lib.dataCollection._CollectionTupleReader;
+import tl.lib.dataCollection.console.StatsLogWriter;
+import tl.lib.dataCollection.console.UnknownTupleReader;
+import tl.lib.dataCollection.data.Source;
+import tl.lib.dataCollection.data.SourceId;
+import tl.lib.dataDissemination.console.DisseminationManager;
+import tl.lib.dataDissemination.console._ConsoleDisseminator;
+import tl.lib.dataDissemination.console._DisseminationConsoleScenario;
+
+public class ConsoleScenarioTests implements _CollectionScenario,
+		_DisseminationConsoleScenario {
+
+	private TupleReaderClass1 class1TupleReader;
+	private TupleReaderClass2 class2TupleReader;
+	private TupleReaderRoutingInfo routingInfoTupleReader;
+	private UnknownTupleReader unknownTupleReader;
+	private Battery battery;
+	private Class1Traffic class1;
+	private Class2Traffic class2;
+	private TreeInfo treeInfo;
+	private StatsLogWriter statsLogWriter;
+	private DisseminationManager taskManager;
+
+	public ConsoleScenarioTests() {
+		this.class1TupleReader = new TupleReaderClass1();
+		this.class1TupleReader.setDir(Properties.LOG_DIR_NAME);
+		this.class1TupleReader.setLog(Properties.LOG_MESSAGES);
+		this.class2TupleReader = new TupleReaderClass2();
+		this.class2TupleReader.setDir(Properties.LOG_DIR_NAME);
+		this.class2TupleReader.setLog(Properties.LOG_MESSAGES);
+		this.routingInfoTupleReader = new TupleReaderRoutingInfo();
+		this.routingInfoTupleReader.setDir(Properties.LOG_DIR_NAME);
+		this.routingInfoTupleReader.setLog(true);
+		this.unknownTupleReader = new UnknownTupleReader(true,
+				Properties.LOG_DIR_NAME);
+		this.statsLogWriter = new StatsLogWriter(this, Properties.LOG_DIR_NAME,
+				false);
+		this.taskManager = new DisseminationManager(this);
+		this.battery = new Battery(Properties.LOG_DIR_NAME);
+		this.class1 = new Class1Traffic(Properties.LOG_DIR_NAME);
+		this.class2 = new Class2Traffic(Properties.LOG_DIR_NAME);
+		this.treeInfo = new TreeInfo(Properties.LOG_DIR_NAME);
+	}
+
+	public Source createSource(SourceId id) {
+		SourceId sink = new SourceId(Properties.SINK_ADDRESS);
+		return new SourceTests(id, id.equals(sink), Battery.getFeature(),
+				TreeInfo.getFeature());
+	}
+
+	public Vector<_CollectionFeatureListener> getSampleFeatureListeners(
+			_CollectionFeature feature) {
+		Vector<_CollectionFeatureListener> ret = new Vector<_CollectionFeatureListener>();
+		if (feature.equals(Battery.getFeature())) {
+			ret.add(battery);
+		} else if (feature.equals(Class1Traffic.getFeature())) {
+			ret.add(class1);
+		} else if (feature.equals(Class2Traffic.getFeature())) {
+			ret.add(class2);
+		} else if (feature.equals(TreeInfo.getFeature())) {
+			ret.add(treeInfo);
+		}
+		return ret;
+	}
+
+	public _CollectionSourceDescriptor getSourceDescriptor() {
+		return new SourceDescriptorTests();
+	}
+
+	public _CollectionTupleReader getTupleReader(Tuple tuple) {
+		Tuple pattern = new Tuple();
+		pattern.add(new Field().actualField(new Uint8(Constants.MSG_TYPE)));
+		pattern.add(new Field().dontCareField(new Uint16()));
+		pattern.add(new Field().dontCareField(new Uint16()));
+		pattern.add(new Field().dontCareField(new Uint8Array(
+				Properties.TUPLE_MSG_PAYLOAD_SIZE)));
+		if (pattern.matches(tuple)) {
+			short[] data = ((Uint8Array) tuple.get(3).getValue())
+					.serializeValue();
+			short type = data[0];
+			switch (type) {
+			case Constants.CLASS_1_TYPE:
+			case Constants.CLASS_1_END_SESSION:
+				return class1TupleReader;
+			case Constants.CLASS_2_TYPE:
+			case Constants.CLASS_2_END_SESSION:
+				return class2TupleReader;
+			case Constants.ROUTING_INFO_TYPE_I:
+			case Constants.ROUTING_INFO_TYPE_II:
+				return routingInfoTupleReader;
+			default:
+				return unknownTupleReader;
+			}
+		}
+		return unknownTupleReader;
+	}
+
+	public Vector<_CollectionSamplesMsgListener> getSampleMsgListeners() {
+		Vector<_CollectionSamplesMsgListener> ret = new Vector<_CollectionSamplesMsgListener>();
+		ret.add(this.statsLogWriter);
+		return ret;
+	}
+
+	public void setSerial(SerialComm serial) {
+		taskManager.setSerialComm(serial);
+	}
+
+	public void start() {
+		taskManager.activate();
+	}
+
+	public void stop() {
+		taskManager.deactivate();
+	}
+
+	public Vector<_ConsoleDisseminator> getDisseminators() {
+		Vector<_ConsoleDisseminator> taskers = new Vector<_ConsoleDisseminator>();
+		taskers.add(new TaskerClass1());
+		taskers.add(new TaskerClass2());
+		taskers.add(new TaskerTune());
+		taskers.add(new TaskerTree());
+		return taskers;
+	}
+}

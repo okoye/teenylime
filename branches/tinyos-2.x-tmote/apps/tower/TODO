@@ -1,0 +1,19 @@
+October 22nd - Matteo
+- Testing of the integration between the DataCollection 
+and temperature readings
+
+October 24th - Matteo
+- Define TOSSIM component for temperature reading
+- Play with the max number of tuples and max number of neighbors
+
+October 26th - Matteo
+- Test the entire system (now it seems that some tuples are not forwarded along the tree)
+
+November 20th - Matteo
+- Test the entire system in a "normal" scenario with a reasonably high transmission power
+
+December 1st - Matteo
+- Understand why everything messes up after an high number of periods
+
+December 17th - Matteo
+- Test everything in the REAL tower

@@ -1,0 +1,8 @@
+WORKING_DIR = .
+COMPONENT = $(WORKING_DIR)/services/mutationRouting/SampleAppC
+PFLAGS += -I$(WORKING_DIR)/services/mutationRouting
+PFLAGS += -I$(WORKING_DIR)/services/mutualExclusion
+PFLAGS += -D$(MAKECMDGOALS)
+MSG_SIZE = 119
+include $(TOSROOT)/apps/Makerules
+

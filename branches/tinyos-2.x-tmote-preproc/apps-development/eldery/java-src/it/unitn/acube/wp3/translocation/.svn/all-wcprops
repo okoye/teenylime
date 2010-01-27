@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/teenylime/!svn/ver/987/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation
+END
+Deployment.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svnroot/teenylime/!svn/ver/985/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/Deployment.java
+END
+DeploymentBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/teenylime/!svn/ver/985/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/DeploymentBuilder.java
+END
+Area.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/985/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/Area.java
+END
+TranslocationDetector.java
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/teenylime/!svn/ver/987/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/TranslocationDetector.java
+END
+deploymentSchema.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/teenylime/!svn/ver/985/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/deploymentSchema.xsd
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/teenylime/!svn/ver/965/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-src/it/unitn/acube/wp3/translocation/package.html
+END

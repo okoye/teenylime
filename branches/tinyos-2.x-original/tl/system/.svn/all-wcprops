@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/185/branches/tinyos-2.x-original/tl/system
+END
+Tos2Defs.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/tl/system/Tos2Defs.h
+END
+TeenyLimeSerializer.nc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/183/branches/tinyos-2.x-original/tl/system/TeenyLimeSerializer.nc
+END
+LocalTeenyLime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/185/branches/tinyos-2.x-original/tl/system/LocalTeenyLime.nc
+END
+TupleMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/tl/system/TupleMsg.h
+END
+ReliableGenericComm.nc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/tl/system/ReliableGenericComm.nc
+END
+TeenyLimeM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/183/branches/tinyos-2.x-original/tl/system/TeenyLimeM.nc
+END
+MessageQueue.nc
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/teenylime/!svn/ver/183/branches/tinyos-2.x-original/tl/system/MessageQueue.nc
+END
+TupleSpace.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/teenylime/!svn/ver/185/branches/tinyos-2.x-original/tl/system/TupleSpace.h
+END
+ReliableMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/tl/system/ReliableMsg.h
+END
+DistributedTeenyLime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/teenylime/!svn/ver/183/branches/tinyos-2.x-original/tl/system/DistributedTeenyLime.nc
+END

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+rm *.od
+
+# Compiling 
+make -f Makefile.example clean
+make -f Makefile.example mica2 
+avr-objdump -zhD ./build/mica2/main.exe >Example.od 

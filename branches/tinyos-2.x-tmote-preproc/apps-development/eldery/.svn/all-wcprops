@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/1023/branches/tinyos-2.x-tmote-preproc/apps-development/eldery
+END
+deployment.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/987/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/deployment.xml
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/.classpath
+END
+itea.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/1000/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/itea.xml
+END
+node-build
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/1003/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/node-build
+END
+logger.config
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/1003/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/logger.config
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/.project
+END
+build_info.properties
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/1001/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/build_info.properties
+END
+ElderyC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/ElderyC.nc
+END
+casette.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/985/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/casette.xml
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/README
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/Makefile
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/build.xml
+END

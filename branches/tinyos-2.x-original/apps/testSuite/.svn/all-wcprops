@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/teenylime/!svn/ver/185/branches/tinyos-2.x-original/apps/testSuite
+END
+TestLocalRd.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestLocalRd.nc
+END
+sim.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/182/branches/tinyos-2.x-original/apps/testSuite/sim.py
+END
+TestLocalIn.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestLocalIn.nc
+END
+TestOutMix.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestOutMix.nc
+END
+TestLocalIng.nc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestLocalIng.nc
+END
+TestSuite.nc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/182/branches/tinyos-2.x-original/apps/testSuite/TestSuite.nc
+END
+sim
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/teenylime/!svn/ver/182/branches/tinyos-2.x-original/apps/testSuite/sim
+END
+TestBenchmark.nc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/185/branches/tinyos-2.x-original/apps/testSuite/TestBenchmark.nc
+END
+TestOutReaction.nc
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/teenylime/!svn/ver/182/branches/tinyos-2.x-original/apps/testSuite/TestOutReaction.nc
+END
+TestInLocalQueryGen.nc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestInLocalQueryGen.nc
+END
+TestNewTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/182/branches/tinyos-2.x-original/apps/testSuite/TestNewTuple.nc
+END
+Constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/Constants.h
+END
+TestMalloc.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestMalloc.nc
+END
+mk
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/mk
+END
+TestInReceive.nc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestInReceive.nc
+END
+TestDistrIn.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestDistrIn.nc
+END
+TestDistrOut.nc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/TestDistrOut.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/Makefile
+END
+tossim
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/180/branches/tinyos-2.x-original/apps/testSuite/tossim
+END

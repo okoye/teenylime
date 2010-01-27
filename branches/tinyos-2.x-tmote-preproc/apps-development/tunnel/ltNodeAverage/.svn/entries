@@ -1,0 +1,131 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+LTSenseTask.nc
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+f0b71e2650853efc7d7886c8d42f9ab8
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+backyard
+dir
+
+PrintfClient.java
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+4b400312fadff6d15b76453c642a133c
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+LTSampler.nc
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+15a174ad8a451d9965800f9572d743b8
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+LTNode.nc
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+2229a4b5e95bfa2815b59d63b69cafd8
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+config
+dir
+
+ISL29004
+dir
+
+FakeDataDisseminationLT.nc
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+b0453b380ee4fe1d355a6a0ee0b50069
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+PrintfMsg.java
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+527f4676bb8f2b734f6a62d7da4d4a5d
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+
+systemMonitor
+dir
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:26:14.000000Z
+06f942996600696516bc09206583112b
+2009-10-10T09:36:30.265453Z
+906
+dfacchin
+has-props
+

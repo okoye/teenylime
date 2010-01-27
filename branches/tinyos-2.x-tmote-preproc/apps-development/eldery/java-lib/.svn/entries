@@ -1,0 +1,41 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/java-lib
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-11-27T23:04:28.043425Z
+954
+sguna
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+log4j-1.2.15.jar
+file
+
+
+
+
+2010-01-27T03:26:13.000000Z
+4d4609998fbc124ce6f0d1d48fca2614
+2009-11-27T23:04:28.043425Z
+954
+sguna
+has-props
+

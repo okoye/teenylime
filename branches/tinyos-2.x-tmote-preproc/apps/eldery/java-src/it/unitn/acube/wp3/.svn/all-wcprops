@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3
+END
+WSNEventsConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/WSNEventsConsumer.java
+END
+ConfigParameters.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/ConfigParameters.java
+END
+WSNGateway.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/WSNGateway.java
+END
+gateway.properties
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/gateway.properties
+END
+StdoutConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/StdoutConsumer.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/java-src/it/unitn/acube/wp3/package.html
+END

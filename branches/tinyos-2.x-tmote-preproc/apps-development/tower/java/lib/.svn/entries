@@ -1,0 +1,41 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/tower/java/lib
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-12-03T06:49:06.283576Z
+973
+mceriotti
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+jsch.jar
+file
+
+
+
+
+2010-01-27T03:26:09.000000Z
+74ea920580077b4c0b51101a8292a529
+2009-12-03T06:49:06.283576Z
+973
+mceriotti
+has-props
+

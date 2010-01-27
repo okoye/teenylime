@@ -1,0 +1,7 @@
+#!/bin/sh
+cd  timeSync/testTimeSync/ && \
+make clean && make tmote && \
+cd  ../.. && \
+cd dataCollection/testDataCollection/ && \
+./rebuildTest && \
+cd ../..

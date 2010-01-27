@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync/PrintfClient.java
+END
+TestTimeSyncM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync/TestTimeSyncM.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync/PrintfMsg.java
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync/Makefile
+END
+TestTimeSyncC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/testTimeSync/TestTimeSyncC.nc
+END

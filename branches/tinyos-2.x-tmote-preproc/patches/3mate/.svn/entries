@@ -1,0 +1,41 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/patches/3mate
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-02-28T10:35:51.995406Z
+733
+lmottola
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+patch.bsl.extra
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+6bbf12b3e370863fbb389a0be04302aa
+2009-02-28T10:35:51.995406Z
+733
+lmottola
+has-props
+

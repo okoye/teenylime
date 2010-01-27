@@ -1,0 +1,7 @@
+WORKING_DIR = .
+COMPONENT = $(WORKING_DIR)/apps/example/ExampleC
+PFLAGS += -I$(WORKING_DIR)/apps/example
+PFLAGS += -D$(MAKECMDGOALS)
+MSG_SIZE = 119
+include $(TOSROOT)/apps/Makerules
+

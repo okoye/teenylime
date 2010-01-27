@@ -1,0 +1,78 @@
+--- CC2420ActiveMessageC.nc	2009-02-28 11:24:31.000000000 +0100
++++ CC2420ActiveMessageC.nc.tl	2008-07-13 12:18:47.000000000 +0200
+@@ -31,7 +31,7 @@
+  *
+  * @author Philip Levis
+  * @author David Moss
+- * @version $Revision: 1.6 $ $Date: 2007/04/12 18:45:12 $
++ * @version $Revision: 1.8 $ $Date: 2007/07/04 00:37:14 $
+  */
+ 
+ #include "CC2420.h"
+@@ -46,6 +46,7 @@
+     interface AMPacket;
+     interface Packet;
+     interface CC2420Packet;
++    interface CC2420Config;
+     interface PacketAcknowledgements;
+     interface RadioBackoff[am_id_t amId];
+     interface LowPowerListening;
+@@ -56,36 +57,38 @@
+ 
+   components CC2420ActiveMessageP as AM;
+   components CC2420CsmaC as CsmaC;
+-  components ActiveMessageAddressC as Address;
++  components ActiveMessageAddressC;
+   components UniqueSendC;
+   components UniqueReceiveC;
+   components CC2420TinyosNetworkC;
+   components CC2420PacketC;
++  components CC2420ControlC;
+   
+ #if defined(LOW_POWER_LISTENING) || defined(ACK_LOW_POWER_LISTENING)
+-  components CC2420AckLplC as LplC;
+-#elif defined(NOACK_LOW_POWER_LISTENING)
+-  components CC2420NoAckLplC as LplC;
++  components DefaultLplC as LplC;
+ #else
+-  components CC2420LplDummyC as LplC;
++  components DummyLplC as LplC;
+ #endif
+ 
+ #if defined(PACKET_LINK)
+   components PacketLinkC as LinkC;
++#elif defined (TL_PACKET_LINK)
++  components TLPacketLinkC as LinkC;
+ #else
+   components PacketLinkDummyC as LinkC;
+ #endif
+ 
+   
+   RadioBackoff = CsmaC;
+-  Packet       = AM;
+-  AMSend   = AM;
+-  Receive  = AM.Receive;
+-  Snoop    = AM.Snoop;
++  Packet = AM;
++  AMSend = AM;
++  Receive = AM.Receive;
++  Snoop = AM.Snoop;
+   AMPacket = AM;
+   PacketLink = LinkC;
+   LowPowerListening = LplC;
+   CC2420Packet = CC2420PacketC;
++  CC2420Config = CC2420ControlC;
+   PacketAcknowledgements = CC2420PacketC;
+   
+   
+@@ -106,7 +109,9 @@
+   UniqueReceiveC.SubReceive -> CC2420TinyosNetworkC.Receive;
+   CC2420TinyosNetworkC.SubReceive -> CsmaC;
+ 
+-  AM.amAddress -> Address;
++  AM.ActiveMessageAddress -> ActiveMessageAddressC;
+   AM.CC2420Packet -> CC2420PacketC;
++  AM.CC2420PacketBody -> CC2420PacketC;
++  AM.CC2420Config -> CC2420ControlC;
+   
+ }

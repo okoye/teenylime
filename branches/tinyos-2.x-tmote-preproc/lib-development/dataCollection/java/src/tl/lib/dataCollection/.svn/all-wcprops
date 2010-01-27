@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection
+END
+DataDispenser.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/DataDispenser.java
+END
+_CollectionFeature.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionFeature.java
+END
+_CollectionTupleReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionTupleReader.java
+END
+_CollectionSourceDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionSourceDescriptor.java
+END
+_CollectionFeatureListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionFeatureListener.java
+END
+_CollectionSamplesMsgListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionSamplesMsgListener.java
+END
+_CollectionScenario.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/java/src/tl/lib/dataCollection/_CollectionScenario.java
+END

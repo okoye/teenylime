@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 40
+build
+TL_*
+*.class
+TLObjects*
+tl_objs.h
+
+END

@@ -1,0 +1,24 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+TMote/TelosB Support
+=====================================================
+
+To install TL, you must apply two patches to the TOS2 CC2420 stack. 
+These are some brief directions on how to do so: 
+
+1) Go to $TOSROOT/tos/chips/cc2420:
+
+$ cd $TOSROOT/tos/chips/cc2420/
+
+2) Copy the required patches from the TL system directory:
+
+$ cp $TLROOT/tl/system/tmote/*.patch .
+
+3) Apply the two patches:
+
+$ patch -p0 <CC2420ActiveMessageC.nc.patch
+$ patch -p0 <CC2420.h.patch
+
+Now, you can compile your application with TL. Note the above patches
+maintain backward compatibility with the standard TOS2 CC2420 stack.

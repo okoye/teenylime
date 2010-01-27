@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection
+END
+Constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/838/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/Constants.h
+END
+rebuildTest
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/rebuildTest
+END
+Configuration.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/838/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/Configuration.h
+END

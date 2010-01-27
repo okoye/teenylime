@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity
+END
+DummyBeaconingP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/DummyBeaconingP.nc
+END
+DummyProximityC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/DummyProximityC.nc
+END
+ProximityP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/ProximityP.nc
+END
+Beaconing.nc
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/Beaconing.nc
+END
+ProximityState.nc
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/teenylime/!svn/ver/948/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/ProximityState.nc
+END
+ProximityC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/ProximityC.nc
+END
+BeaconingC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/954/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/proximity/BeaconingC.nc
+END

@@ -1,0 +1,207 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+package tl.apps.tunnel.console;
+
+import java.util.Vector;
+
+import net.tinyos.message.Message;
+
+import tl.apps.tunnel.console.TaskerTree;
+import tl.apps.tunnel.Battery;
+import tl.apps.tunnel.Constants;
+import tl.apps.tunnel.MeanLight;
+import tl.apps.tunnel.MeanTemperature;
+import tl.apps.tunnel.Parent;
+import tl.apps.tunnel.ParentQuality;
+import tl.apps.tunnel.Properties;
+import tl.apps.tunnel.SourceDescriptorTunnel;
+import tl.apps.tunnel.SourceTunnel;
+import tl.apps.tunnel.StdDevLight;
+import tl.apps.tunnel.StdDevTemperature;
+import tl.apps.tunnel.TreeInfo;
+import tl.apps.tunnel.TupleReaderInfos;
+import tl.apps.tunnel.TupleReaderLT;
+import tl.apps.tunnel.TupleReaderNodeInfo;
+import tl.common.serial.HeaderConstants;
+import tl.common.serial.SerialComm;
+import tl.common.serial.TupleMsgHeader;
+import tl.common.types.Field;
+import tl.common.types.Tuple;
+import tl.common.types.Uint16;
+import tl.common.types.Uint8;
+import tl.common.types.Uint8Array;
+import tl.lib.dataCollection._CollectionFeature;
+import tl.lib.dataCollection._CollectionFeatureListener;
+import tl.lib.dataCollection._CollectionSamplesMsgListener;
+import tl.lib.dataCollection._CollectionScenario;
+import tl.lib.dataCollection._CollectionSourceDescriptor;
+import tl.lib.dataCollection._CollectionTupleReader;
+import tl.lib.dataCollection.console.StatsLogWriter;
+import tl.lib.dataCollection.console.UnknownTupleReader;
+import tl.lib.dataCollection.data.Source;
+import tl.lib.dataCollection.data.SourceId;
+import tl.lib.dataDissemination.console.DisseminationManager;
+import tl.lib.dataDissemination.console._ConsoleDisseminator;
+import tl.lib.dataDissemination.console._DisseminationConsoleScenario;
+
+public class ConsoleScenarioTunnel implements _CollectionScenario,
+		_DisseminationConsoleScenario {
+
+	private _CollectionTupleReader ltTupleReader;
+	private TupleReaderNodeInfo nodeInfoTupleReader;
+	private TupleReaderInfos infosTupleReader;
+	private UnknownTupleReader unknownTupleReader;
+	private StatsLogWriter statsLogWriter;
+	private Battery battery;
+	private MeanLight meanLight;
+	private MeanTemperature meanTemperature;
+	private StdDevLight stdDevLight;
+	private StdDevTemperature stdDevTemperature;
+	private TreeInfo treeInfo;
+	private DisseminationManager taskManager;
+
+	public ConsoleScenarioTunnel() {
+		this.ltTupleReader = new TupleReaderLT();
+		this.nodeInfoTupleReader = new TupleReaderNodeInfo();
+		this.infosTupleReader = new TupleReaderInfos();
+		this.infosTupleReader.setDir(Properties.LOG_DIR_NAME);
+		this.infosTupleReader.setLog(true);
+		this.unknownTupleReader = new UnknownTupleReader(true,
+				Properties.LOG_DIR_NAME);
+		this.statsLogWriter = new StatsLogWriter(this, Properties.LOG_DIR_NAME,
+				false);
+		this.battery = new Battery(Properties.LOG_DIR_NAME, false);
+		this.meanLight = new MeanLight(Properties.LOG_DIR_NAME, false);
+		this.meanTemperature = new MeanTemperature(Properties.LOG_DIR_NAME,
+				false);
+		this.stdDevLight = new StdDevLight(Properties.LOG_DIR_NAME, false);
+		this.stdDevTemperature = new StdDevTemperature(Properties.LOG_DIR_NAME,
+				false);
+		this.treeInfo = new TreeInfo(Properties.LOG_DIR_NAME, false);
+		this.taskManager = new DisseminationManager(this);
+	}
+
+	public Source createSource(SourceId id) {
+		SourceId sink = new SourceId(Properties.SINK_ADDRESS);
+		return new SourceTunnel(id, id.equals(sink), Battery.getFeature(),
+				TreeInfo.getFeature(), Parent.getFeature(), ParentQuality
+						.getFeature());
+	}
+
+	public Vector<_CollectionFeatureListener> getSampleFeatureListeners(
+			_CollectionFeature feature) {
+		Vector<_CollectionFeatureListener> ret = new Vector<_CollectionFeatureListener>();
+		if (feature.equals(Battery.getFeature())) {
+			ret.add(battery);
+		} else if (feature.equals(MeanLight.getFeature())) {
+			ret.add(meanLight);
+		} else if (feature.equals(StdDevLight.getFeature())) {
+			ret.add(stdDevLight);
+		} else if (feature.equals(MeanTemperature.getFeature())) {
+			ret.add(meanTemperature);
+		} else if (feature.equals(StdDevTemperature.getFeature())) {
+			ret.add(stdDevTemperature);
+		} else if (feature.equals(TreeInfo.getFeature())) {
+			ret.add(treeInfo);
+		}
+		return ret;
+	}
+
+	public _CollectionSourceDescriptor getSourceDescriptor() {
+		return new SourceDescriptorTunnel();
+	}
+
+	public _CollectionTupleReader getTupleReader(Tuple tuple) {
+		Tuple pattern = new Tuple();
+		pattern.add(new Field().actualField(new Uint8(Constants.MSG_TYPE)));
+		pattern.add(new Field().dontCareField(new Uint16()));
+		pattern.add(new Field().dontCareField(new Uint16()));
+		pattern.add(new Field().dontCareField(new Uint8Array(
+				Properties.TUPLE_MSG_PAYLOAD_SIZE)));
+		if (pattern.matches(tuple)) {
+			short[] data = ((Uint8Array) tuple.get(3).getValue())
+					.serializeValue();
+			short type = data[0];
+			switch (type) {
+			case 0:
+				if (data[1] == Constants.SAMPLE_TYPE_IDENTIFIER)
+					return this.ltTupleReader;
+				else if (data[1] == Constants.INFO_TYPE_IDENTIFIER)
+					return this.infosTupleReader;
+				else
+					break;
+			case Constants.NODE_INFO_TYPE:
+				return nodeInfoTupleReader;
+			default:
+				return unknownTupleReader;
+			}
+		}
+		return unknownTupleReader;
+	}
+
+	public Vector<_CollectionSamplesMsgListener> getSampleMsgListeners() {
+		Vector<_CollectionSamplesMsgListener> ret = new Vector<_CollectionSamplesMsgListener>();
+		ret.add(this.statsLogWriter);
+		return ret;
+	}
+
+	public void setSerial(SerialComm serial) {
+		taskManager.setSerialComm(serial);
+	}
+
+	public void start() {
+		taskManager.activate();
+	}
+
+	public void stop() {
+		taskManager.deactivate();
+	}
+
+	public Vector<_ConsoleDisseminator> getDisseminators() {
+		Vector<_ConsoleDisseminator> taskers = new Vector<_ConsoleDisseminator>();
+		taskers.add(new TaskerTree());
+		taskers.add(new TaskerSampling());
+		return taskers;
+	}
+
+	public boolean isResettable() {
+		return true;
+	}
+
+	public Message getResetMessage() {
+		TupleMsgHeader reset = new TupleMsgHeader();
+		reset.set_operation(HeaderConstants.CTRL_RESET);
+		return reset;
+	}
+
+}

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/teenylime/!svn/ver/779/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data
+END
+CompressedSampleBuffer.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svnroot/teenylime/!svn/ver/756/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/CompressedSampleBuffer.java
+END
+Source.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/teenylime/!svn/ver/779/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/Source.java
+END
+Sample.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/teenylime/!svn/ver/699/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/Sample.java
+END
+Session.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/755/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/Session.java
+END
+SamplingInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/684/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/SamplingInfo.java
+END
+SampleBuffer.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/756/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/SampleBuffer.java
+END
+SourceId.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/teenylime/!svn/ver/684/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/SourceId.java
+END
+SourcesManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/684/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/src/tl/lib/dataCollection/data/SourcesManager.java
+END

@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote/apps/timeSync/testTimeSync/config
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2008-03-13T11:36:17.863646Z
+319
+ben_christian
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+TMoteStackConf.h
+file
+
+
+
+
+2010-01-27T03:25:59.000000Z
+674b9fb133b83c43661f5c3ee0df11f2
+2008-03-13T11:36:17.863646Z
+319
+ben_christian
+has-props
+
+TLConf.h
+file
+
+
+
+
+2010-01-27T03:25:59.000000Z
+2ad14e349a9b059b697e252adc76b354
+2008-03-13T11:36:17.863646Z
+319
+ben_christian
+has-props
+

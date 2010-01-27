@@ -1,0 +1,56 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-13T17:45:32.247589Z
+1023
+gianalberto
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+tower
+dir
+
+eldery
+dir
+
+tunnel
+dir
+
+testSuite
+dir
+
+rebuildApps
+file
+
+
+
+
+2010-01-27T03:26:31.000000Z
+c0c0ced7b38a3fdeb4a537ee9945c863
+2009-05-01T13:26:13.834035Z
+802
+lmottola
+has-props
+
+office
+dir
+

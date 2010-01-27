@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/teenylime/!svn/ver/34/trunk/simulations/avrora
+END
+cputimeHVAC.dat
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputimeHVAC.dat
+END
+lifetime.eps
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/lifetime.eps
+END
+lifetimeToken.eps
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/lifetimeToken.eps
+END
+lifetimeHVAC.eps
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/lifetimeHVAC.eps
+END
+cputime.eps
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputime.eps
+END
+messages.eps
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/messages.eps
+END
+cputimeToken.eps
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputimeToken.eps
+END
+compileExample.avrora
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/teenylime/!svn/ver/34/trunk/simulations/avrora/compileExample.avrora
+END
+compileBareME.avrora
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/compileBareME.avrora
+END
+cputimeHVAC.eps
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputimeHVAC.eps
+END
+plotAvrora.gp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/plotAvrora.gp
+END
+compileSampleME.avrora
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/teenylime/!svn/ver/34/trunk/simulations/avrora/compileSampleME.avrora
+END
+lifetimeToken.dat
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/lifetimeToken.dat
+END
+cputimeToken.tex
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputimeToken.tex
+END
+lifetimeHVAC.dat
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/lifetimeHVAC.dat
+END
+quickstart.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/quickstart.txt
+END
+messages.dat
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/messages.dat
+END
+cputimeToken.dat
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/32/trunk/simulations/avrora/cputimeToken.dat
+END

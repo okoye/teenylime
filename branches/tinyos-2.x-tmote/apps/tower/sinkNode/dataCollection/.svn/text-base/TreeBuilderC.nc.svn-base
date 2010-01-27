@@ -1,0 +1,141 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#ifdef PRINTF_SUPPORT
+#include "printf.h"
+#endif
+
+/** 
+ * Module for building the tree from the root of the tree.
+ *
+ * @author Matteo Ceriotti
+ *         <a href="mailto:ceriotti@fbk.eu">ceriotti@fbk.eu</a>
+ *
+ */
+
+module TreeBuilderC {
+
+  uses {
+    interface Boot;
+
+    interface Timer<TMilli> as Timer0;
+
+    interface TupleSpace as TS;
+
+    interface AMPacket;
+
+    interface Leds;
+#ifdef PRINTF_SUPPORT
+    interface SplitControl as PrintfControl;
+    interface PrintfFlush;
+#endif
+  }
+}
+
+implementation {
+
+  TLOpId_t reactionId, outId, inId;
+
+  uint16_t parent, currentTick;
+  uint16_t parent_round;
+
+  void installReaction() {
+    tuple p = newTuple(4, 
+                       actualField_uint8(DATA_COLLECT_CTRL_TYPE),
+                       formalField(TYPE_UINT16_T), 
+                       formalField(TYPE_UINT16_T),
+                       formalField(TYPE_UINT16_T));
+    call TS.addReaction(&reactionId, FALSE, TL_LOCAL, &p);
+    call Timer0.startPeriodic((uint32_t)MINUTE);
+  }
+
+  event void Boot.booted() {
+    currentTick = 0;
+    parent = TL_LOCAL;
+    parent_round = 0;
+    installReaction();
+  }
+
+
+  event void Timer0.fired() {
+    tuple t;
+    if (currentTick % TREE_REFRESH == 0){
+      parent_round++;
+      if (parent_round == 0){
+        parent_round++;
+      }
+      call Leds.led2Toggle();
+      t = newTuple(4, 
+		   actualField_uint8(DATA_COLLECT_CTRL_TYPE),
+		   actualField_uint16(TL_LOCAL), 
+		   actualField_uint16(parent_round),
+		   actualField_uint16(0));
+      call TS.out(&outId, FALSE, TL_NEIGHBORHOOD, &t);
+    }
+    currentTick++;
+  }
+
+  event void TS.tupleReady(TLOpId_t operationId, 
+			   tuple *tuples, 
+			   uint8_t number) {
+    tuple temp;
+    //REACTION FIRED FOR A NEW TREEBUILD tuple
+    if (opIdCmp(&operationId, &reactionId)
+        && number == 1
+        && tuples[0].fields[0].value.int8 == DATA_COLLECT_CTRL_TYPE) {
+      copyTuple(&temp,&(tuples[0]));
+      call TS.in(&inId, FALSE, TL_LOCAL, &temp);
+    } 
+    //IN FOR THE TREEBUILD TUPLES
+    else if (opIdCmp(&operationId, &inId)
+             && number == 1) {
+    }
+  }
+
+  event void TS.reifyCapabilityTuple(tuple* ct) {
+  }
+  
+  event void TS.tupleSpaceError(uint8_t errCode, 
+				TLOpId_t operationId, 
+				TLTarget_t target,  
+				tuple* failedTuple) {
+  }
+
+#ifdef PRINTF_SUPPORT
+  event void PrintfControl.startDone(error_t error) {}
+
+  event void PrintfControl.stopDone(error_t error) {}
+
+  event void PrintfFlush.flushDone(error_t error) {}
+#endif
+}
+

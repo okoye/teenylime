@@ -1,0 +1,32 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+Java Application for the Tower Scenario
+=====================================================
+
+BUILD INSTRUCTIONS 
+------------------ 
+0) If not already done, add '$TOSROOT/support/sdk/java/tinyos.jar' 
+to your classpath:
+
+$ export CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar
+
+1) Go to '$TLROOT/apps/tower/java/' directory and
+build the java application:
+
+$ cd $TLROOT/apps/tower/java
+$ ant clean && ant
+
+USAGE INSTRUCTIONS
+------------------
+1) Go to the '$TLROOT/apps/tower/java/' directory (or the directory
+where the tl.jar file is located) and launch the following command 
+with the parameters related to the interface you want to use (console|gui):
+
+$ java -cp tl.jar tl.apps.tower.Launcher -comm <source> 
+                                         -interface <console|gui>
+								 
+If no parameter is provided, the command is equal to the following:
+
+$ java -cp tl.jar tl.apps.tower.Launcher -comm sf@tikisola.dit.unitn.it:9001 
+				                           				  -interface gui

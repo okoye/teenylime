@@ -1,0 +1,6 @@
+<volume_table>
+      <volume name="PTUPLESA" size="65536"/>
+      <volume name="PTUPLESB" size="65536"/>
+      <volume name="PTUPLESMETA" size="65536"/>
+</volume_table>
+

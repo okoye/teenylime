@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 47
+TL_*.nc
+build
+TLObjectsParsed*
+tl_obj*
+*.class
+
+END

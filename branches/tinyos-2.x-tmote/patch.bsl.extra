@@ -1,0 +1,9 @@
+19a20,21
+> 
+> BSL_MODE ?= 0
+20a23,27
+> BSL3 ?= -1
+> ifneq ($(BSL3),-1)
+> MSP_BSL_FLAGS = --invert-test
+> BSL = $(BSL3)
+> endif

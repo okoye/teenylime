@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/teenylime/!svn/ver/8/tags/start
+END
+LocalTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/teenylime/!svn/ver/8/tags/start/LocalTupleSpace.nc
+END
+Makefile.sampleMutualExclusion
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.sampleMutualExclusion
+END
+Makefile.simulations
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.simulations
+END
+TupleMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/teenylime/!svn/ver/8/tags/start/TupleMsg.h
+END
+ReliableGenericComm.nc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/teenylime/!svn/ver/8/tags/start/ReliableGenericComm.nc
+END
+CHANGELOG
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/teenylime/!svn/ver/8/tags/start/CHANGELOG
+END
+MessageQueue.nc
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/teenylime/!svn/ver/8/tags/start/MessageQueue.nc
+END
+TestTeenyLime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/teenylime/!svn/ver/8/tags/start/TestTeenyLime.nc
+END
+TupleSpace.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/teenylime/!svn/ver/8/tags/start/TupleSpace.h
+END
+DistributedTeenyLime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/teenylime/!svn/ver/8/tags/start/DistributedTeenyLime.nc
+END
+Makefile.hvac
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.hvac
+END
+compileExample.avrora
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/teenylime/!svn/ver/8/tags/start/compileExample.avrora
+END
+SendTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/teenylime/!svn/ver/8/tags/start/SendTuple.nc
+END
+compileSampleME.avrora
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/teenylime/!svn/ver/8/tags/start/compileSampleME.avrora
+END
+DistributedTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/teenylime/!svn/ver/8/tags/start/DistributedTupleSpace.nc
+END
+Makefile.example
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.example
+END
+Makefile.bareMutualExclusion
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.bareMutualExclusion
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/teenylime/!svn/ver/8/tags/start/TLConf.h
+END
+ReliableMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/teenylime/!svn/ver/8/tags/start/ReliableMsg.h
+END
+BridgeTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/teenylime/!svn/ver/8/tags/start/BridgeTupleSpace.nc
+END
+TeenyLimeSerializer.nc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/teenylime/!svn/ver/8/tags/start/TeenyLimeSerializer.nc
+END
+Makefile.mutationRouting
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.mutationRouting
+END
+MsgQueueConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/teenylime/!svn/ver/8/tags/start/MsgQueueConf.h
+END
+ReliableSend.nc
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/teenylime/!svn/ver/8/tags/start/ReliableSend.nc
+END
+ReceiveTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/teenylime/!svn/ver/8/tags/start/ReceiveTuple.nc
+END
+TeenyLimeC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/teenylime/!svn/ver/8/tags/start/TeenyLimeC.nc
+END
+LGPL
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/teenylime/!svn/ver/8/tags/start/LGPL
+END
+TeenyLIMESystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/teenylime/!svn/ver/8/tags/start/TeenyLIMESystem.nc
+END
+NeighborSystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/teenylime/!svn/ver/8/tags/start/NeighborSystem.nc
+END
+TupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/teenylime/!svn/ver/8/tags/start/TupleSpace.nc
+END
+LocalTeenyLime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/teenylime/!svn/ver/8/tags/start/LocalTeenyLime.nc
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/teenylime/!svn/ver/8/tags/start/TODO
+END
+Makefile.objectTracking
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/teenylime/!svn/ver/8/tags/start/Makefile.objectTracking
+END
+TestTeenyLimeM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/teenylime/!svn/ver/8/tags/start/TestTeenyLimeM.nc
+END
+TeenyLimeM.nc
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/teenylime/!svn/ver/8/tags/start/TeenyLimeM.nc
+END
+ReliableGenericComm.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/teenylime/!svn/ver/8/tags/start/ReliableGenericComm.h
+END

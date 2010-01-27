@@ -1,0 +1,11 @@
+--- CC2420ActiveMessageC.nc.old	2007-12-02 20:27:05.000000000 +0100
++++ CC2420ActiveMessageC.nc	2007-12-02 20:29:37.000000000 +0100
+@@ -71,6 +71,8 @@
+ 
+ #if defined(PACKET_LINK)
+   components PacketLinkC as LinkC;
++#elif defined (TL_PACKET_LINK)
++  components TLPacketLinkC as LinkC;
+ #else
+   components PacketLinkDummyC as LinkC;
+ #endif

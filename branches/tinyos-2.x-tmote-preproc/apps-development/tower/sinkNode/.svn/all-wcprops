@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/981/branches/tinyos-2.x-tmote-preproc/apps-development/tower/sinkNode
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/sinkNode/PrintfClient.java
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/sinkNode/PrintfMsg.java
+END
+SinkNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/961/branches/tinyos-2.x-tmote-preproc/apps-development/tower/sinkNode/SinkNode.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/981/branches/tinyos-2.x-tmote-preproc/apps-development/tower/sinkNode/Makefile
+END

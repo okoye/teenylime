@@ -1,0 +1,12 @@
+#!/bin/sh
+cd sinkNode && \
+make clean && make tmote && \
+cd ../trafficNode && \
+make tmote && \
+cd ../sinkNode && \
+make tmote && \
+cd ../java && \
+ant clean && ant && \
+cd ../trafficNode && \
+make tmote && \
+cd ..

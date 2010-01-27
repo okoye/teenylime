@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 51
+TL_*
+build
+TLObjectsParsed*
+tl_obj*
+Constants.java
+
+END

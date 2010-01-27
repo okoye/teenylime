@@ -1,0 +1,116 @@
+<project basedir="." default="build" name="eldery">
+	<property environment="env" />
+	<property name="build-properties" value="build_info.properties" />
+	<property name="tinyos-jar" value="${env.TOSROOT}/support/sdk/java/tinyos.jar" />
+	<property name="deployment-descriptor" value="itea.xml" />
+
+	<path id="eldery.classpath">
+		<pathelement location="bin" />
+		<pathelement location="${tinyos-jar}" />
+		<pathelement location="java-lib/log4j-1.2.15.jar" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="bin" />
+		<mkdir dir="jar" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="java-src" excludes="**/*.launch, **/*.java" />
+		</copy>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="java-doc" />
+		<delete file="java-src/it/unitn/acube/wp3/SerialMessage.java" />
+		<delete file="java-src/it/unitn/acube/wp3/Constants.java" />
+	</target>
+
+	<target depends="init" name="mig-tool">
+		<exec executable="mig" spawn="no">
+			<arg value="-target=null" />
+			<arg value="java" />
+			<arg value="-Iconfig" />
+			<arg value="-Iposture" />
+			<arg value="-java-classname=it.unitn.acube.wp3.SerialMessage" />
+			<arg value="serial/serial.h" />
+			<arg value="serial_msg" />
+			<arg value="-o java-src/it/unitn/acube/wp3/SerialMessage.java" />
+		</exec>
+		<exec executable="ncg" spawn="no">
+			<arg value="-target=null" />
+			<arg value="java" />
+			<arg value="-Iconfig" />
+			<arg value="-Iposture" />
+			<arg value="-java-classname=it.unitn.acube.wp3.Constants" />
+			<arg value="serial/serial.h" />
+			<arg value="CONTACT_EVENT" />
+			<arg value="POSTURE_EVENT" />
+			<arg value="PROXIMITY_HALF_EPOCH" />
+			<arg value="FALL_OCCURED" />
+			<arg value="IMMOBILITY_OCCURED" />
+			<arg value="IMM_PERIOD_CHECK" />
+			<arg value="-o java-src/it/unitn/acube/wp3/Constants.java" />
+		</exec>
+	</target>
+
+	<target depends="mig-tool" name="build">
+		<echo message="TinyOS jar: ${tinyos-jar}" />
+		<javac destdir="bin" fork="yes">
+			<src path="java-src" />
+			<classpath refid="eldery.classpath" />
+		</javac>
+	</target>
+
+	<target depends="build" name="run">
+		<java classname="it.unitn.acube.wp3.WSNGateway" dir="." fork="yes">
+			<arg value="${deployment-descriptor}" />
+			<classpath refid="eldery.classpath" />
+		</java>
+	</target>
+
+	<target name="doc">
+		<javadoc packagenames="it.unitn.acube.wp3.*" sourcepath="java-src" destdir="java-doc" author="yes" version="false" use="true" windowtitle="ACUBE WP3 WSN gateway">
+			<tag name="todo" scope="all" description="To do:" />
+			<link href="http://acube-ucd.fbk.eu/" />
+		</javadoc>
+	</target>
+
+	<target depends="build" name="jar">
+		<property file="${build-properties}" />
+		<jar destfile="jar/eldery-${build.major}.${build.minor}.${build.number}.jar">
+			<zipfileset dir="bin" />
+			<manifest>
+				<attribute name="Implementation-Title" value="Eldery Care TeenyLIME gateway" />
+				<attribute name="Implementation-Version" value="${build.major}.${build.minor}.${build.number} (${build.revision})" />
+				<attribute name="Implementation-Vendor" value="D3S group, University of Trento" />
+				<attribute name="Implementation-URL" value="http://d3s.disi.unitn.it" />
+				<attribute name="Main-Class" value="it.unitn.acube.wp3.WSNGateway" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Timestamp" value="${build.timestamp}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target depends="build" name="release-build">
+		<exec executable="svn">
+			<arg line="update" />
+		</exec>
+		<exec executable="svn" output="svninfo.xml">
+			<arg line="info --xml" />
+		</exec>
+		<xmlproperty file="svninfo.xml" collapseattributes="true" />
+		<propertyfile file="${build-properties}">
+			<entry key="build.number" type="int" operation="+" value="1" />
+			<entry key="build.major" default="0" />
+			<entry key="build.minor" default="1" />
+			<entry key="build.timestamp" type="date" value="now" pattern="yyyy-MM-dd HH.mm.ss" />
+			<entry key="build.user" value="${user.name}" />
+			<entry key="build.revision" value="${info.entry.revision}" />
+		</propertyfile>
+		<delete file="svninfo.xml" />
+		<antcall target="jar" />
+		<exec executable="svn">
+			<arg line="commit -m &quot;${ant.project.name} build no. ${build.major}.${build.minor}.${build.number}&quot;" />
+		</exec>
+	</target>
+</project>

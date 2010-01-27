@@ -1,0 +1,62 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+	    TMote/TelosB Port - INSTALL guide
+=====================================================
+
+To be able to compile TL applications, you need to compile the TL
+preprocessor first. To do so, you need a running installation of
+flex. Go to the '$TLROOT/tl-parser' directory and use the usual make:
+
+    make
+
+Some changes are required in the application Makefile w.r.t. the usual
+TinyOS build system:
+
+COMPONENT must be 'TL_your_original_component_name'.  
+
+TL_COMPONENT must be 'your_original_component_name'.  
+
+TL_OBJECT_FILE must be set to a file name created by the 
+preprocessor, used to keep track of tuple formats. This is
+normally set to 'tl_objs'. 
+
+PFLAGS must contain the current path.
+
+Example:
+
+COMPONENT = $(WORKING_DIR)/TL_SinkNode
+TL_COMPONENT = $(WORKING_DIR)/SinkNode
+TL_OBJECT_FILE = ../tl_objs
+PFLAGS += -I./
+
+TL_OBJECT_FILE contains statistics and description of the tuples found
+in the application. By default, it is removed at the end of the
+compilation process. In order to keep it, you should add:
+
+    TLPFLAGS = -K
+
+IMPORTANT: In the situation when you are building several applications
+that communicate through the same tuples, you need to specify the
+*SAME* TL_OBJECT_FILE for all the applications present in the
+network. This is needed in order to ensure consistent tuple type ids
+throughout the system.
+
+Also note that 'make clean' deletes TL_OBJECT_FILE.
+
+Some defines in TLConf.h are relevant to the lightweight dynamic
+memory allocation used in TeenyLIME.
+
+SLABS_NUM: number of slabs
+SLAB_SIZE: size of each slab (must be a even value)
+           (also the buffer size for ing and rdg)
+SLAB_BITMAP_SIZE: log(number of max tuples per slab) (must be even)
+TUPLE_MSG_DATA_SIZE: size of the internal buffer used to send/receive
+                     (i.e. TupleMsg)
+TUPLE_DATA_SIZE: the buffer size for in and rd
+
+To compile your application, you can use the standard TinyOS commands. 
+
+
+
+

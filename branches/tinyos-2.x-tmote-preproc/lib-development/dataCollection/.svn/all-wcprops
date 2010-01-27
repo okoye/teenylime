@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/1014/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection
+END
+CollectionTuning.nc
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/CollectionTuning.nc
+END
+SchedulerC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/937/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/SchedulerC.nc
+END
+CollectionDebug.nc
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/913/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/CollectionDebug.nc
+END
+FakeRetriesInfoC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/FakeRetriesInfoC.nc
+END
+DataCollection.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/937/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/DataCollection.nc
+END
+CollectionInfo.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/913/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/CollectionInfo.nc
+END
+CollectionTuning.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/889/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/CollectionTuning.h
+END
+DataForwarderC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/960/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/DataForwarderC.nc
+END
+RetriesInfo.nc
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/RetriesInfo.nc
+END
+TreeBuilderC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/1006/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/TreeBuilderC.nc
+END
+TokenInfo.nc
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/874/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/TokenInfo.nc
+END
+CollectionInfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/CollectionInfo.h
+END
+TreeConnection.nc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/913/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/TreeConnection.nc
+END

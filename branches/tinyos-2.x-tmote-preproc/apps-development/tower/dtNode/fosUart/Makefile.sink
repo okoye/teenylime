@@ -1,0 +1,16 @@
+COMPONENT=TestUartStream
+
+MSG_SIZE = 90
+
+CFLAGS +=-DCC2420_DEF_RFPOWER=27
+CFLAGS +=-DCC2420_DEF_CHANNEL=24
+
+# printf support
+PFLAGS += -DPRINTF_SUPPORT
+CFLAGS += -I$(TOSDIR)/lib/printf
+BUILD_EXTRA_DEPS += PrintfMsg.class PrintfClient.class
+%.class: %.java 
+	javac $<
+
+include $(MAKERULES)
+

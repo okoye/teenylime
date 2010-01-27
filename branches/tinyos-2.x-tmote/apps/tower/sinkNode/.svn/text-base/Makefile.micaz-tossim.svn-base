@@ -1,0 +1,10 @@
+WORKING_DIR = .
+TL_DIR = ../../../tl
+COMPONENT = $(WORKING_DIR)/SinkNode
+include $(TL_DIR)/Makefile.micaz-tossim
+MSG_SIZE = 74
+PFLAGS += -I..
+PFLAGS += -I./dataCollection
+PFLAGS += -I./gateway
+
+include $(MAKERULES)

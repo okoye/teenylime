@@ -1,0 +1,194 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps/eldery
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+deployment.xml
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+9100df4027bf859e4f4323f826bf4a98
+2009-12-04T14:20:40.652639Z
+987
+sguna
+
+orchestrator
+dir
+
+serial
+dir
+
+itea.xml
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+3e15bf7c4a0d3509aed44c868ba8cfa7
+2009-12-14T21:24:34.995284Z
+1000
+sguna
+
+node-build
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+a3e38a4b569b2ba5bc7c35f45cd61e25
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+has-props
+
+logger.config
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+879747f8e6f4df17eb613389368d745b
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+
+.project
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+7feb10b547c4f3f3c0643c608d63d1fb
+2009-11-27T23:04:28.043425Z
+954
+sguna
+
+java-lib
+dir
+
+ElderyC.nc
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+11b2f233d296fe981ccb221b08c1fe8d
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+
+casette.xml
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+e9b0130fa35d607cbd8bdc481ab93bb8
+2009-12-03T14:48:58.332295Z
+985
+sguna
+
+README
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+ed3460d882df539289156ea0490ee191
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+
+build.xml
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+c2ec2db1c1f1f73a0ec7c2845618897d
+2009-12-14T21:24:34.995284Z
+1000
+sguna
+
+.classpath
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+a372d5f44d149b127e7af5137585ce8b
+2009-11-27T23:04:28.043425Z
+954
+sguna
+
+posture
+dir
+
+proximity
+dir
+
+config
+dir
+
+build_info.properties
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+e8018d3cbb37da3944045582719d0e27
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+
+java-src
+dir
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:26:06.000000Z
+6a0bbe183064171a840d167c18daec59
+2009-12-15T16:11:15.561768Z
+1004
+sguna
+

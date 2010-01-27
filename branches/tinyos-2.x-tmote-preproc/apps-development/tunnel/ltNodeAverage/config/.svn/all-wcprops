@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/config/TLConf.h
+END

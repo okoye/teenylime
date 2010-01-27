@@ -1,0 +1,340 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 320 $
+ * * DATE
+ * *    $LastChangedDate: 2008-03-13 06:38:54 -0500 (Thu, 13 Mar 2008) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: ben_christian $
+ * *
+ * *	$Id: TupleGateway.nc 320 2008-03-13 11:38:54Z ben_christian $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#include "Constants.h"
+#ifndef MICAZ_TOSSIM 
+#include "TupleSerialMsg.h"
+#endif
+
+/** 
+ * Module that receives and sends data on the serial.
+ *
+ * @author Matteo Ceriotti
+ *         <a href="mailto:ceriotti@fbk.eu">ceriotti@fbk.eu</a>
+ *
+ */
+
+module TupleGateway {
+
+  uses {
+    interface Boot;
+
+    interface TupleSpace as TS;
+
+    interface Leds;
+
+    interface AMPacket;
+    
+	interface GlobalTime;
+	
+   interface Timer<TMilli> as TimerWait;
+   	
+#ifndef MICAZ_TOSSIM
+    interface SplitControl as SerialControl;
+    interface AMSend as SerialSend;
+    interface Receive as SerialReceive;
+#endif
+  }
+}
+
+implementation {
+  message_t packet;
+  TLOpId_t reactionIdT, reactionIdN;
+  TLOpId_t inNId, inTId,outId;
+
+  tuple serialQueue[SINK_QUEUE_LEN];
+  uint8_t serialIn, serialOut;
+  bool serialBusy, serialFull;
+
+  tuple taskTQueue[TASK_SINK_QUEUE_LEN];
+  uint8_t taskIn, taskOut;
+  
+  bool startSync = FALSE;
+  task void serialSendTask();
+  task void insertTask();
+
+  void convertToSerial(tuple* tupleO, serial_tuple* serial);
+  void convertToTL(serial_tuple* serial, tuple* tuple0);
+
+  void installReaction(){
+    tuple p1, p2;
+    p1 = newTuple(5, 
+                       actualField_uint8(TEMP_DEFORM_TYPE),
+                       formalField(TYPE_UINT16_T), 
+                       formalField(TYPE_UINT16_T),
+                       formalField(TYPE_UINT16_T),
+                       formalField(TYPE_UINT16_T));
+    call TS.addReaction(&reactionIdT, FALSE, TL_LOCAL, &p1);
+    p2 = newTuple(6,
+                 actualField_uint8(NODE_INFO_TYPE),
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T), 
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T));
+    call TS.addReaction(&reactionIdN, FALSE, TL_LOCAL, &p2);
+  }
+
+  event void Boot.booted() {
+    call TimerWait.startOneShot(30000);
+  	
+  	
+#ifndef MICAZ_TOSSIM
+    call SerialControl.start();
+#endif
+    serialIn = 0;
+    serialOut = 0;
+    serialBusy = FALSE;
+#ifndef MICAZ_TOSSIM
+    serialFull = TRUE;
+#endif
+#ifdef MICAZ_TOSSIM
+    serialFull = FALSE;
+#endif
+		taskIn = 0;
+		taskOut = 0;
+    installReaction();
+    
+    	
+  }
+
+#ifndef MICAZ_TOSSIM
+  event void SerialControl.startDone(error_t err) {
+    if (err == SUCCESS){
+      serialFull = FALSE;
+    } else {
+      call SerialControl.start();
+    }
+  }
+
+  event void SerialControl.stopDone(error_t err) {}
+#endif
+
+  event void TS.tupleReady(TLOpId_t operationId, 
+			   tuple *tuples, 
+			   uint8_t number) {
+    tuple temp;
+    if ((opIdCmp(&operationId, &reactionIdT)) && number == 1) {
+      copyTuple(&temp,&(tuples[0]));
+      call TS.in(&inTId, FALSE, TL_LOCAL, &temp);
+    } else if ((opIdCmp(&operationId, &reactionIdN)) && number == 1) {
+      copyTuple(&temp,&(tuples[0]));
+      call TS.in(&inNId, FALSE, TL_LOCAL, &temp);
+    } else if ((opIdCmp(&operationId, &inNId)|| opIdCmp(&operationId, &inTId))
+             && number == 1) {
+#ifndef MICAZ_TOSSIM 
+      atomic {
+        if (!serialFull) {
+          copyTuple(&(serialQueue[serialIn]),&(tuples[0]));
+          serialIn = (serialIn + 1) % SINK_QUEUE_LEN;
+          if (serialIn == serialOut)
+            serialFull = TRUE;
+          if (!serialBusy) {
+            post serialSendTask();
+            serialBusy = TRUE;
+          }
+        } else {
+          copyTuple(&temp,&(tuples[0]));
+          call TS.out(&outId, FALSE, TL_LOCAL, &temp);
+        }
+      }
+#endif
+    }
+  }
+
+  task void serialSendTask(){
+    tuple_serial_msg_t* msg;
+    atomic {
+      if (serialIn == serialOut && !serialFull) {
+        serialBusy = FALSE;
+        return;
+      }
+    }
+    msg = (tuple_serial_msg_t*) call SerialSend.getPayload(&packet);
+    convertToSerial(&(serialQueue[serialOut]), &(msg->tuple));
+    if (call SerialSend.send(AM_BROADCAST_ADDR,
+                             &packet, sizeof(tuple_serial_msg_t)) == SUCCESS) {
+    }
+    else {
+      post serialSendTask();
+    }
+  }
+
+  event void TS.reifyCapabilityTuple(tuple* ct) {
+  }
+
+
+  event void TS.tupleSpaceError(uint8_t errCode, 
+				TLOpId_t operationId, 
+				TLTarget_t target,  
+				tuple* failedTuple) {
+  }
+
+#ifndef MICAZ_TOSSIM 
+  event void SerialSend.sendDone(message_t* msg, error_t error) {
+    tuple p1,p2;
+    if (error != SUCCESS) {
+    }
+    else {
+      atomic {
+        if (msg == &packet) {
+          if (++serialOut >= SINK_QUEUE_LEN)
+              serialOut = 0;
+            if (serialFull)
+              serialFull = FALSE;
+        }
+      }
+    }
+    post serialSendTask();
+    p1 = newTuple(5, 
+                       actualField_uint8(TEMP_DEFORM_TYPE),
+                       formalField(TYPE_UINT16_T), 
+                       formalField(TYPE_UINT16_T),
+                       formalField(TYPE_UINT16_T),
+                       formalField(TYPE_UINT16_T));
+    call TS.in(&inTId, FALSE, TL_LOCAL, &p1);
+    p2 = newTuple(6,
+                 actualField_uint8(NODE_INFO_TYPE),
+                 formalField(TYPE_UINT16_T), 
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T),
+                 formalField(TYPE_UINT16_T));
+    call TS.in(&inNId, FALSE, TL_LOCAL, &p2);
+  }
+#endif
+
+
+#ifndef MICAZ_TOSSIM
+  event message_t* SerialReceive.receive(message_t* msg, void* payload, uint8_t len) {
+    tuple_serial_msg_t* tuple_msg;
+
+    if (len == sizeof(tuple_serial_msg_t)){
+      tuple_msg = (tuple_serial_msg_t*) payload;
+      convertToTL(&(tuple_msg->tuple), &taskTQueue[taskIn]);
+      taskIn = (taskIn+1) % TASK_SINK_QUEUE_LEN;
+      call Leds.led2Toggle();
+      if (taskIn==taskOut){
+      	  call Leds.led1On();
+      	 	post insertTask();	
+      }else{
+      	call Leds.led1Off();
+      }
+    }
+    return msg;
+  }
+#endif
+
+	task void insertTask(){
+     	call TS.out(&outId, FALSE, TL_LOCAL, &taskTQueue[taskOut]);
+     	taskOut = (taskOut+1) % TASK_SINK_QUEUE_LEN;
+     	call Leds.led0Toggle();
+  }
+  
+  task void insertTasks(){
+  	while (taskOut != taskIn){
+     	call TS.out(&outId, FALSE, TL_LOCAL, &taskTQueue[taskOut]);
+     	taskOut = (taskOut+1) % TASK_SINK_QUEUE_LEN;
+     	call Leds.led0Toggle();
+    }
+  }
+
+  void convertToTL(serial_tuple* serial, tuple* tuple0){
+    uint8_t i;
+    tuple0->logicalTime = TIME_UNDEFINED;
+    tuple0->expireIn = TIME_UNDEFINED;
+    tuple0->capabilityT = FALSE;
+    for (i=0; i<MAX_FIELDS; i++) {
+      tuple0->fields[i].type = serial->fields[i].type;
+      switch(tuple0->fields[i].type) {
+      case TYPE_UINT8_T:
+        tuple0->fields[i].value.int8 = serial->fields[i].value.int8;
+        break;
+      case TYPE_UINT16_T:
+        tuple0->fields[i].value.int16 = serial->fields[i].value.int16;
+        break;
+#ifdef FLOAT_SUPPORT
+      case TYPE_FLOAT:
+        tuple0->fields[i].value.flt = serial->fields[i].value.flt;
+        break;
+#endif
+      case TYPE_CHAR:
+        tuple0->fields[i].value.c = serial->fields[i].value.c;
+      }
+    }
+  }
+
+  void convertToSerial(tuple* tupleO, serial_tuple* serial){
+    uint8_t i;
+    serial->logicalTime = tupleO->logicalTime;
+    serial->expireIn = tupleO->expireIn;
+    serial->capabilityT = tupleO->capabilityT;
+    for (i=0; i<MAX_FIELDS; i++) {
+      serial->fields[i].type = tupleO->fields[i].type;
+      switch(tupleO->fields[i].type) {
+      case TYPE_UINT8_T:
+        serial->fields[i].value.int8 = tupleO->fields[i].value.int8;
+        break;
+      case TYPE_UINT16_T:
+        serial->fields[i].value.int16 = tupleO->fields[i].value.int16;
+        break;
+#ifdef FLOAT_SUPPORT
+      case TYPE_FLOAT:
+        serial->fields[i].value.flt = tupleO->fields[i].value.flt;
+        break;
+#endif
+      case TYPE_CHAR:
+        serial->fields[i].value.c = tupleO->fields[i].value.c;
+      }
+    }
+  }
+
+	event void TimerWait.fired() {
+		if (!startSync){
+			startSync = TRUE; 
+			call GlobalTime.startTimer();
+			call GlobalTime.startSync(200);
+		}else{
+			post insertTasks();
+		}
+	}
+  
+  event void GlobalTime.synced(){}
+    
+  event void GlobalTime.lostSynced(){}
+
+  event void GlobalTime.timeEvent(){
+  	   call Leds.led1Toggle();	
+  	   call TimerWait.startOneShot(WAIT_TIME);
+  }
+}
+

@@ -1,0 +1,40 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/tags/start/apps
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2007-04-27T15:26:17.419248Z
+5
+paolinux78
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+hvac
+dir
+
+sampleMutualExclusion
+dir
+
+objectTracking
+dir
+
+example
+dir
+

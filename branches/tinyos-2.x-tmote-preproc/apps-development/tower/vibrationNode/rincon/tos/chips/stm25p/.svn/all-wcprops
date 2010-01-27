@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/chips/stm25p
+END
+DirectStorageC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/chips/stm25p/DirectStorageC.nc
+END
+Stm25pVolumeSettingsP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/chips/stm25p/Stm25pVolumeSettingsP.nc
+END
+Stm25pDirectP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/chips/stm25p/Stm25pDirectP.nc
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node
+END
+SolSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/SolSampler.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/PrintfClient.java
+END
+TempSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/TempSenseTask.nc
+END
+SylSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/SylSenseTask.nc
+END
+TempSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/TempSampler.nc
+END
+HumSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/HumSenseTask.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/PrintfMsg.java
+END
+SylSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/SylSampler.nc
+END
+HumSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/HumSampler.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/Makefile
+END
+SolSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/SolSenseTask.nc
+END
+SensorNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/hum_sol_syl_temp_Node/SensorNode.nc
+END

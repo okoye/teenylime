@@ -1,0 +1,1 @@
+java avrora.Main -action=simulate -simulation=sensor-network -platform=mica2 -monitors=packet,calls -seconds=10 -stagger-start=10000000 -random-seed=1 -report-seconds -nodecount=2 -colors=false SampleME.od

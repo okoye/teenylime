@@ -1,0 +1,401 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+	    TMote/TelosB Port - Readme file
+=====================================================
+
+
+1. Features
+---------------
+
+1.1. Declarations
+
+Tuples are declared using the following syntax:
+
+  tuple<type_of_field0, type_of_field1, ...> identifier1, *pointer1;
+
+Example:
+
+  tuple<uint16_t, uint16_t> t;
+
+The fields of tuple t are accessed as structure members. Example:
+
+  t.value0 = 5; // the first field of tuple t
+  t.value1 = 6; // the second field
+
+1.2. Neighbor tuple
+
+The TeenyLIME system feature a "neighbor tuple": every mote announces its
+presence by broadcasting it to its neighbors.
+The default neighbor tuple contains only one field, a uint16_t with the
+address of the mote.
+
+The neighbor tuple can be changed by the programmer in order to add other
+application relevant fields. The TL system uses the reifyNeighborTuple
+event to ask for the neighbor tuple.
+
+The programmer must tag the tuple he wants to use using the type
+"NeighborTuple" (notice the capitalized letters). The tuples tagged as such
+can be used as any regular tuples.
+
+If more tuple types s are tagged as NeighborTuples, the compiler will issue
+a warning.
+
+1.4. Message size
+
+The default message size accommodates only one tuple. Each tuple will
+be packed in a different message.  If the programmer wants to pack
+more tuples into one message, he/she must define TUPLE_MSG_DATA_SIZE
+using a value big enough to hold the message headers, the neighbor
+tuple and the tuples he wants to pack.  The constant must be defined
+as a compiler parameter (i.e.  -DTUPLE_MSG_DATA_SIZE=50).
+    
+1.5. Tuple patterns (or templates)
+
+Tuple patterns are used in queries to find the tuples stored in the
+tuple space that match the given template. The following operations
+are allowed: MATCH_EQUAL (the same with MATCH_ACTUAL), MATCH_DONT_CARE
+(wildcard), MATCH_GREATER, MATCH_GREATER_EQUAL, MATCH_LOWER,
+MATCH_LOWER_EQUAL, MATCH_DIFFERENT, MATCH_MASK.
+
+Example for creating a tuple template:
+
+  tuple<uint16_t, uint16_t> t;
+  t.match_type[0] = MATCH_EQUAL;
+  t.match_type[1] = MATCH_GREATER;
+  t.value0 = 1;
+  t.value1 = 2;
+
+1.6. newTuple()
+
+The newTuple function is the recommended way to initialize tuples. The
+arguments of the functions are 'constructor' for fields. Example:
+
+  t = newTuple(actualField(1), greater(2));
+
+The following functions are allowed as constructors for tuple fields:
+  - 'dontCare()'
+  - 'lqiRead()' and 'rssiRead()'
+  - 'equal(value)' synonym for 'actualField(value)'
+  - 'greater(value)' and 'greaterEqual(value)'
+  - 'lower(value)' and 'lowerEqual(value)'
+  - 'different(value)'
+  - 'arrayField()'
+  - 'testMask(value)' which performs (tested & value) == tested.
+
+1.7. isOfType()
+
+Tells whether a pointer points to a tuple of the specified type.
+
+Syntax: isOfType(tuple *t, tuple type)
+Example:
+
+  tuple<uint16_t, uint16_t> *t = received;
+  if (isOfType(t, tuple<uint16_t, uint16_t>))
+    ...
+
+1.8. tupleReady/operationCompleted + use of PROCESS_OP()/CHECK_OP()
+
+The tupleReady event in the TeenyLIME API is used to provide the
+application with reaction notifications and the results of query
+operations. PROCESS_OP() must be used inside this event to distinguish
+the results of different operations. It takes the relevant operation
+id and the processing to perform as parameters.
+
+Syntax: PROCESS_OP(opId, processing)
+Example:
+
+  event void TS.tupleReady(TLOpId_t operationId, TupleIterator *iterator)
+  {
+    PROCESS_OP(remoteRd,
+               /* Do something */ );             
+
+    PROCESS_OP(reactionId,
+               /* Do something else */ );             
+    ...
+  }
+
+Note that: 
+     i)   PROCESS_OP guarantees atomic execution of the processing associated
+          to a given operation, so there is no need to use atomic inside PROCESS_OP
+     ii)  due to some limitations of the C preprocessor, only comments in the form 
+          /* comment */ are allowed inside PROCESS_OP 
+     iii) PROCESS_OP can be used only *once* for each operation identifier, 
+          for instance, the following may lead to incorrect executions
+
+  event void TS.tupleReady(TLOpId_t operationId, TupleIterator *iterator) 
+  {
+    PROCESS_OP(remoteRd,
+               /* Do something */ );             
+
+    PROCESS_OP(remoteRd,
+               /* Do something more */ );             
+    ...
+  }
+
+On the other hand, the operationCompleted event provides information
+on the outcome of *remote reliable* operations (out, rd/rdg,
+in/ing). It is never signaled for other types of operations. In this
+case, CHECK_OP() must be used to check the outcome of an operation
+based on its id.
+
+Syntax: CHECK_OP(opId, completionCode, processing)
+Example:
+
+  event void TS.operationCompleted(uint8_t completionCode, 
+				   TLOpId_t operationId, 
+				   TLTarget_t target,
+                   TLTupleSpace_t ts,
+				   tuple* returningTuple) {
+
+    CHECK_OP(rdgId, RELIABLE_OP_FAIL,
+	     /* Do something */
+	     );
+
+    CHECK_OP(rdgId, QUERY_SENT_OK,
+	     /* Do something */
+	     );
+
+    CHECK_OP(rdgId, OP_COMPLETED_OK,
+	     /* Do something */
+	     );
+  }
+
+In the case of out operations, the completion code may be either
+OP_COMPLETED_OK or RELIABLE_OP_FAIL, depending on whether the remote
+node acknowledged the reception of the tuple given as parameter to
+out.
+
+In the case of query operations (rd/rdg, in/ing), the completion code
+is QUERY_SENT_OK when the remote node accepted the query, and
+OP_COMPLETED_OK when the remote node provided some (possibly empty)
+answer to the query. In case either of the aforementioned steps fails,
+the event is signaled with completion code RELIABLE_OP_FAIL. As a
+result, the operationCompleted event may be signaled twice in the case
+of remote queries, based on one of the following situations and
+corresponding completion codes:
+
+Correct execution:
+QUERY_SENT_OK -> OP_COMPLETED_OK
+
+Remote node accepting the query but not responding:
+QUERY_SENT_OK -> RELIABLE_OP_FAIL
+
+Problems preventing communication on the remote node:
+RELIABLE_OP_FAIL
+
+Note that the tupleReady event is signaled in any case, possibly
+providing an iterator that returns NULL at the first call if no
+results were provided or the operation failed. Also, TeenyLIME
+guarantees the operationCompleted event related to a given query
+always precedes the corresponding tupleReady in the control flow.
+
+1.9. TupleIterator + TS.nextTuple()
+
+The results of tuple queries (in, rd, ing, rdg) and reactions are signaled by
+the tupleReady event. This event provides an iterator over the result that
+returns query / reactions answers. For local operations, the iterator is an
+iterator over the tuple space. For remote operations, the iterator is an
+iterator over a buffer.
+
+The semantics of the iterator is the following:
+
+  - In case of local in / rd, the first "call TS.next_tuple(iterator)" will
+  return the a pointer to a matching tuple or NULL if no matching tuple is
+  found. The second call to next_tuple() returns NULL.
+  - In the case of local ing / rdg, subsequent calls return a pointer to the 
+  next matching tuple from the tuple space and NULL when no more tuples can be
+  found.
+  - For in/ing operations, the current tuple is removed from the tuple space
+  only when the processing proceeds to the next tuple, that is, next_tuple() 
+  is called again. With respect to in operations, this implies that at least
+  two calls to next_tuple() must be performed inside the tupleReady() event.
+  In the case of ing, all results must be processed until the iterator returns
+  NULL to make sure all matching tuples are removed from the tuple space.
+  - A buffer is used for remote operations. The iterator is used to traverse
+  this buffer. The number of tuples returned is limited by the size of the
+  buffer. The tuples are removed from the remote tuple space automatically,
+  even if no calls to next_tuple() are done.
+  - For reactions, the first call to next_tuple() returns a pointer to the
+  tuple that triggered the reaction. Subsequent calls return NULL.
+
+Example:
+
+The tuple space contains: [<1>,<2>,<3>,<4>]. We do ing(<int>).
+
+    event TS.tupleReady(TLOpId_t opId, TupleIterator *iterator) { 
+        // the iterator is 'ready'
+        tuple<int> *a;
+        a = TS.nextTuple(opId, iterator); // a = <1>, TS = [<1>,<2>,<3>,<4>]
+        a = TS.nextTuple(opId, iterator); // a = <2>, TS = [<2>,<3>,<4>]
+        a = TS.nextTuple(opId, iterator); // a = <3>, TS = [<3>,<4>]
+        a = TS.nextTuple(opId, iterator); // a = <4>, TS = [<4>]
+
+        // at this point, <4> is left in the tuple space. In order to remove
+        // it, before returning from tupleReady we need to call next_tuple
+        // one more time. A similar flow must be taken for 'in' in order to
+        // remove the tuple from the tuple space.
+        a = TS.nextTuple(opId, iterator); // a = NULL, TS = []
+    }
+
+1.10. TL hard reset
+
+The TL tool-chain can optionally compile a small Java application that
+can be used to perform a system-wide, hard reset of all network nodes
+regardless of the TL components they are running. When performing this
+operation, you are guaranteed that no network messages will be
+transmitted while the network is resetting. 
+
+To enable this feature, you need to have at least one TL node attached
+to a serial port. In addition, you must include the following in the
+Makefile of the application binary to be deployed on that node:
+ 
+CFLAGS += -DTL_CONTROLLER_NODE
+include $(TL_DIR)/system/tmote/Makefile
+
+To reset the entire network of TL nodes, from the application
+directory you run:
+
+$ java TMoteTLReset <port> 
+
+where port is the serial device the node is attached to. For instance:
+
+$ java TMoteTLReset serial@/dev/ttyUSB0:tmote 
+
+Other nodes in the network do not require modifications. Consider that
+this feature uses a specific AM id for serial communication
+(AM_TL_HEADER, defined in tl/system/tmote/TupleMsgHeader.h) that must
+NOT be used by the application if the above directives are included in
+the Makefile.
+
+1.11. The flash tuple space
+
+TeenyLIME can optionally use the on-board flash to persistently store tuples. To
+enable this feature, you must follow these two steps:
+
+STEP 1. Define a volume table (i.e. "volumes-stm25p.xml") for your application.
+The table must contain three volumes, like in the following example: 
+
+    <volume_table>
+        <volume name="PTUPLESA" size="65536"/>
+        <volume name="PTUPLESB" size="65536"/>
+        <volume name="PTUPLESMETA" size="65536"/>
+    </volume_table>
+
+Note! PTUPLESA and PTUPLESB must have equal size.
+
+
+STEP 2. Define a constant FLASH_SYNC_TIME (in ms). This is the period with which
+the metadata of the flash tuple space is persisted. If the mote resets, all
+not-persistent metadata will result in lost tuples.
+
+The flash tuple space is configured with the same constants as the slab
+allocator. All constants bear the prefix "P". For instance, the size of a slab
+saved on the flash is defined by "PSLAB_SIZE".
+
+Whenever you do an out/rd(g)/in(g)/addReaction, you must specify your target
+tuple space. This can be FLASH_TS or RAM_TS.
+
+Note that all operations with the local flash tuple space are split phase. This
+means that when you use the iterator, you must call nextSplitTuple. Whenever
+the next tuple is found (or not found), the application is signaled by
+tupleReady(). To access the tuple, you must call getTuple().
+
+Note that for remote operations, the operation buffers all results, so there is
+no split phase operation. You must use nextTuple in this case.
+
+1.12. TL CC2420 network stack
+
+TeenyLIME uses a modified CC2420 network stack, which partially
+overrides the standard CC2420 stack shipped with TinyOS. This is
+mainly to support reliable operations, and to make this functionality
+co-exist with TinyOS's LPL layer. The network stack can be configured
+in three different ways, depending on the directives included in the
+application's Makefile:
+
+1) If nothing is specified, TeenyLIME uses the plain TinyOS CC2420
+stack, which does not retransmit packets and does not duty cycle the
+radio chip. With this configuration, reliable operations are NOT
+supported, and even if no error is returned by TeenyLIME in the
+operationCompleted() event, there will be no additional guarantee for
+reliable operations w.r.t. unreliable ones.
+
+2) Using the TL_PACKET_LINK directive, TeenyLIME leverages a custom
+Packet Link layer used to implement reliable operations by means of
+periodic retransmissions. Still, the radio remains always on. With
+this configuration the MAX_MSG_RETRIES parameter inside
+TMoteStackConf.h specifies the maximum number of retransmissions per
+packet. The worst case latency for a single packet transmissions is
+around 32 ms * MAX_MSG_RETRIES.
+
+3) Using the TL_LPL directive, TeenyLIME uses a custom Low Power
+Listening layer, which supports reliable operations by leveraging the
+acknowledgements used in traditional LPL mechanisms for early stopping
+of the packetized preamble. In this case, the MAX_MSG_RETRIES
+parameter determines the number of receiver wake-up periods that the
+packetized preamble covers in time. The worst case latency for a
+single packet transmission is therefore REMOTE_LPL_INTERVAL *
+MAX_MSG_RETRIES. Unlike the standard CC2420 TinyOS stack,
+acknowledgments can be temporarily disable using the Tuning
+interface. If so, however, every reliable operation will be signaled
+as correctly completed even if it's not the case. In principle, LPL
+acks should be used in low-traffic, sparse networks for lower energy
+consumption, whereas high-throughput, dense network should be better
+off without LPL acks unless reliable operations must be used.
+
+Note that, although the code may compile with both directives
+TL_PACKET_LINK and TL_LPL enabled, configuration 2) and 3) must not be
+used together, as this might cause severe network congestion problems.
+
+2. Known issues
+---------------
+
+2.1. Try to not assign values to tuples in their declarations. There are some
+issues with preprocessing when using attributions within declarations.
+For example, the following is bad:
+
+tuple <uint16_t, uint16_t> a = newTuple(...);
+
+The following is OK:
+
+tuple <uint16_t, uint16_t> a;
+
+a = newTuple(...);
+
+2.2. Only uint8_t, uint16_t, char and arrays of these types are supported as 
+types for tuple fields.
+
+2.3. The array sizes can only be specified using explicit integers or
+"#define"-s that are integers.
+The following is OK:
+
+#define SIZE 10
+tuple<uint16_t[4], uint16_t[SIZE]> t;
+
+But the following is bad:
+#define SIZE 9 + 1
+tuple<uint16_t[SIZE]> t;
+tuple<uint16_t[4 + 1]> t;
+
+2.4. When using defines for arrays, "#if"-s are not taken into account.
+For the following:
+#if 0
+#define SIZE 10
+#endif
+
+normally, SIZE should not be defined. However, because the "#if" is not
+interpreted, the TL preprocessor will use SIZE as 10 when defining tuple
+arrays.
+
+2.5. Some issues may arise in case configurations rename some existing component
+and another component with the same name is in the build path. For instance, the 
+pre-processor won't be able to parse correctly a configuration listing:
+
+component Foo as Boo; 
+
+if Boo.nc is itself in the compilation path. 
+
+2.6. Code inside header files (including declarations) is not preprocessed.
+         
+
+

@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac
+END
+HVAC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/HVAC.nc
+END
+ADCStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/ADCStub.nc
+END
+HumiditySensor.nc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/HumiditySensor.nc
+END
+TemperatureSensor.nc
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/TemperatureSensor.nc
+END
+SprinklerIf.nc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/SprinklerIf.nc
+END
+SensorIf.nc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/SensorIf.nc
+END
+ConditionerIf.nc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/ConditionerIf.nc
+END
+Constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/Constants.h
+END
+SprinklerControlLaw.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/SprinklerControlLaw.h
+END
+AirConditionerControlLaw.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/AirConditionerControlLaw.h
+END
+SprinklerStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/SprinklerStub.nc
+END
+SmokeSensor.nc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/SmokeSensor.nc
+END
+AirConditioner.nc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/AirConditioner.nc
+END
+ConditionerStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/ConditionerStub.nc
+END
+WaterSprinkler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/12/tags/pre-range/apps/hvac/WaterSprinkler.nc
+END

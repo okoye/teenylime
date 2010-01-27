@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor
+END
+genQueryFunctions.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor/genQueryFunctions.py
+END
+genNewTupleFuncs.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor/genNewTupleFuncs.py
+END
+Classes.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor/Classes.py
+END
+genTupleFormats.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor/genTupleFormats.py
+END
+preprocess.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/teenylime/!svn/ver/284/branches/tinyos-2.x-myrianed/tl/make/preprocessor/preprocess.py
+END

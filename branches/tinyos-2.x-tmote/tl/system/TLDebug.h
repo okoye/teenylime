@@ -1,0 +1,17 @@
+#ifndef TLDEBUG_H
+#define TLDEBUG_H
+
+#define BLINK_TIMER 250
+
+// Error codes for TL debug
+enum { 
+  TUPLE_SPACE_FULL = 1,
+  TRANSMISSION_FAILURE = 2,
+  QUEUE_OVERFLOW = 3,
+  PENDING_OPS_OVERFLOW = 4,
+  UNSUPPORTED_RELIABLE_OP = 5,
+  NEIGHBOR_OVERFLOW = 6, 
+};
+
+#endif 
+

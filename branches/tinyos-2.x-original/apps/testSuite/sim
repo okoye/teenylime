@@ -1,0 +1,122 @@
+#!/bin/sh
+
+
+# ===== Simulate using avrora ======
+
+export TOSROOT="/home/laurens/e/tinyos/tinyos/tinyos-2.x"
+export TOSDIR="/home/laurens/e/tinyos/tinyos/tinyos-2.x/tos"
+export MAKERULES="/home/laurens/e/tinyos/tinyos/tinyos-2.x/support/make/Makerules"
+
+PLATFORM=mica2
+
+export BENCHMARK_NODE=$1
+make $PLATFORM
+
+if [ $? != "0" ]; then
+  exit;
+fi
+
+if [ $2 = "stack" ]; then
+  # Monitor the stack
+  SIM_FLAGS="-simulation=single"
+  SIM_FLAGS=$SIM_FLAGS" -monitors=stack"
+  #SIM_FLAGS=$SIM_FLAGS" -monitors=calls"
+  SIM_FLAGS=$SIM_FLAGS" -platform=mica2"
+  SIM_FLAGS=$SIM_FLAGS" -seconds=1.5"
+else
+  # Profiling
+  SIM_FLAGS="-simulation=single"
+
+  SIM_FLAGS=$SIM_FLAGS" -monitors=interrupts"
+  SIM_FLAGS=$SIM_FLAGS" -monitors=trace"
+  SIM_FLAGS=$SIM_FLAGS" -monitors=stack"
+  SIM_FLAGS=$SIM_FLAGS" -monitors=stack"
+  SIM_FLAGS=$SIM_FLAGS" -monitors=calls"
+  SIM_FLAGS=$SIM_FLAGS" -platform=mica2"
+  SIM_FLAGS=$SIM_FLAGS" -seconds=1.5"
+  #SIM_FLAGS=$SIM_FLAGS" -monitors=serial"
+  #SIM_FLAGS=$SIM_FLAGS" -verbose=monitors.gdb"
+
+  SIM_FLAGS=$SIM_FLAGS" -monitors=trip-time -pairs="
+
+  if [ "$BENCHMARK_NODE" = "LocalIn" ]; then
+    SIM_FLAGS=$SIM_FLAGS"in0:in1,"
+    SIM_FLAGS=$SIM_FLAGS"findtuple0:findtuple1,"
+    #SIM_FLAGS=$SIM_FLAGS"newTuple0:newTuple1,"
+    #SIM_FLAGS=$SIM_FLAGS"comparefields0:comparefields1,"
+    #SIM_FLAGS=$SIM_FLAGS"comparefields1:comparefields2,"
+    #SIM_FLAGS=$SIM_FLAGS"comparefields2:comparefields3,"
+    #SIM_FLAGS=$SIM_FLAGS"comparefresh0:comparefresh1,"
+    #SIM_FLAGS=$SIM_FLAGS"compareTuples0:compareTuples1,"
+    #SIM_FLAGS=$SIM_FLAGS"compareformats0:compareformats1,"
+  elif [ "$BENCHMARK_NODE" = "InLocalQueryGen" ]; then
+    SIM_FLAGS=$SIM_FLAGS"in0:in1,"
+  elif [ "$BENCHMARK_NODE" = "LocalRd" ]; then
+    SIM_FLAGS=$SIM_FLAGS"rd0:rd1,"
+  elif [ "$BENCHMARK_NODE" = "DistrIn" ]; then
+    SIM_FLAGS=$SIM_FLAGS"in0:in1,"
+    #SIM_FLAGS=$SIM_FLAGS"rand0:rand1,"
+  elif [ "$BENCHMARK_NODE" = "_Malloc" ]; then
+    SIM_FLAGS=$SIM_FLAGS"malloc0:malloc1,"
+    SIM_FLAGS=$SIM_FLAGS"malloc2:malloc3,"
+    SIM_FLAGS=$SIM_FLAGS"free0:free1,"
+    SIM_FLAGS=$SIM_FLAGS"free2:free3,"
+    SIM_FLAGS=$SIM_FLAGS"in0:in1,"
+    SIM_FLAGS=$SIM_FLAGS"in2:in3,"
+    SIM_FLAGS=$SIM_FLAGS"out0:out1,"
+    SIM_FLAGS=$SIM_FLAGS"out2:out3,"
+  elif [ "$BENCHMARK_NODE" = "NewTuple" ]; then
+    SIM_FLAGS=$SIM_FLAGS"newTuple0:newTuple1,"
+    SIM_FLAGS=$SIM_FLAGS"newField0:newField1,"
+    SIM_FLAGS=$SIM_FLAGS"copyField0:copyField1,"
+  elif [ "$BENCHMARK_NODE" = "OutReaction" ]; then
+    SIM_FLAGS=$SIM_FLAGS"out0:out1,"
+    SIM_FLAGS=$SIM_FLAGS"copyreact0:copyreact1,"
+  elif [ "$BENCHMARK_NODE" = "Benchmark" ]; then
+    SIM_FLAGS=$SIM_FLAGS"time0:time1,"
+  else
+    SIM_FLAGS=$SIM_FLAGS"out0:out1,"
+    #SIM_FLAGS=$SIM_FLAGS"pruneExpiredReactions0:pruneExpiredReactions1,"
+    #SIM_FLAGS=$SIM_FLAGS"copyReaction0:copyReaction1,"
+    #SIM_FLAGS=$SIM_FLAGS"newneighbor0:newneighbor1,"
+    #SIM_FLAGS=$SIM_FLAGS"removeNghT0:removeNghT1,"
+    #SIM_FLAGS=$SIM_FLAGS"updateneighbor0:updateneighbor1,"
+    #SIM_FLAGS=$SIM_FLAGS"trigsetcmpkey0:trigsetcmpkey1,"
+    #SIM_FLAGS=$SIM_FLAGS"trigcmp0:trigcmp1,"
+    #SIM_FLAGS=$SIM_FLAGS"callfuncp0:callfuncp1,"
+    #SIM_FLAGS=$SIM_FLAGS"callfuncp2:callfuncp3,"
+    #SIM_FLAGS=$SIM_FLAGS"cmp0:cmp1,"
+    #SIM_FLAGS=$SIM_FLAGS"switchEqType0:switchEqType1,"
+    #SIM_FLAGS=$SIM_FLAGS"func0:func1,"
+    #SIM_FLAGS=$SIM_FLAGS"func_ptr0:func_ptr1,"
+    #SIM_FLAGS=$SIM_FLAGS"tupleready0:tupleready1,"
+    #SIM_FLAGS=$SIM_FLAGS"checkformal0:checkformal1,"
+    #SIM_FLAGS=$SIM_FLAGS"senddone0:senddone1,"
+    #SIM_FLAGS=$SIM_FLAGS"serialstartdone0:serialstartdone1,"
+    #SIM_FLAGS=$SIM_FLAGS"linkedlist0:linkedlist1,"
+    #SIM_FLAGS=$SIM_FLAGS"list0:list1,"
+    #SIM_FLAGS=$SIM_FLAGS"add0:add1,"
+    #SIM_FLAGS=$SIM_FLAGS"add2:add3,"
+    #SIM_FLAGS=$SIM_FLAGS"addreaction0:addreaction1,"
+    #SIM_FLAGS=$SIM_FLAGS"removereaction0:removereaction1,"
+    #SIM_FLAGS=$SIM_FLAGS"fail0:fail1,"
+    #SIM_FLAGS=$SIM_FLAGS"loop0:loop1,"
+    #SIM_FLAGS=$SIM_FLAGS"loop2:loop3,"
+    #SIM_FLAGS=$SIM_FLAGS"lclout_start:lclout_stop,"
+    #SIM_FLAGS=$SIM_FLAGS"createOpId0:createOpId1"
+    #SIM_FLAGS=$SIM_FLAGS"addTuple0:addTuple1,"
+    #SIM_FLAGS=$SIM_FLAGS"triggerReactions0:triggerReactions1,"
+  fi
+fi
+
+
+
+
+avr-objdump -zhD build/$PLATFORM/main.exe > main.od
+
+
+EXE="avrora "$SIM_FLAGS" main.od"
+echo;echo $EXE
+
+$EXE
+

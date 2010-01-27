@@ -1,0 +1,10 @@
+#!/bin/sh
+
+export BENCHMARK_NODE=$1
+
+make micaz sim
+if [ $? != "0" ]; then
+	exit;
+fi
+
+python < sim.py

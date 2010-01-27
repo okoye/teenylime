@@ -1,0 +1,11 @@
+--- CC2420.h.old	2007-12-04 13:41:09.000000000 +0100
++++ CC2420.h	2007-12-02 20:32:41.000000000 +0100
+@@ -78,7 +78,7 @@
+   nx_uint16_t rxInterval;
+ 
+   /** Packet Link Metadata */
+-#ifdef PACKET_LINK
++#if defined(PACKET_LINK) || defined(TL_PACKET_LINK)
+   nx_uint16_t maxRetries;
+   nx_uint16_t retryDelay;
+ #endif

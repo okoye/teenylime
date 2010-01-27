@@ -1,0 +1,44 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-myrianed/tl/make
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2007-10-31T19:38:56.268219Z
+172
+bronwasser
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+preprocessor
+dir
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:25:50.000000Z
+79aef0e5d7d320992f44216cd379ab2a
+2007-10-28T13:44:21.404456Z
+164
+bronwasser
+has-props
+

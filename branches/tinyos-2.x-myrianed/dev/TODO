@@ -1,0 +1,23 @@
+- MessageQueue: introduce random waiting times, get rid of scattering based on node ids
+- Watch out in TupleSpace.h_compareRangeLowUpOutFields() and TupleSpace.h_compareRangeLowUpFields():
+  template index is applied on actual tuple.
+- Bug in addTuple(): logicalTime should be set after copying the tuple. (only in free tuple bitmap version)
+- check   if (!isCapabilityTuple(*result)) { break;	} in findTuple(). bug?
+- implement nice time out mechanism for unrel pending operations. Check DTL, operationTimer.fired().
+- Bug in LTL: local reactions are not correctly removed from the linked list.
+- Start count down of unreliable pending operations after message has actually been
+  sent over the radio. We need to link low level 'sentDone' events at the MAC layer
+  to the start of a time out period. When sendDone is signaled, we start counting down.
+
+tos2:
+- When setNeighborTuple() fails (malloc fails), the current neighbor tuple might
+  become NULL. TeenyLime has to be able to function in the absence of a neighbor
+  tuple.
+
+- Hitting a capability tuple installs a reaction. We have to put a time out on this reaction in
+  case something goes wrong and the reaction is not triggered.
+- Check unnecessary msg dereferencing in MessageQueue.sendPendingMsg(); save a lot of time!
+- tosMsg in MessageQueue is probably not necessary. Turn into a pointer and save lots of memory!
+- Get rid of unnecessary copying in removeReliability() and addReliability()
+  This can probably be solved by correctly implementing ReliableReceive.getPayload() and ReliableReceive.payloadLength().
+

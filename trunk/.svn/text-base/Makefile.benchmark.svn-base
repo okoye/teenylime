@@ -1,0 +1,16 @@
+WORKING_DIR = .
+COMPONENT = $(WORKING_DIR)/apps/benchmark/Benchmark
+PFLAGS += -I$(WORKING_DIR)/apps/benchmark
+ifneq ($(findstring telosb,$(MAKECMDGOALS)),)
+	PFLAGS += -Dtelosb
+endif
+ifneq ($(findstring pc,$(MAKECMDGOALS)),)
+	PFLAGS += -Dpc
+endif
+ifneq ($(findstring mica2,$(MAKECMDGOALS)),)
+	PFLAGS += -Dmica2
+endif
+MSG_SIZE = 100
+include $(TOSROOT)/tools/make/Makerules
+
+

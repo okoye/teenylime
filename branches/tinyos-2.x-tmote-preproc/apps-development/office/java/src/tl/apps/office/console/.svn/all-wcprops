@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console
+END
+TaskerMagnetic.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerMagnetic.java
+END
+ConsoleScenarioOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/ConsoleScenarioOffice.java
+END
+TaskerAcceleration.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerAcceleration.java
+END
+TaskerHumidity.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerHumidity.java
+END
+TaskerTemperature.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerTemperature.java
+END
+TaskerSynthLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerSynthLight.java
+END
+TaskerTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerTree.java
+END
+TaskerCO.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerCO.java
+END
+TaskerMicrophone.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerMicrophone.java
+END
+TaskerPresence.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerPresence.java
+END
+TaskerSolarLight.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerSolarLight.java
+END
+TaskerPressure.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerPressure.java
+END
+TaskerTilt.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerTilt.java
+END
+TaskerDust.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerDust.java
+END
+TaskerBuzzer.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerBuzzer.java
+END
+TaskerCO2.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/console/TaskerCO2.java
+END

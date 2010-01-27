@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote/apps/tower/sinkNode/config
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2008-03-04T10:36:37.378218Z
+306
+lmottola
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+TMoteStackConf.h
+file
+
+
+
+
+2010-01-27T03:25:58.000000Z
+674b9fb133b83c43661f5c3ee0df11f2
+2008-03-04T10:36:11.524426Z
+305
+lmottola
+has-props
+
+TLConf.h
+file
+
+
+
+
+2010-01-27T03:25:58.000000Z
+f67871d16397087f399456b2a90144f0
+2008-03-04T10:36:37.378218Z
+306
+lmottola
+has-props
+

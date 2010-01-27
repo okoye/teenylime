@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/332/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java
+END
+mysql.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/mysql.jar
+END
+LogMySqlManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/262/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/LogMySqlManager.java
+END
+LogReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/262/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/LogReader.java
+END
+TupleManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/TupleManager.java
+END
+LogSapDBManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/262/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/LogSapDBManager.java
+END
+TupleLogFileManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/299/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/TupleLogFileManager.java
+END
+sapdbc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/sapdbc.jar
+END
+DataRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/DataRecord.java
+END
+NodeStatus.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/299/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/NodeStatus.java
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/PrintfMsg.java
+END
+TupleSerial.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/299/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/TupleSerial.java
+END
+NodeLogStatus.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/262/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/NodeLogStatus.java
+END
+LogManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/253/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/LogManager.java
+END
+Properties.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/299/branches/tinyos-2.x-tmote/apps/tower/sinkNode/java/Properties.java
+END

@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/665/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl
+END
+optlist.c
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/optlist.c
+END
+huflocal.h
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/huflocal.h
+END
+optlist.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/optlist.h
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/README
+END
+bitarray.c
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/bitarray.c
+END
+bitfile.c
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/bitfile.c
+END
+sample.c
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/sample.c
+END
+bitarray.h
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/bitarray.h
+END
+bitfile.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/bitfile.h
+END
+COPYING.LESSER
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/COPYING.LESSER
+END
+huffman.c
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/huffman.c
+END
+chuffman.c
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/chuffman.c
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/COPYING
+END
+huffman.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/huffman.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/Makefile
+END
+huflocal.c
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/611/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/vibrationTools/huffmanCompressionCImpl/huflocal.c
+END

@@ -1,0 +1,4 @@
+all:
+	make micaz sim
+	g++ -g -c -o basic_sim.o basic_sim.cpp -I$(TOSDIR)/lib/tossim
+	g++ -o basic_sim basic_sim.o build/micaz/tossim.o build/micaz/sim.o build/micaz/c-support.o

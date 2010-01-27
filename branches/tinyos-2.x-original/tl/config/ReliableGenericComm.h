@@ -1,0 +1,67 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME 
+ * * VERSION
+ * *    $LastChangedRevision:30 $
+ * * DATE
+ * *    $LastChangedDate:2007-05-07 16:27:21 +0200 (Mon, 07 May 2007) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy:bronwasser $
+ * *
+ * *	$Id:ReliableGenericComm.h 30 2007-05-07 14:27:21Z bronwasser $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for 
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#ifndef RELGC_H
+#define RELGC_H
+
+//#ifdef mica2
+//#define UINT32_MAX 0xFFFFFFFF
+//#endif
+
+// The timeout for sending out beacons in the absence of app traffic
+#define BEACON_TIMEOUT 4096 // FIXME: Check with higher values
+// The size of the buffer of non-acknowledged messages
+#define BUFFER_SIZE 2
+// The timer governing the retranmission of messages
+#define UPDATE 2048 
+// How many UPDATEs must elapse before considering a neighbor lost 
+#define NEIGHBOR_UPDATE_LOST 4
+// Max number of neighbors handled
+
+#ifdef CONFIG_A
+  #define MAX_NEIGHBORS 4
+#endif
+
+#ifdef CONFIG_B
+  #define MAX_NEIGHBORS 15
+#endif
+
+#ifdef CONFIG_C
+  #define MAX_NEIGHBORS 25
+#endif
+
+
+// NULL ids
+#define NULL_MSG_ID 0 
+#define NULL_NEIGHBOR_ID TOS_BCAST_ADDR
+
+#endif

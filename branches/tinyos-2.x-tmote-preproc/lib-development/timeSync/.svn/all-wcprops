@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/992/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync
+END
+FakeTimeSyncP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/FakeTimeSyncP.nc
+END
+TimeSyncP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/TimeSyncP.nc
+END
+TimeSyncC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/TimeSyncC.nc
+END
+GlobalTime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/992/branches/tinyos-2.x-tmote-preproc/lib-development/timeSync/GlobalTime.nc
+END

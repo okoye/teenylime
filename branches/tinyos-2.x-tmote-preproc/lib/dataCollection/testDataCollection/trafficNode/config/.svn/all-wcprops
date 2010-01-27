@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/teenylime/!svn/ver/838/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/trafficNode/config/TLConf.h
+END

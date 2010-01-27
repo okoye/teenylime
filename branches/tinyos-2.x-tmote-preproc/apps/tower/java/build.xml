@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="TowerJava">
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.5" />
+	<property name="source" value="1.5" />
+	<property name="tinyos-jar" value="${env.TOSROOT}/support/sdk/java/tinyos.jar" />
+	<property name="TL_ROOT" value="../../../tl" />
+	<property name="TL_LIB" value="${TL_ROOT}/../lib" />
+	<property name="common" value="${TL_LIB}/java" />
+	<property name="dataCollection" value="${TL_LIB}/dataCollection/java" />
+	<property name="jcommon-jar" value="${TL_LIB}/dataCollection/java/lib/jcommon.jar" />
+	<property name="jfreechart-jar" value="${TL_LIB}/dataCollection/java/lib/jfreechart.jar" />
+	<property name="jsch-jar" value="./lib/jsch.jar" />
+	<property name="jcal-jar" value="./lib/jcalendar-1.3.3.jar" />
+	<property name="dataDissemination" value="${TL_LIB}/dataDissemination/java" />
+	<property name="SINK_ROOT" value="../sinkNode" />
+	<property name="TOWER_ROOT" value=".." />
+	<path id="TowerJava.classpath">
+		<pathelement location="bin" />
+		<pathelement location="${tinyos-jar}" />
+		<pathelement location="${jcommon-jar}" />
+		<pathelement location="${jfreechart-jar}" />
+	  <pathelement location="${jsch-jar}" />
+    <pathelement location="${jcal-jar}" />
+	</path>
+	<target name="init">
+	  <copy includeemptydirs="false" todir="src">
+	    <fileset dir="${common}/src" />
+	  </copy>
+	  <copy includeemptydirs="false" todir="src">
+			<fileset dir="${dataCollection}/src" />
+	  </copy>		
+    <copy includeemptydirs="false" todir="src">	    
+      <fileset dir="${dataDissemination}/src" />
+	  </copy>
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src" excludes="**/*.launch, **/*.java" />
+		</copy>
+	</target>
+	<target name="clean">
+		<delete dir="bin" />
+		<delete file="src/tl/apps/tower/Constants.java" />
+    <delete dir="src/tl/lib" />
+    <delete dir="src/tl/common" />
+	</target>
+	<target depends="clean" name="cleanall" />
+	<target depends="build-subprojects,build-project" name="build" />
+	<target name="build-subprojects" />
+	<target depends="init" name="mig-tool">
+		<echo message="MIG TupleSerialMsg" />
+		<exec executable="mig" spawn="no">
+			<arg value="java" />
+			<arg value="-I${SINK_ROOT}/config" />
+			<arg value="-I${TL_ROOT}/system" />
+			<arg value="-I${SINK_ROOT}" />
+			<arg value="-I${TOWER_ROOT}" />
+			<arg value="-target=null" />
+			<arg value="-java-classname=tl.common.types.TupleSerialMsg" />
+			<arg value="${SINK_ROOT}/gateway/TupleSerialMsg.h" />
+			<arg value="tuple_serial_msg" />
+			<arg line="-o src/tl/common/types/TupleSerialMsg.java" />
+		</exec>
+    <echo message="MIG TupleMsgHeader" />
+		<exec executable="mig" spawn="no">
+			<arg value="java" />
+			<arg value="-target=null" />
+			<arg value="-java-classname=tl.common.serial.TupleMsgHeader" />
+			<arg value="${TL_ROOT}/system/tmote/TupleMsgHeader.h" />
+			<arg value="TL_header" />
+			<arg line="-o src/tl/common/serial/TupleMsgHeader.java" />
+		</exec>
+	</target>
+	<target depends="init" name="ncg-tool">
+		<echo message="NCG Constants" />
+		<exec executable="ncg" spawn="no">
+			<arg value="java" />
+			<arg value="-target=null" />
+			<arg value="-java-classname=tl.apps.tower.Constants" />
+			<arg value="${TOWER_ROOT}/Constants.h" />
+			<arg line="TEMP_HUM_LIGHT_TYPE \
+				TEMP_LIGHT_TYPE \
+				DT_TYPE \
+				VIBRATION_TYPE \
+				NODE_INFO_TYPE \
+        		MSG_TYPE \
+				TASK_TYPE \
+				DISSEMINATION_TYPE \
+				DATA_COLLECT_CTRL_TYPE \
+				TEMP_HUM_LIGHT_END_SESSION \
+				TEMP_LIGHT_END_SESSION \
+				DT_END_SESSION \
+				VIBRATION_END_SESSION \
+				BUILD_A_NEW_TREE \
+				DISSEMINATE_A_NEW_TUPLE \
+				VIBRATION_TASK \
+			    TL_TASK \
+			    THL_TASK \
+			    DT_TASK \
+				X_AXIS \
+				Y_AXIS \
+				Z_AXIS \
+				MINUTE \
+				INFINITE_OP_TIME \
+        SYNCHRONIZATION_TYPE" />
+			<arg line="-o src/tl/apps/tower/Constants.java" />
+		</exec>
+    <echo message="NCG HeaderConstants" />
+		<exec executable="ncg" spawn="no">
+			<arg value="java" />
+			<arg value="-target=null" />
+			<arg value="-java-classname=tl.common.serial.HeaderConstants" />
+			<arg value="${TL_ROOT}/system/tmote/TupleMsgHeader.h" />
+			<arg line="CTRL_RESET" />
+			<arg line="-o src/tl/common/serial/HeaderConstants.java" />
+		</exec>
+	</target>
+	<target depends="init" name="serializer-builder">
+		<echo message="JAVAC SerialiazierBuilder" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin/" source="${source}" target="${target}">
+			<src path="src/tl/common/utils/" />
+			<include name="SerializerBuilder.java" />
+		</javac>
+	</target>
+	<target depends="serializer-builder" name="serializer">
+		<echo message="SERIALIZERBUILDER Serializer" />
+		<exec executable="java" spawn="no">
+			<arg line="-classpath bin" />
+			<arg value="tl.common.utils.SerializerBuilder" />
+			<arg value="${TOWER_ROOT}/tl_objs" />
+			<arg value="src/tl/common/utils/Serializer.java" />
+		</exec>
+	</target>
+	<target depends="init,mig-tool,ncg-tool,serializer" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+			<src path="src" />
+			<classpath refid="TowerJava.classpath" />
+		</javac>
+		<jar destfile="tl.jar" basedir="bin">
+			<zipfileset src="${tinyos-jar}" excludes="META-INF/*" />
+			<zipfileset src="${jcommon-jar}" excludes="META-INF/*" />
+			<zipfileset src="${jfreechart-jar}" excludes="META-INF/*" />
+			<zipfileset src="${jsch-jar}" excludes="META-INF/*" />
+			<zipfileset src="${jcal-jar}" excludes="META-INF/*" />
+			<manifest>
+				<attribute name="Main-Class" value="tl.apps.tower.Launcher" />
+			</manifest>
+		</jar>
+	</target>
+</project>

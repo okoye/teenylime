@@ -1,0 +1,7 @@
+PFLAGS += $(foreach goal,$(MAKECMDGOALS), -D$(goal))
+PFLAGS += -DMICAZ_TOSSIM
+PFLAGS += -I$(TL_DIR)
+PFLAGS += -I$(TL_DIR)/config
+PFLAGS += -I$(TL_DIR)/interfaces
+PFLAGS += -I$(TL_DIR)/system
+PFLAGS += -I$(TL_DIR)/system/micaz-tossim

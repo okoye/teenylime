@@ -1,0 +1,133 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+Component library
+=====================================================
+
+This directory contains a number of service components that can be
+used to build applications using the TeenyLIME Middleware. At present,
+the library consists of 4 modules:
+
+dataCollection:
+
+Implements a reliable, tree-based routing protocol for single sink
+scenarios. Components willing to relay tuples to the sink simply
+output their data locally using a pre-specified tuple
+format. Forwarding occurs through a series of reactions and remote out
+operations to pull tuples from the local tuple space and forward them
+to the parent node in the tree. Reliability is achieved using a
+hop-by-hop recovery mechanism to pull tuples stored in a local cache
+by children nodes. The protocol also takes care of controlling the
+data rates so as not to congest the network when some links turned out
+to be unreliable.
+
+dataDissemination:
+
+Implements a reliable data dissemination protocol based on
+Trickle-like recovery mechanisms to guarantee eventual consistency.
+Dissemination starts by locally outputting tuples of a specific
+format.
+
+systemMonitor:
+
+Complements the dataCollection module by providing automatic, periodic
+generation of node statistics regarding the current battery level,
+current parent in the tree, and accumulated link quality on the path
+to the sink. The data are forwarded to the sink using the
+dataCollection module.
+
+timeSync
+
+Provides a lightweight time synchronization service that is
+independent of the hardware platform, as it runs entirely atop
+TeenyLIME. Nonetheless, it provides maximum drifts between 4ms, which
+are sufficient for most applications.
+
+How to use the library
+===================================================== 
+
+To use each module, you must make sure to include the right paths in
+the Makefile of your application:
+
+- first set the LIB_DIR path in your application Makefile
+
+ex: (3rd line) we assume that the working directory is app/ApplicationName/NodeType
+WORKING_DIR = .
+TL_DIR = ../../../tl
+LIB_DIR = ../../../lib
+
+after including TeenyLIME in the build path and setting the MSG_SIZE
+directive required by TinyOS, add the following for each desired
+module. Pay attention that the systemMonitor is not a stand alone
+module, it needs to be used along with the dataCollection module:
+
+//dataCollection:
+PFLAGS += -I$(LIB_DIR)/dataCollection
+//dataDissemination
+PFLAGS += -I$(LIB_DIR)/dataDissemination
+//systemMonitor
+PFLAGS += -I$(LIB_DIR)/systemMonitor
+//timeSync
+PFLAGS += -I$(LIB_DIR)/timeSync
+
+To configure the functioning of the above modules, make sure to have
+the following DEFINE somewhere in your compilation path of you
+application (for example, in a Configuration.h file). The values here
+are only for reference, they can be modified and tuned to better
+adjust to the application needs:
+
+/* dataDissemination configuration */
+
+// The length of the queue of the dissemination requests at the sink
+#define DISS_SINK_QUEUE_LEN 3
+
+// The time before the dissemination of a tuple at the sink (in ms)
+#define TUPLE_DISSEMINATION_WAIT_TIME 1000
+
+// The size (in bytes) of the payload of the tuples disseminated
+#define TUPLE_DISS_PAYLOAD_SIZE 24
+
+
+/* dataCollection configuration */
+
+// The period at which the tree is built (in minutes), used only in the case
+// of a sink node which actively builds the tree.
+#define TREE_REBUILDING_PERIOD 15
+
+// The size (in bytes) of the payload of the tuples collected along the tree
+#define TUPLE_MSG_PAYLOAD_SIZE 24
+
+// The cost of an unreliable path to the root of the collecting tree
+#define UNRELIABLE_PATH 0xFFFF
+
+// The delay before reconsidering the parent after a transmission
+// failure (in ms). The actual delay is in the range [UNRELREC_DELAY/2,
+// UNRELREC_DELAY] on the node where the transmission failure happened; 
+// [UNRELREC_DELAY + UNRELREC_DELAY/2, 2*UNRELREC_DELAY] on the other 
+// nodes in the subtree.
+#define UNRELREC_DELAY 1000
+
+// Evaluation of the cost of a single hop in the routing tree.
+// The cost is 1 when the LQI value is greater than MAX_ROUTING_LQI; 
+// every ROUTING_COST_UNIT, an increment of 1 is added to the cost of the link; 
+// when the LQI value is smaller than MIN_RELIABLE_LINK_LQI, the cost 
+// equals UNRELIABLE_LINK.
+#define MAX_ROUTING_LQI 110
+#define ROUTING_COST_UNIT 5
+#define MIN_RELIABLE_LINK_LQI 90
+#define UNRELIABLE_LINK 40
+
+// The delay (in ms) before forwarding messages to both build the tree and
+// notify unreliable paths. The actual value is in the interval 
+// [MIN_FW_BACKOFF, MAX_FW_BACKOFF]
+#define MIN_FW_BACKOFF 100
+#define MAX_FW_BACKOFF 300
+
+// The size of the cache (in number of tuples) at each node used to
+// recover tuples lost
+#define CACHE_SIZE 10
+
+// The number of children that sent data whose information are kept in
+// history
+#define CHILDREN_HISTORY_SIZE MAX_NEIGHBORS
+

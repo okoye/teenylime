@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/246/branches/tinyos-2.x-tmote/tl/interfaces
+END
+LocalTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/246/branches/tinyos-2.x-tmote/tl/interfaces/LocalTupleSpace.nc
+END
+TeenyLIMESystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/112/branches/tinyos-2.x-tmote/tl/interfaces/TeenyLIMESystem.nc
+END
+BridgeTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/246/branches/tinyos-2.x-tmote/tl/interfaces/BridgeTupleSpace.nc
+END
+NeighborSystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/193/branches/tinyos-2.x-tmote/tl/interfaces/NeighborSystem.nc
+END
+SendTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/230/branches/tinyos-2.x-tmote/tl/interfaces/SendTuple.nc
+END
+TupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/230/branches/tinyos-2.x-tmote/tl/interfaces/TupleSpace.nc
+END
+TLDebug.nc
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/192/branches/tinyos-2.x-tmote/tl/interfaces/TLDebug.nc
+END
+DistributedTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/teenylime/!svn/ver/246/branches/tinyos-2.x-tmote/tl/interfaces/DistributedTupleSpace.nc
+END
+ReliableSend.nc
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/230/branches/tinyos-2.x-tmote/tl/interfaces/ReliableSend.nc
+END
+ReceiveTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/199/branches/tinyos-2.x-tmote/tl/interfaces/ReceiveTuple.nc
+END

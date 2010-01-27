@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking
+END
+Tracking.nc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/Tracking.nc
+END
+MagnetoMeterStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/MagnetoMeterStub.nc
+END
+GPSStub.nc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/GPSStub.nc
+END
+MagnetoMeter.nc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/MagnetoMeter.nc
+END
+Routing.nc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/Routing.nc
+END
+Localization.nc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/Localization.nc
+END
+GPS.nc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/GPS.nc
+END
+ObjectTracking.nc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/teenylime/!svn/ver/5/trunk/apps/objectTracking/ObjectTracking.nc
+END

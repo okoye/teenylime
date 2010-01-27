@@ -1,0 +1,18 @@
+Welcome!
+
+
+Example apps are present in directory "apps".
+TeenyLime can be configured through the files in tl/config/.
+
+In tl/config/, TLConf.h is the main configuration file, together with
+TupleDefs.h. The latter is used to define the tuple formats that an application uses.
+This file is processed by the TeenyLime preprocessor.
+
+prerequisites for compilation:
+
+nesc (>1.2.8)
+tinyos 2
+gcc compiler for the target node.
+python (for TeenyLime preprocessing)
+
+

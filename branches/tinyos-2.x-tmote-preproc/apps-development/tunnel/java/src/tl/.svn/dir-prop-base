@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 47
+TL_*
+build
+TLObjectsParsed*
+tl_obj*
+common
+lib
+
+END

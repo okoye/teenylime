@@ -1,0 +1,6 @@
+COMPONENT=SimTeenyLime
+DOCDIR=doc
+MSG_SIZE=119
+PFLAGS += -D$(MAKECMDGOALS)
+include $(TOSROOT)/apps/Makerules
+

@@ -1,0 +1,13 @@
+- Test multiple reactions
+- Test distributed ing and rdg
+- Test capability tuples
+- Test TeenyLIME system
+- Test multiple components on a node
+- Test range matching
+- Test expiration timers
+- Account for NULL operationId
+- Change how pending ops are handled w.r.t. dequence of distributed ops
+
+TOS2:
+- Possibly turn modules that use timers into generic modules 
+  to support multiple timer precisions

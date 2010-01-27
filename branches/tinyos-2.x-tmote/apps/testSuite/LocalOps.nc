@@ -1,0 +1,185 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 290 $
+ * * DATE
+ * *    $LastChangedDate: 2008-02-19 05:34:07 -0600 (Tue, 19 Feb 2008) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: lmottola $
+ * *
+ * *	$Id: LocalOps.nc 290 2008-02-19 11:34:07Z lmottola $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#ifdef PRINTF_SUPPORT
+#include "printf.h"
+#endif
+
+#include "Constants.h"
+#include "TupleSpace.h"
+
+/**
+ * Test for local out, rd, in and reaction operations. Under correct
+ * execution, the leds will blink alternatively.
+ *
+ * @author Luca Mottola
+ *         <a href="mailto:mottola@elet.polimi.it">mottola@elet.polimi.it</a>
+ *
+ */
+
+#define TIMER 3000
+
+module LocalOps {
+
+  uses {
+    interface Boot;
+
+    interface Timer<TMilli> as TimerApp;
+
+    interface TupleSpace as TS;
+    interface TeenyLIMESystem;
+
+    interface AMPacket;
+
+    interface Random;
+
+    interface Leds;
+#ifdef PRINTF_SUPPORT
+    interface SplitControl as PrintfControl;
+    interface PrintfFlush;
+#endif
+  }
+}
+
+implementation {
+
+  uint8_t op = 0;
+  tuple neighborTuple;
+  TLOpId_t reactionId, inId, outId, rdId;
+
+  event void Boot.booted() {
+    
+    tuple p = newTuple(2, 
+		       formalField(TYPE_UINT8_T), 
+		       formalField(TYPE_UINT16_T));
+    neighborTuple = newTuple(1, actualField_uint16(call AMPacket.address()));
+    call TS.addReaction(&reactionId, FALSE, TL_LOCAL, &p);
+    call TimerApp.startPeriodic(TIMER);
+
+#ifdef PRINTF_SUPPORT
+    call PrintfControl.start();
+#endif
+  }
+
+  event void Timer1.fired() {
+
+    tuple p = newTuple(2, 
+		       formalField(TYPE_UINT8_T), 
+		       formalField(TYPE_UINT16_T));
+    tuple t = newTuple(2, 
+		       actualField_uint8(FAKE_DATA), 
+		       actualField_uint16(FAKE_DATA));
+    
+    if (op % 3 == 0) {  
+      call TS.out(&outId, FALSE, TL_LOCAL, &t);
+    } else if (op % 3 == 1) {
+      call TS.rd(&rdId, FALSE, TL_LOCAL, &p);
+    } else {
+      call TS.in(&inId, FALSE, TL_LOCAL, &p);
+    }
+  }
+
+  event void TS.tupleReady(TLOpId_t operationId, 
+			       tuple *tuples, 
+			       uint8_t number) {
+
+    if (opIdCmp(&operationId, &reactionId)
+	&& number == 1
+	&& tuples[0].fields[0].value.int8 == FAKE_DATA
+	&& tuples[0].fields[1].value.int16 == FAKE_DATA) {      
+      call Leds.led0Toggle();
+    }
+    
+    if (opIdCmp(&operationId, &rdId)
+	&& number == 1
+	&& tuples[0].fields[0].value.int8 == FAKE_DATA
+	&& tuples[0].fields[1].value.int16 == FAKE_DATA) {
+      call Leds.led1Toggle();
+    }
+
+    if (opIdCmp(&operationId, &inId)
+	&& number == 1
+	&& tuples[0].fields[0].value.int8 == FAKE_DATA
+	&& tuples[0].fields[1].value.int16 == FAKE_DATA) {
+      call Leds.led2Toggle();
+    }
+    
+#ifdef PRINTF_SUPPORT
+    if (op % 3 == 0) {  
+      printf ("React: ");
+    } else if (op % 3 == 1) {
+      printf ("Rd: ");
+    } else {
+      printf ("In: ");
+    }
+
+    if (number == 0) {
+      printf ("no tuples\n");
+      call PrintfFlush.flush();
+    } else if (number == 1) {
+      printf ("tuple: %u  %u\n",
+	      tuples[0].fields[0].value.int8, 
+	      tuples[0].fields[1].value.int16);
+      call PrintfFlush.flush();
+    } else {
+      printf ("multiple returned!\n");
+      call PrintfFlush.flush();
+    }
+#endif
+    op++;
+  }
+
+  event tuple* TeenyLIMESystem.reifyNeighborTuple() {
+    return &neighborTuple;
+  }
+
+  event void TS.reifyCapabilityTuple(tuple* ct) {
+  }
+
+  event void TS.tupleSpaceError(uint8_t errCode, 
+				TLOpId_t operationId, 
+				TLTarget_t target,  
+				tuple* failedTuple) {
+  }
+
+#ifdef PRINTF_SUPPORT
+  event void PrintfControl.startDone(error_t error) {
+  }
+
+  event void PrintfControl.stopDone(error_t error) {
+  }
+
+  event void PrintfFlush.flushDone(error_t error) {
+  }
+#endif 
+}
+

@@ -1,0 +1,54 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/java/lib
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-04-20T09:17:01.198540Z
+776
+mceriotti
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+jfreechart.jar
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+3cf403ee4533f87116e3968e65266cd1
+2009-04-20T09:17:01.198540Z
+776
+mceriotti
+has-props
+
+jcommon.jar
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+b5cb46b0c7c23d276b7526150051bf3e
+2009-04-20T09:17:01.198540Z
+776
+mceriotti
+has-props
+

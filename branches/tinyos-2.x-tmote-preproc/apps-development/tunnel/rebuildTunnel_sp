@@ -1,0 +1,12 @@
+#!/bin/sh
+cd sinkNodeSP && \
+make clean && make tmote && \
+cd ../ltNode && \
+make tmote && \
+cd ../sinkNodeSP && \
+make tmote && \
+cd ../java && \
+ant clean && ant -f build_sp.xml && \
+cd ../ltNode && \
+make tmote && \
+cd ..

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/993/branches/tinyos-2.x-tmote-preproc/apps/tunnel/sinkNode/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/679/branches/tinyos-2.x-tmote-preproc/apps/tunnel/sinkNode/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/apps/tunnel/sinkNode/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/teenylime/!svn/ver/885/branches/tinyos-2.x-tmote-preproc/apps/tunnel/sinkNode/config/TLConf.h
+END

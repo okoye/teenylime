@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/posture
+END
+PostureDetectionP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/posture/PostureDetectionP.nc
+END
+PostureDetectionC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/posture/PostureDetectionC.nc
+END
+PostureDetection.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/posture/PostureDetection.h
+END

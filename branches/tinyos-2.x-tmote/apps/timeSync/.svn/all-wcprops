@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync
+END
+TimeSyncStructure.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync/TimeSyncStructure.h
+END
+TimeSyncP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync/TimeSyncP.nc
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync/README.txt
+END
+TimeSyncC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync/TimeSyncC.nc
+END
+GlobalTime.nc
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/319/branches/tinyos-2.x-tmote/apps/timeSync/GlobalTime.nc
+END

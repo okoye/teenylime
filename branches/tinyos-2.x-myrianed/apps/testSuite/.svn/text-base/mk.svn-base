@@ -1,0 +1,16 @@
+#!/bin/sh
+
+PLATFORM=mica2
+
+export BENCHMARK_NODE=$1
+make $PLATFORM
+
+if [ $? != "0" ]; then
+	exit;
+fi
+
+#head -55 out.tmp
+#rm out.tmp
+
+
+exit $EXIT_ST

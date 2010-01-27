@@ -1,0 +1,103 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-15T15:31:19.840687Z
+1025
+mceriotti
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+tl
+dir
+
+backyard
+dir
+
+LICENSE
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+751419260aa954499f7abaabaa882bbe
+2009-06-03T13:23:36.927797Z
+856
+sguna
+
+apps
+dir
+
+apps-development
+dir
+
+lib
+dir
+
+lib-development
+dir
+
+INSTALL
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+fa318f47b055d05489736d02ce66a911
+2009-06-18T14:33:33.103595Z
+867
+lmottola
+has-props
+
+patches
+dir
+
+tl-parser
+dir
+
+README.3tec
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+0e06bff903dc0fa28091afbfd1228f41
+2009-02-28T10:37:20.819085Z
+734
+lmottola
+has-props
+
+README
+file
+
+
+
+
+2010-01-27T03:26:46.000000Z
+4c09a8bb1f473422c0ba6e519813ceab
+2009-06-19T09:12:00.098465Z
+869
+lmottola
+has-props
+

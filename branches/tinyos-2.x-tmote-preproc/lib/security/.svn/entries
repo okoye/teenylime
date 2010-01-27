@@ -1,0 +1,43 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/security
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-09-07T17:03:39.154737Z
+894
+sguna
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+Makerules
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+c9301d1d683b8a807f8e535740b06e27
+2009-09-07T17:03:39.154737Z
+894
+sguna
+
+dummy
+dir
+

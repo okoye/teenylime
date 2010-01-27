@@ -1,0 +1,52 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/lib/security/dummy
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-09-07T17:03:39.154737Z
+894
+sguna
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+AMReconfSecureC.nc
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+c7f2c134ebc6d1f6624f8d459838f55f
+2009-09-07T17:03:39.154737Z
+894
+sguna
+
+AMSecureC.nc
+file
+
+
+
+
+2010-01-27T03:26:39.000000Z
+5c397cc3352dead055a6833149e00a1e
+2009-09-07T17:03:39.154737Z
+894
+sguna
+

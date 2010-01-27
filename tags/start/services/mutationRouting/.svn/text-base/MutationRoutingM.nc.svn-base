@@ -1,0 +1,283 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME 
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for 
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+includes TupleSpace;
+
+/**
+ * A component implementing the mutation routing protocol.
+ * 
+ * @author Luca Mottola 
+ *         <a href="mailto:mottola@elet.polimi.it">mottola@elet.polimi.it</a>
+ * 
+ */
+
+module MutationRoutingM {
+
+  uses {
+    interface TupleSpace as TS;
+    interface TeenyLIMESystem;
+    interface Timer as TimeOut;
+    interface Timer as LocalTime;
+    interface MutualExclusion;
+  }
+
+  provides {
+    interface StdControl;
+    interface MutationRouting;
+  }
+}
+
+implementation {
+
+  TLOpId_t messageReceived;
+  TLTarget_t childId;
+  tuple myDeviceTuple;  
+  uint32_t seqNum, localTime;
+  int8_t myCost;
+  bool onRoute, recruiting;
+  bool sourceLeader, receiverLeader; 
+
+  struct seenMessage_t {
+    TLTarget_t deviceId;
+    uint32_t seqNum;
+    uint32_t localTime;
+  };
+  struct seenMessage_t seenMessages[MAX_SEEN_MSG];
+  uint8_t seenMessagesNum;
+
+  bool isSeen(uint16_t originatorId, uint32_t msgSeqNum) {
+
+    uint8_t i, minI, minLocalTime;
+
+    for (i=0; i<seenMessagesNum; i++) {
+      if (seenMessages[i].deviceId == originatorId
+          && seenMessages[i].seqNum == msgSeqNum) {
+        // Already seen message  
+        return TRUE;  
+      }  
+    }
+
+    // Never seen message, finding a spot
+    if (seenMessagesNum < MAX_SEEN_MSG) {
+      seenMessages[seenMessagesNum].deviceId = originatorId;
+      seenMessages[seenMessagesNum].seqNum = msgSeqNum;
+      seenMessages[seenMessagesNum].localTime = localTime; 
+      seenMessagesNum++;
+    } else {
+      // Looking for the most outdated entry...
+      minLocalTime = seenMessages[0].localTime;
+      minI = 0;
+      for (i=0; i<seenMessagesNum; i++) {
+        if(seenMessages[i].localTime < minLocalTime) {
+          minI = i;
+        }
+      } 
+      seenMessages[minI].deviceId = originatorId;
+      seenMessages[minI].seqNum = msgSeqNum;
+      seenMessages[minI].localTime = localTime;       
+    }
+
+    return FALSE;
+  }
+
+  command result_t StdControl.init() {
+
+    seenMessagesNum = 0;
+    onRoute = FALSE;
+    recruiting = TRUE;
+    childId = TOS_LOCAL_ADDRESS;
+    seqNum = 0;
+    localTime = 0;
+    myCost = 0;
+    sourceLeader = FALSE;
+    receiverLeader = FALSE;
+    return SUCCESS;
+  }
+  
+  command result_t StdControl.start() {
+
+    // Local reaction to receive messages
+    tuple msgReaction = newTuple(6, 
+				 formalField(TYPE_UINT16_T), 
+				 formalField(TYPE_UINT16_T), 
+				 formalField(TYPE_UINT32_T), 
+				 formalField(TYPE_UINT8_T), 
+				 formalField(TYPE_UINT8_T), 
+				 formalField(TYPE_CHAR));
+    messageReceived = call TS.addReaction(FALSE, TL_LOCAL, &msgReaction);
+    call LocalTime.start(TIMER_REPEAT, TIMEOUT);
+    return SUCCESS;
+  }
+
+  command result_t StdControl.stop() {
+    return SUCCESS;
+  }
+
+  // For illustration purposes, the payload is represented by a single character
+  command result_t MutationRouting.sendMsg(char c) {
+
+    // TODO: implement bool field
+    tuple msg = newTuple(6, 
+			 actualField_uint16(TOS_LOCAL_ADDRESS), 
+			 actualField_uint16(TOS_LOCAL_ADDRESS), 
+			 actualField_uint32(seqNum), 
+			 actualField_uint8(0), 
+			 actualField_uint8(0),  
+			 actualField_char(c));
+    seqNum++;
+    call TS.out(FALSE, TL_NEIGHBORHOOD, &msg);
+    return SUCCESS;
+  }
+
+  command result_t MutationRouting.leaderRequest(targets_t d) {
+    return call MutualExclusion.startRequestCriticalRegion(d);
+  }
+
+  command result_t MutationRouting.leaderReleased(targets_t d) {
+
+    if (d == SOURCE) {
+      sourceLeader = FALSE;  
+    } else {
+      receiverLeader = FALSE;
+    }        
+
+    // This device is on the route
+    onRoute = TRUE;
+    recruiting = FALSE;
+    call TimeOut.start(TIMER_ONE_SHOT, TIMEOUT);
+    return call MutualExclusion.releaseCriticalRegion(d);
+  }
+
+  event result_t MutualExclusion.criticalRegionAquired(uint8_t regionId) {
+    if (regionId == SOURCE) {
+      sourceLeader = TRUE;  
+    } else {
+      receiverLeader = TRUE;
+    }
+  }
+  
+  event result_t MutualExclusion.lostCriticalRegion(uint8_t regionId) {
+    return call MutualExclusion.stopRequestCriticalRegion(regionId);  
+  }
+
+  event result_t TS.reifyCapabilityTuple(tuple* ct) {
+    return SUCCESS;
+  }
+
+  event result_t TS.tupleReady(TLOpId_t operationId, 
+			       tuple *tuples, uint8_t number) {
+  
+    if (onRoute 
+        && operationId.commandId == messageReceived.commandId
+        && isSeen(tuples[0].fields[0].value.int16, 
+	           tuples[0].fields[2].value.int16)) {
+      if (myCost - tuples[0].fields[3].value.int8 > 1) {
+
+        // Shortcut
+        childId = tuples[0].fields[0].value.int16;
+      }
+      // Forwarding
+      tuples[0].fields[0].value.int16 = TOS_LOCAL_ADDRESS;
+      tuples[0].fields[1].value.int16 = childId;
+      tuples[0].fields[3].value.int8++;
+      myCost = tuples[0].fields[3].value.int8;
+      
+      if (receiverLeader) {
+        // Delivering the message
+        signal MutationRouting.deliverMsg(tuples[0].fields[3].value.c);
+        // The receiver leader indicates not to forward this message
+        tuples[0].fields[4].value.int8 = 1;
+      }
+        
+      call TS.out(FALSE, TL_NEIGHBORHOOD, &tuples[0]);	       
+    } else if (onRoute
+               && operationId.commandId == messageReceived.commandId
+               && TOS_LOCAL_ADDRESS == tuples[0].fields[1].value.int16
+               && isSeen(tuples[0].fields[0].value.int16, 
+	                 tuples[0].fields[2].value.int16)) {
+
+      // The sender device recognizes this device as its child 
+      onRoute = TRUE;
+      call TimeOut.stop();
+      call TimeOut.start(TIMER_ONE_SHOT, TIMEOUT);
+
+    } else if (recruiting
+      	       && operationId.commandId == messageReceived.commandId
+               && !isSeen(tuples[0].fields[0].value.int16, 
+                          tuples[0].fields[2].value.int16)) {
+
+      // Forwarding
+      childId = tuples[0].fields[0].value.int16;
+      tuples[0].fields[0].value.int16 = TOS_LOCAL_ADDRESS;
+      tuples[0].fields[1].value.int16 = childId;
+      tuples[0].fields[3].value.int8++;
+      myCost = tuples[0].fields[3].value.int8;
+      call TS.out(FALSE, TL_NEIGHBORHOOD, &tuples[0]);
+
+    } else if (recruiting
+      	       && operationId.commandId == messageReceived.commandId
+               && TOS_LOCAL_ADDRESS == tuples[0].fields[1].value.int16
+               && isSeen(tuples[0].fields[0].value.int16, 
+	                 tuples[0].fields[2].value.int16)) {
+
+      // This device is on the route
+      onRoute = TRUE;
+      recruiting = FALSE;
+      call TimeOut.start(TIMER_ONE_SHOT, TIMEOUT);
+    } 
+
+    return SUCCESS;
+  }
+
+  event tuple* TeenyLIMESystem.reifyNeighborTuple() {
+ 
+    myDeviceTuple = newTuple(2, 
+			     actualField_uint16(TOS_LOCAL_ADDRESS), 
+			     actualField_uint8(myCost)); 
+    return &myDeviceTuple;    
+  }
+
+  event result_t TimeOut.fired() {
+  
+    // When the timeout expires, the node is no longer on the route
+    onRoute = FALSE;
+    recruiting = TRUE;
+    return SUCCESS;
+  }
+
+  event result_t LocalTime.fired() {
+
+    // Used to prune stale entries in the message cache
+    localTime++;
+    return SUCCESS;
+  }
+}

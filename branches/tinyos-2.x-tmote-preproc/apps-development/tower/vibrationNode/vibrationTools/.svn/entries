@@ -1,0 +1,73 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/vibrationTools
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-02-28T10:38:34.888540Z
+735
+lmottola
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+GenerateHuffmanCompression.java
+file
+
+
+
+
+2010-01-27T03:26:11.000000Z
+0a6688f4e6981cd6e2469c37c6e34d24
+2009-02-28T10:38:34.888540Z
+735
+lmottola
+has-props
+
+Decompress.java
+file
+
+
+
+
+2010-01-27T03:26:11.000000Z
+84d6b34e3dfb9e7c2da12be5668314c8
+2009-02-28T10:38:34.888540Z
+735
+lmottola
+has-props
+
+DeserializeBytes.java
+file
+
+
+
+
+2010-01-27T03:26:11.000000Z
+e75ff76186d2a9f35cf30ed03956e02c
+2008-10-07T07:17:12.111144Z
+689
+lmottola
+has-props
+
+huffmanCompressionCImpl
+dir
+
+dictionaries
+dir
+

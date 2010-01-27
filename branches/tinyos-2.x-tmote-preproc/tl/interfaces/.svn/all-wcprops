@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/teenylime/!svn/ver/894/branches/tinyos-2.x-tmote-preproc/tl/interfaces
+END
+LocalTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/LocalTupleSpace.nc
+END
+SlabAllocator.nc
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/SlabAllocator.nc
+END
+FlashStorage.nc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/FlashStorage.nc
+END
+BridgeTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/BridgeTupleSpace.nc
+END
+QueueControl.nc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/QueueControl.nc
+END
+TLDebug.nc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/TLDebug.nc
+END
+TLObjects.nc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/390/branches/tinyos-2.x-tmote-preproc/tl/interfaces/TLObjects.nc
+END
+ReliableSend.nc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/teenylime/!svn/ver/894/branches/tinyos-2.x-tmote-preproc/tl/interfaces/ReliableSend.nc
+END
+ReceiveTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/ReceiveTuple.nc
+END
+TeenyLIMEExceptions.nc
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/TeenyLIMEExceptions.nc
+END
+TeenyLIMESystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/TeenyLIMESystem.nc
+END
+FlashOperations.nc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/FlashOperations.nc
+END
+NeighborSystem.nc
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/NeighborSystem.nc
+END
+SendTuple.nc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/347/branches/tinyos-2.x-tmote-preproc/tl/interfaces/SendTuple.nc
+END
+RunOp.nc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/RunOp.nc
+END
+Tuning.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/523/branches/tinyos-2.x-tmote-preproc/tl/interfaces/Tuning.nc
+END
+TupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/843/branches/tinyos-2.x-tmote-preproc/tl/interfaces/TupleSpace.nc
+END
+DistributedTupleSpace.nc
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/DistributedTupleSpace.nc
+END
+SlabSerializer.nc
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/tl/interfaces/SlabSerializer.nc
+END

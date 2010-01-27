@@ -1,0 +1,184 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME 
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for 
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#include "TMoteStackConf.h"
+#ifdef FLASH_SYNC_TIME
+#include "StorageVolumes.h"
+#endif
+#include "TMoteTuning.h"
+
+/**
+ * Configuration of a TMote-specific network stack for TeenyLIME.
+ * 
+ * @author Luca Mottola 
+ *         <a href="mailto:mottola@elet.polimi.it">mottola@elet.polimi.it</a>
+ * 
+ */
+
+#define QUEUE_REQUESTS 8
+
+configuration TMoteTLStack {
+
+#ifdef FLASH_SYNC_TIME
+  uses {
+    interface SlabSerializer;
+  }
+#endif
+
+  provides {
+    interface SendTuple;
+    interface ReceiveTuple;
+    interface NeighborSystem;
+    
+    interface Tuning[uint8_t componentId];
+#ifdef FLASH_SYNC_TIME
+    interface FlashStorage;
+#endif
+  }
+}
+
+implementation { 
+
+  components MainC;
+  components TMoteTLSerializer, TMoteMsgQueueM;
+  components TLDebugM, LedsC;
+
+#ifdef PRINTF_SUPPORT
+  components PrintfC;
+#endif
+
+#ifdef SECURE_TL
+  components new AMSecureC(TUPLE_AM);
+  components new AMReconfSecureC(AM_RECONF);
+#else
+  components new AMSenderC(TUPLE_AM);
+  components new AMReceiverC(TUPLE_AM);
+  components new AMSnooperC(TUPLE_AM);
+#endif
+  components ActiveMessageC, CC2420ActiveMessageC, CC2420PacketC;
+
+#ifdef TL_CONTROLLER_NODE
+  components new SerialAMReceiverC(AM_TL_HEADER);
+  components SerialActiveMessageC;
+#endif
+
+  components new AlarmMilli16C() as AlarmReset;
+  components TLObjectsParsed;
+
+#ifdef FLASH_SYNC_TIME
+  components new BlockStorageC(VOLUME_PTUPLESA) as BlockStorageCA;
+  components new BlockStorageC(VOLUME_PTUPLESB) as BlockStorageCB;
+  components new BlockStorageC(VOLUME_PTUPLESMETA) as BlockStorageCMeta;
+  components TMotePersistence;
+#endif
+
+  components TMoteTuning;
+  components new QueueC(setRequest,QUEUE_REQUESTS) as TuningQueue;
+
+  SendTuple = TMoteTLSerializer;
+  ReceiveTuple = TMoteTLSerializer;
+  NeighborSystem = TMoteTLSerializer;
+  Tuning = TMoteTuning;
+#ifdef FLASH_SYNC_TIME
+  FlashStorage = TMotePersistence;
+#endif
+
+  TMoteTLSerializer.ReliableSend -> TMoteMsgQueueM;
+  TMoteTLSerializer.Receive -> TMoteMsgQueueM.Receive;
+  TMoteTLSerializer.Snoop -> TMoteMsgQueueM.Snoop;
+  TMoteTLSerializer.TMoteQueueControl -> TMoteMsgQueueM;
+  TMoteTLSerializer.AMPacket -> ActiveMessageC;
+  TMoteTLSerializer.CC2420Packet -> CC2420PacketC;  
+  TMoteTLSerializer.TLDebug -> TLDebugM;
+  TMoteTLSerializer.TLObjects -> TLObjectsParsed;
+  TMoteTLSerializer.AlarmReset -> AlarmReset;
+#ifdef TL_CONTROLLER_NODE
+  TMoteTLSerializer.Boot -> MainC.Boot;
+  TMoteTLSerializer.SerialAMControl -> SerialActiveMessageC;
+  TMoteTLSerializer.SerialReceive -> SerialAMReceiverC;
+#endif
+#ifdef PRINTF_SUPPORT
+  TMoteTLSerializer.PrintfControl -> PrintfC; 
+  TMoteTLSerializer.PrintfFlush -> PrintfC; 
+#endif
+
+  TMoteMsgQueueM.Boot -> MainC.Boot;
+  TMoteMsgQueueM.AMPacket -> ActiveMessageC;
+  TMoteMsgQueueM.SubAMControl -> ActiveMessageC;
+  TMoteMsgQueueM.Tuning -> TMoteTuning.Tuning[unique("TLTuning")];
+#ifdef SECURE_TL
+  TMoteMsgQueueM.AMSend -> AMSecureC;
+  TMoteMsgQueueM.AMReceive -> AMSecureC.Receive;
+  TMoteMsgQueueM.AMSnoop -> AMSecureC.Snoop;
+  TMoteMsgQueueM.ReconfSend -> AMReconfSecureC;
+  TMoteMsgQueueM.ReconfReceive -> AMReconfSecureC.Receive;
+  TMoteMsgQueueM.ReconfSnoop -> AMReconfSecureC.Snoop;
+#else
+  TMoteMsgQueueM.AMSend -> AMSenderC;
+  TMoteMsgQueueM.AMReceive -> AMReceiverC;
+  TMoteMsgQueueM.AMSnoop -> AMSnooperC;
+#endif
+  TMoteMsgQueueM.PacketLink -> CC2420ActiveMessageC;
+  TMoteMsgQueueM.CC2420Config -> CC2420ActiveMessageC;
+  TMoteMsgQueueM.CC2420Packet -> CC2420PacketC;
+  TMoteMsgQueueM.LowPowerListening -> CC2420ActiveMessageC;
+  TMoteMsgQueueM.TLDebug -> TLDebugM;
+#ifdef PRINTF_SUPPORT
+  TMoteMsgQueueM.PrintfControl -> PrintfC; 
+  TMoteMsgQueueM.PrintfFlush -> PrintfC; 
+#endif 
+
+  MainC.SoftwareInit -> TMoteTuning.Init;
+  TMoteTuning.RequestQueue -> TuningQueue;
+  TMoteTuning.LowPowerListening -> CC2420ActiveMessageC;
+  TMoteTuning.AMControl -> TMoteMsgQueueM.AMControl;
+#ifdef PRINTF_SUPPORT
+  TMoteTuning.PrintfControl -> PrintfC; 
+  TMoteTuning.PrintfFlush -> PrintfC; 
+#endif 
+
+#ifdef FLASH_SYNC_TIME
+  TMotePersistence.BlockWriteA -> BlockStorageCA;
+  TMotePersistence.BlockReadA -> BlockStorageCA;
+  TMotePersistence.BlockWriteB -> BlockStorageCB;
+  TMotePersistence.BlockReadB -> BlockStorageCB;
+  TMotePersistence.BlockWriteMeta -> BlockStorageCMeta;
+  TMotePersistence.BlockReadMeta -> BlockStorageCMeta;
+  TMotePersistence.Boot -> MainC;
+  TMotePersistence.SlabSerializer = SlabSerializer;
+#ifdef PRINTF_SUPPORT
+  TMotePersistence.PrintfControl -> PrintfC; 
+  TMotePersistence.PrintfFlush -> PrintfC; 
+#endif 
+#endif
+}
+

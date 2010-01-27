@@ -1,0 +1,24 @@
+April, 27th - Luca
+- All timing aspects handled based on the value of EPOCH
+- TLConf.h contains only modifiable configuration parameters, all others moved to TupleSpace.h
+- Got rid of NeighborTimer in LocalTeenyLime
+- Added definitions for TL_LOCAL and TL_NEIGHBORHOOD
+- Renamed BridgeTupleSpace.systemIn in BridgeTupleSpace.remove
+- BridgeTupleSpace.remove changed signature
+- Removed references to TLTarget in ReliableGenericComm
+- Introduced param MAX_RETURN_TUPLES
+- Got rid of ReliableGenericComm.getSymmetricNeighborsId()	
+- Inlined deleteTuple and initTuple in LocalTeenyLime
+- Added isFailed() in TupleSpace.h
+- Got rid of completedOps in DistributedTeenyLIME
+- Changed licens from GPL to LGPL
+- Bug fix when capability tuples are involved in group operations
+- MutationRouting now uses only 16 bits fields
+- Added benchmark application
+
+
+tos2 changes
+- #include replaces includes
+- Timer interface declaration must include timer precision in tos2
+- Init and StdControl are separate interfaces in tos2
+- 

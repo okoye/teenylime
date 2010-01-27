@@ -1,0 +1,4 @@
+PFLAGS += -I../../lib/security/dummy
+
+CFLAGS += -DSECURE_TL
+CFLAGS += -DAM_RECONF=2

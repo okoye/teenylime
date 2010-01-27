@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ ! $# < 1 ]; then
+    echo "Usage $0 TARGET [OPTION]"
+    exit
+fi
+
+case $1 in
+    FIXED | ANCHOR | MOBILE | SINK )
+        ;;
+    *)
+        echo "Valid targets are FIXED, ANCHOR, MOBILE [NO-POSTURE] and SINK";
+        exit
+        ;;
+esac
+
+if [ $2 == "NO-POSTURE" ]; then
+    echo "Building $1 node with no posture detection"
+    TARGET=$1 NO_POSTURE=yes make tmote
+else
+    echo "Building $1 node"
+    TARGET=$1 make tmote
+fi

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode/PrintfClient.java
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/teenylime/!svn/ver/831/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode/PrintfMsg.java
+END
+SinkNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/836/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode/SinkNode.nc
+END
+Tuner.nc
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/848/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode/Tuner.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/dataCollection/testDataCollection/sinkNode/Makefile
+END

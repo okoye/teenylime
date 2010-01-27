@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/serial
+END
+serial.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/serial/serial.h
+END
+SerialForwarderP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/serial/SerialForwarderP.nc
+END
+SerialForwarderC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/teenylime/!svn/ver/1022/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/serial/SerialForwarderC.nc
+END

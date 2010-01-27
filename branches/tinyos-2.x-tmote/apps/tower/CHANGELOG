@@ -1,0 +1,41 @@
+October 15th - Luca
+- Initial stub components for temperature nodes 
+
+October 16th - Luca
+- TempSampler now gathers real temperature values 
+  and also parses Task tuples  
+- Added FakeDataDissemination
+- Modified TL configuration
+
+October 22nd - Matteo
+- DataCollection (with TreeBuilder and DataForwarder) added
+- BridgeNode, which receives the data collected on the sink, added
+
+October 24th - Matteo
+- Moved all the sink components in the sinkNode directory
+- Changed the TreeBuilderC for common nodes (the easy solution with neighbor tuples atomicity)
+- Removed the print ops from the sink
+
+October 26th - Matteo
+- Added Fake Temperature Sensor (DemoSensorC) for simulation
+- The DataForwarder now does one ing before installing a reaction to forward the tuples inserted in the TS when the node has no parent
+
+November 20th - Matteo
+- Changed the tree building mechanism
+- Changed the sequence of operations executed to forward data
+- The forwarding takes advantage from the newly introduced reliable OUT
+- Added gateway to DB (MySql, SapDB) and to Log file
+
+November 21st - Matteo
+- Changed TreeConnection interface
+
+December 1st - Matteo
+- Changed function used to evaluate the cost of a path (now based on the lqi values of the links)
+- Changed gateway operations
+
+December 1st - Matteo
+- Mods to the evaluation of the cost function
+
+December 17th - Matteo
+- Added support to unreliable link to the parent
+- Several changes to the gateway application: in particular, alignment of the timestamps

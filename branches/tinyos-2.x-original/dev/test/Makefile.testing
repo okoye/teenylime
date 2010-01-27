@@ -1,0 +1,7 @@
+COMPONENT=TestTeenyLime
+DOCDIR=doc
+MSG_SIZE=119
+PFLAGS += -D$(MAKECMDGOALS)
+PFLAGS += -DFLOAT_SUPPORT
+include $(TOSROOT)/apps/Makerules
+CFLAGS = -ggdb

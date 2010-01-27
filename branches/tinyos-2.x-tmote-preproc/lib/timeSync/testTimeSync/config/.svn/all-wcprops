@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/timeSync/testTimeSync/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/799/branches/tinyos-2.x-tmote-preproc/lib/timeSync/testTimeSync/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/lib/timeSync/testTimeSync/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/671/branches/tinyos-2.x-tmote-preproc/lib/timeSync/testTimeSync/config/TLConf.h
+END

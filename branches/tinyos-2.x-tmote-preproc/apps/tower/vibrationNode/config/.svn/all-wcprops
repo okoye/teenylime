@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/teenylime/!svn/ver/1013/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/config
+END
+TimeSynchConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/1013/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/config/TimeSynchConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/998/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/config/TLConf.h
+END

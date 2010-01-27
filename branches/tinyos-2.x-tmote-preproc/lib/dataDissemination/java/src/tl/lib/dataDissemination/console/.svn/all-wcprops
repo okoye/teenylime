@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/teenylime/!svn/ver/994/branches/tinyos-2.x-tmote-preproc/lib/dataDissemination/java/src/tl/lib/dataDissemination/console
+END
+DisseminationManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/teenylime/!svn/ver/994/branches/tinyos-2.x-tmote-preproc/lib/dataDissemination/java/src/tl/lib/dataDissemination/console/DisseminationManager.java
+END
+_ConsoleDisseminator.java
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/teenylime/!svn/ver/994/branches/tinyos-2.x-tmote-preproc/lib/dataDissemination/java/src/tl/lib/dataDissemination/console/_ConsoleDisseminator.java
+END
+_DisseminationConsoleScenario.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svnroot/teenylime/!svn/ver/994/branches/tinyos-2.x-tmote-preproc/lib/dataDissemination/java/src/tl/lib/dataDissemination/console/_DisseminationConsoleScenario.java
+END

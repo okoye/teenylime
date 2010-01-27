@@ -1,0 +1,254 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+import java.sql.Connection;
+import java.util.Hashtable;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Vector;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * The Class LogMySqlManager.
+ * 
+ * This class writes into a MySql database the information read from a log.
+ * 
+ * @author Matteo Ceriotti <a href="mailto:ceriotti@fbk.eu">ceriotti@fbk.eu</a>
+ */
+
+class LogMySqlManager implements LogManager {
+
+	private Hashtable<Integer, NodeLogStatus> nodes_status;
+	private Vector<DataRecord> data;
+	private Connection connection;
+	private FileWriter fstream;
+	private BufferedWriter out;
+	private FileWriter logstream;
+	private BufferedWriter log;
+  
+	LogMySqlManager() {
+		data = new Vector<DataRecord>();
+		nodes_status = new Hashtable<Integer, NodeLogStatus>();
+		try {
+			String file = "logDB.txt";
+			logstream = new FileWriter(file, true);
+			log = new BufferedWriter(logstream);
+		} catch (Exception e) {
+      System.out.println(e.toString());
+		}
+	}
+  
+	public void bufferData(DataRecord record) {
+		synchronized (data) {
+			data.add(record);
+			data.notifyAll();
+		}
+	}
+  
+	public void flushData() {
+		connect();
+		while (!data.isEmpty()) {
+			DataRecord record = null;
+			synchronized (data) {
+				record = (DataRecord) data.get(0);
+			}
+			if (record != null) {
+				try {
+					if (connection.isClosed())
+						connect();
+				} catch (SQLException e) {
+					connect();
+				}
+				elaborate(record);
+			}
+		}
+		close();
+	}
+	
+	public int bufferSize(){
+		return data.size();
+	}
+  
+	void connect() {
+		try {
+			String file = "logdataDB.txt";
+			fstream = new FileWriter(file, true);
+			out = new BufferedWriter(fstream);
+		} catch (Exception e) {
+		    try{
+          log.write("Cannot open file\n");
+          log.write(e.toString());
+          log.flush();
+		    } catch (IOException ie) {
+          System.out.println(ie.toString());
+		    }
+		}
+		try {
+			log.write("Connecting...\n");
+      String url = "jdbc:mysql://" + Properties.HOST + ":"
+				+ Properties.PORT + "/" + Properties.DATABASE;
+      Class.forName("com.mysql.jdbc.Driver").newInstance();
+      connection = DriverManager.getConnection(url, Properties.USER,
+                                               Properties.PASSWORD);
+			log.write("Connection established\n");
+			log.flush();
+		} catch (Exception e) {
+      		try{
+        		log.write("Cannot connect to the DB\n");
+        		log.write(e.toString());
+        		log.flush();
+      		} catch (IOException ie) {
+        		System.out.println(ie.toString());
+      		}
+		}
+	}
+  
+	void close() {
+		if (connection != null) {
+			try {
+				connection.close();
+				log.write("Connection closed\n");
+				log.flush();
+			} catch (Exception e) {
+        try{
+          log.write("Cannot close connection to the DB\n");
+          log.write(e.toString());
+          log.flush();
+        } catch (IOException ie) {
+          System.out.println(ie.toString());
+        }
+			}
+		}
+		try {
+			out.close();
+		} catch (Exception e) {
+			try{
+        log.write("Cannot close file\n");
+        log.write(e.toString());
+        log.flush();
+		 	} catch (IOException ie) {
+        System.out.println(ie.toString());
+      }
+		}
+	}
+  
+	private void elaborate(DataRecord record) {
+		short type = record.getType();
+		long time = record.getTime().getTime();
+		Statement statement = null;
+    String query = "";
+		switch (type) {
+		case Properties.TEMP_DEFORM_TYPE:
+			int node_identifier = record.getNode_identifier();
+			int period = record.getPeriod();
+			float temperature = record.getTemperature();
+			if (!nodes_status.containsKey(new Integer(node_identifier))) {
+				nodes_status.put(new Integer(node_identifier),
+                         new NodeLogStatus());
+			}
+			NodeLogStatus status = (NodeLogStatus) nodes_status
+        .get(new Integer(node_identifier));
+			status.registerTuple(time, period);
+      status.updateTimeRef(time, period);
+      Timestamp ts = new Timestamp(status.getTime(period));
+      try{
+        out.write("SENSOR:" + Properties.getSensorId(node_identifier)
+                  + "\tPERIOD: " + period + "\tTEMPERATURE: "
+                  + temperature + "\tTIMESTAMP: " + ts + "\n");
+        out.flush();
+      } catch (IOException ioe){
+        System.out.println(ioe.toString());
+      }
+      
+      try{
+        query = "insert into Measurement "
+          + "(MeasurementID, SensorID, SessionID, \"TimeStamp\") "
+          + "values(measurement_seq.nextval,"
+          + Properties.getSensorId(node_identifier) + ","
+          + period + ", \'" + ts + "\')";
+        
+        statement = connection.createStatement();
+        statement.executeUpdate(query);
+        statement.close();
+        
+        query = "insert into Value "
+          + "(ValueID, MeasurementID, ChannelID, ScalarValue, "
+          + "OriginalCalibrationID, ScalarRms)"
+          + "values(value_seq.nextval, measurement_seq.currval, "
+          + Properties.getTempChannelId(node_identifier) + ", "
+          + temperature + ", 0, 0)";
+        
+        statement = connection.createStatement();
+        statement.executeUpdate(query);
+        statement.close();
+        
+        synchronized (data) {
+          data.remove(0);
+        }
+      } catch (SQLException se) {
+        try{
+          log.write("Cannot execute INSERT query\n");
+          log.write(se.toString());
+          log.flush();
+        } catch (IOException ie) {
+          System.out.println(ie.toString());
+        }
+      } finally {
+        try {
+          statement.close();
+        } catch (Exception e) {
+          try{
+            log.write("Statement closure error");
+            log.write(e.toString());
+            log.flush();
+          } catch (IOException ie) {
+            System.out.println(ie.toString());
+          }
+        }
+      }
+ 			break;
+			
+		default:
+      try{
+        log.write("Unknown tuple received");
+        log.flush();
+      } catch (IOException ie) {
+        System.out.println(ie.toString());
+      }
+		}
+	}
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:deployment name="home"
+	xmlns:tns="http://acube-ucd.fbk.eu//deploymentSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://acube-ucd.fbk.eu//deploymentSchema java-src/it/unitn/acube/wp3/translocation/deploymentSchema.xsd ">
+
+	<tns:area name="living_room" code="R102">
+		<tns:link neighbor="kitchen">
+			<tns:node id="3" />
+			<tns:node id="4" />
+		</tns:link>
+		<tns:link neighbor="yard">
+			<tns:node id="7" />
+			<tns:node id="8" />
+		</tns:link>
+
+		<tns:hazard name="window1" code="W102">
+			<tns:node id="13" />
+			<tns:node id="14" />
+		</tns:hazard>
+		<tns:hazard name="window2" code="W103">
+			<tns:node id="15" />
+			<tns:node id="16" />
+		</tns:hazard>
+		<tns:hazard name="exit" code="D101">
+			<tns:node id="17" />
+			<tns:node id="18" />
+		</tns:hazard>
+	</tns:area>
+
+	<tns:area name="kitchen" code="R101">
+		<tns:link neighbor="living_room">
+			<tns:node id="5" />
+			<tns:node id="6" />
+		</tns:link>
+		<tns:hazard name="window" code="W101">
+			<tns:node id="11" />
+			<tns:node id="12" />
+		</tns:hazard>
+	</tns:area>
+
+	<tns:area name="yard" code="R103">
+		<tns:link neighbor="living_room">
+			<tns:node id="9" />
+			<tns:node id="10" />
+		</tns:link>
+	</tns:area>
+
+	<tns:actor name="Giulio" id="1" />
+	<tns:actor name="Camillo" id="2" />
+</tns:deployment>

@@ -1,0 +1,13 @@
+K 4
+apps
+V 53
+*.od
+*.tmp
+build
+Copy*
+.project
+TOSSIM.py
+*.so
+*.pyc
+
+END

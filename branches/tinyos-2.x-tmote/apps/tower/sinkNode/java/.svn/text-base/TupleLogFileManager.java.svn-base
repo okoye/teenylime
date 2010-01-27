@@ -1,0 +1,290 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision$
+ * * DATE
+ * *    $LastChangedDate$
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy$
+ * *
+ * *	$Id$
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.sql.Timestamp;
+import java.util.Vector;
+
+/**
+ * The Class TupleLogFileManager.
+ * 
+ * This class writes into a log file the information received in the tuples
+ * collected.
+ * 
+ * @author Matteo Ceriotti <a href="mailto:ceriotti@fbk.eu">ceriotti@fbk.eu</a>
+ */
+
+class TupleLogFileManager extends Thread implements TupleManager {
+
+	private Hashtable<Integer, NodeStatus> nodes_status;
+	private Vector<TupleSerialMsg> tuple_msgs;
+	private boolean active;
+	private FileWriter fstream_temp_hum;
+	private BufferedWriter out_temp_hum;
+	private FileWriter fstream_nodeinfo;
+	private BufferedWriter out_nodeinfo;
+	private FileWriter fstream_stat;
+	private BufferedWriter out_stat;
+    private int lastNode;
+    
+	TupleLogFileManager() {
+		tuple_msgs = new Vector<TupleSerialMsg>();
+		active = false;
+    lastNode = -1;
+		nodes_status = new Hashtable<Integer, NodeStatus>();
+	}
+
+	public void tupleReceived(TupleSerialMsg tuple) {
+		synchronized (tuple_msgs) {
+			tuple_msgs.add(tuple);
+			tuple_msgs.notifyAll();
+		}
+	}
+
+	public void activate() {
+		active = true;
+		connect();
+		new Thread(this).start();
+	}
+
+	void connect() {
+		try {
+			String file_temp_hum = "temp_hum.txt";
+			fstream_temp_hum = new FileWriter(file_temp_hum, true);
+			out_temp_hum = new BufferedWriter(fstream_temp_hum);
+			System.out.println("TEMP HUM File opened");
+		} catch (Exception e) {
+			System.err.println("Cannot open TEMP HUM file");
+		}
+		try {
+			String file_nodeinfo = "node_info.txt";
+			fstream_nodeinfo = new FileWriter(file_nodeinfo, true);
+			out_nodeinfo = new BufferedWriter(fstream_nodeinfo);
+			System.out.println("SYSINFO File opened");
+		} catch (Exception e) {
+			System.err.println("Cannot open SYSINFO file");
+		}
+		try {
+			String file_stat = "screen.txt";
+			fstream_stat = new FileWriter(file_stat, true);
+			out_stat = new BufferedWriter(fstream_stat);
+			System.out.println("STAT File opened");
+		} catch (Exception e) {
+			System.err.println("Cannot open STAT file");
+		}
+	}
+
+	public void deactivate() {
+		active = false;
+		synchronized (tuple_msgs) {
+			tuple_msgs.clear();
+			notifyAll();
+		}
+		try {
+			out_temp_hum.close();
+			fstream_temp_hum.close();
+			out_nodeinfo.close();
+			fstream_nodeinfo.close();
+			out_stat.close();
+			fstream_stat.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void run() {
+		while (this.active) {
+			TupleSerialMsg tuple = null;
+			synchronized (tuple_msgs) {
+				if (!tuple_msgs.isEmpty()) {
+					tuple = (TupleSerialMsg) tuple_msgs.get(0);
+				} else {
+					try {
+						tuple_msgs.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			if (tuple != null) {
+				elaborate(tuple);
+			}
+		}
+	}
+
+	private void elaborate(TupleSerialMsg tuple) {
+		short type = tuple.getElement_tuple_fields_value_int8(0);
+		long time = new Date().getTime();
+		boolean ordered = true;
+		switch (type) {
+		case Properties.TEMP_DEFORM_TYPE:
+		    try {
+			int node_identifier = tuple
+			    .getElement_tuple_fields_value_int16(1);
+			int period = tuple.getElement_tuple_fields_value_int16(2);
+			int tempread = tuple.getElement_tuple_fields_value_int16(3);
+			int humread = tuple.getElement_tuple_fields_value_int16(4);
+			float temperature = (float) (-39.60 + 0.01 * tempread);
+			float humidity = (float) (-4.0 + 0.0405 * humread - 0.0000028 * (humread * humread));
+			humidity = (float) ((temperature - 25.0) * (0.01 + 0.00008 * humread) + humidity);
+			if (!nodes_status.containsKey(new Integer(node_identifier))) {
+			    nodes_status.put(new Integer(node_identifier),
+					     new NodeStatus(node_identifier));
+			}
+			NodeStatus status = (NodeStatus) nodes_status.get(new Integer(
+										      node_identifier));
+			status.registerTuple(time, period);
+        ordered = status.updateOrder(lastNode);
+        lastNode = node_identifier;
+        nodes_status.put(new Integer(node_identifier), status);
+        Timestamp ts = new Timestamp(time);
+        out_temp_hum.write("SENSOR: "
+                           + Properties.getSensorId(node_identifier)
+                           + "\tPERIOD: " + period + "\tTEMPERATURE: "
+                           + temperature + "\tHUMIDITY: "+ humidity +"\tTIMESTAMP: " + ts);
+        if (!ordered){
+          out_temp_hum.write("\t*");
+        }
+        out_temp_hum.write("\n");
+        out_temp_hum.flush();
+        this.printStat();
+        synchronized (tuple_msgs) {
+          tuple_msgs.remove(0);
+        }
+			} catch (Exception se) {
+				System.err.println("Cannot write in the LOG file");
+				se.printStackTrace();
+			}
+			break;
+    case Properties.NODE_INFO_TYPE:
+      try {
+        int node_identifier = tuple
+          .getElement_tuple_fields_value_int16(1);
+        int parent = tuple.getElement_tuple_fields_value_int16(2);
+        int cost = tuple.getElement_tuple_fields_value_int16(3);
+        int forwarded = tuple.getElement_tuple_fields_value_int16(4);
+        int bat = tuple.getElement_tuple_fields_value_int16(5);
+        float battery = (float) (bat / 4096.0 * 3.0);
+        if (!nodes_status.containsKey(new Integer(node_identifier))) {
+          nodes_status.put(new Integer(node_identifier),
+                           new NodeStatus(node_identifier));
+        }
+        NodeStatus status = (NodeStatus) nodes_status.get(new Integer(
+                                                                      node_identifier));
+        Timestamp ts = new Timestamp(time);
+        status.updateNodeInfo(battery, parent, cost, ts);
+        nodes_status.put(new Integer(node_identifier), status);
+        out_nodeinfo.write("SENSOR: "
+                           + Properties.getSensorId(node_identifier)
+                           + "\tPARENT: " + parent + "\tPATH COST: "
+                           + cost + "\tTUPLES FORWARDED: "+ forwarded 
+                           + "\tBATTERY: "+ battery + "\tTIMESTAMP: " + ts);
+        out_nodeinfo.write("\n");
+        out_nodeinfo.flush();
+        this.printStat();
+        synchronized (tuple_msgs) {
+          tuple_msgs.remove(0);
+        }
+			} catch (Exception se) {
+				System.err.println("Cannot write in the LOG file");
+				se.printStackTrace();
+			}
+			break;
+		default:
+			System.err.println("Unknown tuple received");
+		}
+
+	}
+
+	private void printStat() {
+		int totalLost = 0;
+		int totalCollected = 0;
+		float er;
+		try {
+			out_stat.write("\33[2J");
+			out_stat.write("\33[H");
+			out_stat.write("Statistics about the Tuple Collection\n");
+			out_stat.write("-------------------------------------\n");
+			out_stat.write("NODE\tLAST\tLOST\tPARENT\tPATH COST\tBATTERY\t\tINFO TS\n");
+			out_stat.flush();
+			Enumeration<Integer> e = nodes_status.keys();
+			Integer node_id = null;
+			NodeStatus status = null;
+			while (e.hasMoreElements()) {
+				node_id = (Integer) e.nextElement();
+				status = (NodeStatus) nodes_status.get(node_id);
+				totalCollected += status.getCollected();
+				totalCollected -= status.getLost();
+				totalLost += status.getLost();
+				out_stat.write(node_id + "\t" + status.lastT + "\t"
+                       + status.getLost() +"\t" + status.parent + "\t" +
+                       status.path_cost + "\t\t" + status.battery + "\t" +
+                       status.info_ts);
+				out_stat.write("\n");
+				out_stat.flush();
+			}
+			out_stat.write("\nTUPLES COLLECTED -> " + totalCollected + "\n");
+			out_stat.write("TUPLES LOST -> " + totalLost + "\n");
+			er = (totalLost / (float) (totalCollected + totalLost)) * 100;
+			out_stat.write("LOSS RATE -> " + er + "%\n");
+			out_stat.write("\nTuples Lost Period\n");
+			out_stat.write("-----------\n");
+			out_stat.write("NODE\tPERIOD\n");
+			out_stat.flush();
+			e = nodes_status.keys();
+			while (e.hasMoreElements()) {
+				node_id = (Integer) e.nextElement();
+				status = (NodeStatus) nodes_status.get(node_id);
+				out_stat.write(node_id.toString());
+				if (status.lostT.size() > 0) {
+					out_stat.write("\t");
+					for (int k = 0; k < status.lostT.size(); k++) {
+						out_stat.write(((Integer) status.lostT.elementAt(k))
+								.toString()
+								+ " ");
+					}
+				}
+				out_stat.write("\n");
+				out_stat.flush();
+			}
+		} catch (IOException ie) {
+			System.err.println("Cannot write in the LOG file");
+			ie.printStackTrace();
+		}
+	}
+
+}

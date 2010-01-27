@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/PrintfClient.java
+END
+Test_LIS3L02AL_P.nc
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/Test_LIS3L02AL_P.nc
+END
+Test_LIS3L02AL.nc
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/Test_LIS3L02AL.nc
+END
+AccelMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/AccelMsg.h
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/PrintfMsg.java
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/teenylime/!svn/ver/483/branches/tinyos-2.x-tmote-preproc/apps/tower/vibrationNode/3mateVibration/Makefile
+END

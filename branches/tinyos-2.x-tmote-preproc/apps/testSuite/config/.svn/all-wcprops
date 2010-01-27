@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/apps/testSuite/config
+END
+TossimStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/apps/testSuite/config/TossimStackConf.h
+END
+MicazTossimStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/teenylime/!svn/ver/856/branches/tinyos-2.x-tmote-preproc/apps/testSuite/config/MicazTossimStackConf.h
+END
+TMoteStackConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/apps/testSuite/config/TMoteStackConf.h
+END
+TLConf.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/teenylime/!svn/ver/865/branches/tinyos-2.x-tmote-preproc/apps/testSuite/config/TLConf.h
+END

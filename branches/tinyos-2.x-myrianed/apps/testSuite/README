@@ -1,0 +1,26 @@
+A couple of test applications.
+TeenyLime/branches/tinyos-2.x-tmote/apps/testSuite contains more test applications.
+
+Type:
+
+./mk LocalRd
+
+and the application TestLocalRd.nc will be compiled. This runs the preprocessor, nesc compiler and gcc compiler.
+Other test applications in this dir are compiled similarly. (TestBenchmark.nc is compiled with ./mk Benchmark)
+To compile and run inside Avrora AVR simulator, type
+
+./sim LocalRd [stack]
+
+Optionally type "stack" at the end of the line to monitor the stack size.
+To compile for tossim TinyOS simulator, type:
+
+./tossim LocalRd
+
+
+Remember first to initialize the environment for tinyos compilations by doing something like this:
+
+export TOSROOT="/home/laurens/local/tinyos-2.x"
+export TOSDIR=$TOSROOT/tos
+export MAKERULES=$TOSROOT/support/make/Makerules
+
+

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery
+END
+deployment.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/deployment.xml
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/.classpath
+END
+itea.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/itea.xml
+END
+node-build
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/node-build
+END
+logger.config
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/logger.config
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/.project
+END
+build_info.properties
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/build_info.properties
+END
+ElderyC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/ElderyC.nc
+END
+casette.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/casette.xml
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/README
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/Makefile
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/build.xml
+END

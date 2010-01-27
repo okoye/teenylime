@@ -1,0 +1,60 @@
+TeenyLIME - Transiently Shared Tuple Space Middleware 
+            for Wireless Sensor Networks
+
+Java Application for the Routing Test
+=====================================================
+
+BUILD INSTRUCTIONS 
+------------------ 
+0) If not already done, add '$TOSROOT/support/sdk/java/tinyos.jar' 
+to your classpath:
+
+$ export CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar
+
+1) Go to '$TLROOT/lib/dataCollection/test/java/' directory and
+build the java application:
+
+$ cd $TLROOT/lib/dataCollection/test/java
+$ ant clean && ant
+
+USAGE INSTRUCTIONS
+------------------
+1) Go to the '$TLROOT/lib/dataCollection/test/java/' directory (or the directory
+where the tl.jar file is located) and launch the following command 
+with the parameters related to the communication interface (default
+sf@localhost:10001):
+
+$ java -cp tl.jar tl.apps.routingTest.Launcher -comm <source>
+
+2) The log files are saved in the test_log/ directory.
+
+LOG STRUCTURE
+-------------
+The file containing routing information is test_log/routing_info.txt. It
+contains two different kind of records, structured in the following way:
+
+RECORD 1
+
+ID node_id 
+SEQ_NO sequence_number 
+PACK_FW packets_forwarded_best_effort packets_forwarded_class_1 
+packets_forwarded_class_2 
+RETRIES num_of_reissued_out_for_best_effort num_of_reissued_out_for_class_1
+num_of_reissued_out_for_class_2
+DROPPED_DUP num_of_dropped_duplicates
+OUT_RET num_of_link_level_send_called_for_out_operations
+TOS_SR num_of_all_send_at_link_level num_of_all_retransmissions_at_link_level
+
+RECORD 2
+
+ID node_id 
+SEQ_NO sequence_number 
+BAT battery
+PAR current_parent
+P_COST parent_cost
+NUM_P num_of_parent_changes
+CONG_RS num_of_congestion_started_at_the_node
+num_of_congestion_started_by_higher_level_nodes
+DEL_OW num_of_messages_deleted_for_buffer_overflow
+REC_SF num_of_successfull_recoveries num_of_failed_recoveries
+RD_RET num_of_link_level_send_called_for_rd_operations

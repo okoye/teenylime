@@ -1,0 +1,73 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/tl
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2009-11-25T15:19:47.959706Z
+949
+sguna
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+interfaces
+dir
+
+system
+dir
+
+Makefile.micaz-tossim
+file
+
+
+
+
+2010-01-27T03:25:59.000000Z
+fc73261bd54f8601445af39e84b69390
+2008-03-11T11:11:02.459158Z
+316
+lmottola
+has-props
+
+Makefile
+file
+
+
+
+
+2010-01-27T03:25:59.000000Z
+55fa03b4182151e8a0d0dce7ff4047f8
+2009-02-28T17:47:27.072158Z
+747
+lmottola
+has-props
+
+TeenyLimeC.nc
+file
+
+
+
+
+2010-01-27T03:25:59.000000Z
+83ff4161a4c801acd9dad49041546607
+2009-11-25T08:23:31.414710Z
+944
+sguna
+has-props
+

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/teenylime/!svn/ver/320/branches/tinyos-2.x-tmote/apps/tower/temperatureNode
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/teenylime/!svn/ver/137/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/PrintfClient.java
+END
+TemperatureNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/teenylime/!svn/ver/320/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/TemperatureNode.nc
+END
+TempSenseTask.nc
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/teenylime/!svn/ver/296/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/TempSenseTask.nc
+END
+TempSampler.nc
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/313/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/TempSampler.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/teenylime/!svn/ver/137/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/PrintfMsg.java
+END
+Makefile.micaz-tossim
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/teenylime/!svn/ver/158/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/Makefile.micaz-tossim
+END
+FakeDataDisseminationTemp.nc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/teenylime/!svn/ver/296/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/FakeDataDisseminationTemp.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/teenylime/!svn/ver/320/branches/tinyos-2.x-tmote/apps/tower/temperatureNode/Makefile
+END

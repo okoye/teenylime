@@ -1,0 +1,52 @@
+8
+
+dir
+1025
+https://teenylime.svn.sourceforge.net/svnroot/teenylime/branches/tinyos-2.x-tmote-preproc/apps-development/eldery/buttonMessage
+https://teenylime.svn.sourceforge.net/svnroot/teenylime
+
+
+
+2010-01-13T17:45:32.247589Z
+1023
+gianalberto
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+2cae676a-182f-0410-8727-db5a42252b6e
+
+ButtonMessageP.nc
+file
+
+
+
+
+2010-01-27T03:26:11.000000Z
+11286292493d85d0270a8f75b54146a6
+2010-01-13T17:45:32.247589Z
+1023
+gianalberto
+
+ButtonMessageC.nc
+file
+
+
+
+
+2010-01-27T03:26:11.000000Z
+c4f5374fac5016c3981f3c4be248e360
+2010-01-13T17:45:32.247589Z
+1023
+gianalberto
+

@@ -1,0 +1,87 @@
+April, 27th - Luca
+- All timing aspects handled based on the value of EPOCH
+- TLConf.h contains only modifiable configuration parameters, all others moved to TupleSpace.h
+- Got rid of NeighborTimer in LocalTeenyLime
+- Added definitions for TL_LOCAL and TL_NEIGHBORHOOD
+- Renamed BridgeTupleSpace.systemIn in BridgeTupleSpace.remove
+- BridgeTupleSpace.remove changed signature
+- Removed references to TLTarget in ReliableGenericComm
+- Introduced param MAX_RETURN_TUPLES
+- Got rid of ReliableGenericComm.getSymmetricNeighborsId()
+- Inlined deleteTuple and initTuple in LocalTeenyLime
+- Added isFailed() in TupleSpace.h
+- Got rid of completedOps in DistributedTeenyLIME
+- Changed licens from GPL to LGPL
+- Bug fix when capability tuples are involved in group operations
+- MutationRouting now uses only 16 bits fields
+- Added benchmark application
+- fixed bug in LTL, removeTuple(). Tuples were not correctly removed from linked list.
+- fixed bug in DTL, when pruning expired neighbors, we forgot to delete them from the list.
+- fixed bug in LTL, pruneExpired*() functions hung forever.
+
+
+tos2 changes
+- #include replaces includes
+- Timer interface declaration must include timer precision in tos2
+- Init and StdControl are separate interfaces in tos2
+
+Suggested optimizations, implemented in tinyos-2.x-playground TL branch
+- Implemented resetTuple() as a lightweight alternative for newTuple()
+  Tuple values are now written in the same way as they are read, that is,
+  by means of direct struct access. Speed up for 3 fields: (was 188.357us, now 3.375us)
+- Removed superfluous call to compareTuples() in triggerReactions().
+- Implemented bitmap to allow faster lookup of free tuple slots.
+- Removed isEmptyTuple(t) call from compareFreshness()
+- Check for empty tuple in findTuple()
+- Implemented function pointers to quickly compare tuple fields
+- Disabled big field range matching to allow for function pointers in compareTuples (10us speed up per tuple)
+- In compareTuples() assume first tuple is the key, second is a tuple from tuple space
+- Changed interface of OUT operations: opId is now a pointer to avoid struct copying.
+  Speed up in OUT operation: (was 75us, now 49us)
+- Modified the way one shot reactions are killed after fire: (120 us speed up per reaction in triggerReactions)
+  reactions were copy a couple of times. Now we delete them instantly.
+- Implemented dynamic memory allocation component.
+- As with dynamic memory allocation, tuples are now stored in a linked list instead of an array.
+  Looping over linked list items is slightly faster than using a for-loop.
+- createNewOp: parameter is now pointer instead of struct. speed up: (was 26.375us, now 5.375us)
+- In TeenyLimeSerializer.send: set TOS_LOCAL_ADDRESS after copying the struct saves couple of instructions
+- Removed isLocalReaction from LocalTupleSpace interface -> removeReaction implicitly gives this information.
+- Local reactions are stored in the same dynamic storage pool just like tuples
+- Changed the interface of all functions containing TLOpId as a parameter: use pointer instead
+- Implemented malloc for pending operations in DTL.
+- Implemented malloc for active reactions in DTL.
+- neighborSet[] and neighborsId[] are combined in one struct.
+- Implemented malloc for neighborSet in DTL.
+- Modified NeighborSystem.update() signature: return void and neighborTuple is now pointer.
+- NeighborSystem.update() stops searching after a neighbor has been found, instead of continuing search.
+- Remote reaction expiration can be refreshed in place.
+- Implemented getPendingOp, which searches for a pending operation. Instead of having many functions implement
+  search functionality, we can now search once and pass the result to the functions that would otherwise have to search.
+- Local neighbors are not stored in the tuple space; only in local variable in LTL
+- Added tuple declaration macro that calculates the size of a tuple
+- Added simple preprocessor that generates TupleFormats.h out of TupleFormats.def
+- Pending operations time out by means of periodic timer that counts down to zero for each
+  pending operation. Timers can remember only one alarm at a time.
+- CompareTuples compares format id's instead of individual field types: three field comparison from 37.5 to 34.125 us.
+- Removed function pointers for field comparison in compareTuples: three field comparison from 34.125 to 19.5 us.
+- Queries have a different type than tuples
+- Made a distinction between compareTuple in triggerReactions and in findTuple.
+  This makes the compiler inline the compare functions and optimize on execution of query matching.
+- Change signature of tupleReady; tuples are passed by means of an array of pointers.
+- Changed TLSerializer to handle variable sized tuples and queries passed through sendTuples() and sendQuery().
+  Removed statically allocated TosMsg from TLSerializer, use malloc instead.
+  Implemented a SerializerMsg type that contains two fields: a tos message and the nr of bytes allocated for this message. This nr of bytes field is used on deallocation of the block.
+- Failing allocation of memory for incoming query results will cause DTL to immediately signal completion.
+- Neighbor tuple in neighborData in DTL will be a pointer to the tuple in the local tuple space instead of a copy of the tuple.
+- Added BridgeTupleSpace.replace() to replace a tuple in the local tuple space. This is against the Linda rules, but saves a lot of CPU time.
+  In this way we avoid an expensive set of calls to findTuples, removeTuple, addTuple for each neighborTuple update.
+- Removed operationId from BridgeTupleSpace.out() operation. Parameter was unused.
+- Removed tos messages from the MessageQueue. MessageQueue merely stores pointers to messages.
+- Removed unnecessary copying of messages in messageQueue.getFirstPendingMsg. This function was shifting the entire message queue, every time
+  a message was being sent. In this function, also removed unnecessary copying of the first pending message to the stack.
+- Removed global tosMsg variable used as a temporary buffer in MessageQueue. This saves memory and a lot of copying.
+- In MessageQueue, signal sendDone(FAIL) to the upper layer when sending a message failed in stead of doing nothing.
+- Use bit fields in tuples and TLOpId_t
+- Tuples: store logicalTime and expireIn in normal tuple fields
+- TinyMalloc: align every allocated block on 4 bytes. This reduces fragmentation and improves performance.
+  In addition, it avoids problems with word aligned cpu's like the msp430.

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/teenylime/!svn/ver/884/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui
+END
+GUIManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui/GUIManager.java
+END
+GUISourceDescriptorOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui/GUISourceDescriptorOffice.java
+END
+GUISourceOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui/GUISourceOffice.java
+END
+TaskPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui/TaskPanel.java
+END
+GUIScenarioOffice.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/883/branches/tinyos-2.x-tmote-preproc/apps-development/office/java/src/tl/apps/office/gui/GUIScenarioOffice.java
+END

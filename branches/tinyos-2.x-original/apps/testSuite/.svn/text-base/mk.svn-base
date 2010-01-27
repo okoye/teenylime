@@ -1,0 +1,20 @@
+#!/bin/sh
+
+export TOSROOT="/home/laurens/e/tinyos/tinyos/tinyos-2.x"
+export TOSDIR="$TOSROOT/tos"
+export MAKERULES="$TOSROOT/support/make/Makerules"
+
+PLATFORM=myrianode
+
+export BENCHMARK_NODE=$1
+make $PLATFORM
+
+if [ $? != "0" ]; then
+	exit;
+fi
+
+#head -55 out.tmp
+#rm out.tmp
+
+
+exit $EXIT_ST

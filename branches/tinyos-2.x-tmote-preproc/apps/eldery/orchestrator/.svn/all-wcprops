@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator
+END
+Accelerometer.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/Accelerometer.h
+END
+OrchestratorC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/OrchestratorC.nc
+END
+Accelerometer.nc
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/Accelerometer.nc
+END
+AccelerometerP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/AccelerometerP.nc
+END
+AccelerometerC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/AccelerometerC.nc
+END
+Orchestrator.nc
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/Orchestrator.nc
+END
+OrchestratorP.nc
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/teenylime/!svn/ver/1004/branches/tinyos-2.x-tmote-preproc/apps/eldery/orchestrator/OrchestratorP.nc
+END

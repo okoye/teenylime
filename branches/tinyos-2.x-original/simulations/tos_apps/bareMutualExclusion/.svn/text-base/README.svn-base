@@ -1,0 +1,2 @@
+This dir contains a pure-TinyOS application used to evaluate the
+overhead of TL against an equivalent TinyOS-based implementation.

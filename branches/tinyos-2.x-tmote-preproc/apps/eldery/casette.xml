@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:deployment name="casette"
+	xmlns:tns="http://acube-ucd.fbk.eu//deploymentSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://acube-ucd.fbk.eu//deploymentSchema java-src/it/unitn/acube/wp3/translocation/deploymentSchema.xsd ">
+	<tns:area name="lab" code="R1">
+		<tns:link neighbor="hallway">
+			<tns:node id="2" />
+		</tns:link>
+		<tns:hazard name="terrace" code="T1">
+			<tns:node id="6" />
+		</tns:hazard>
+	</tns:area>
+
+	<tns:area name="senior" code="R2">
+		<tns:link neighbor="hallway">
+			<tns:node id="5" />
+		</tns:link>
+		<tns:hazard name="terrace" code="T2">
+			<tns:node id="7" />
+		</tns:hazard>
+	</tns:area>
+
+	<tns:area name="hallway" code="R3">
+		<tns:link neighbor="lab">
+			<tns:node id="3" />
+		</tns:link>
+		<tns:link neighbor="senior">
+			<tns:node id="4" />
+		</tns:link>
+	</tns:area>
+	<tns:actor name="Giulio" id="1" />
+</tns:deployment>

@@ -1,0 +1,16 @@
+WORKING_DIR = .
+COMPONENT = $(WORKING_DIR)/apps/sampleMutualExclusion/SampleMExclusionC
+PFLAGS += -I$(WORKING_DIR)/apps/sampleMutualExclusion
+PFLAGS += -I$(WORKING_DIR)/services/mutualExclusion
+ifneq ($(findstring telosb,$(MAKECMDGOALS)),)
+	PFLAGS += -Dtelosb
+endif
+ifneq ($(findstring pc,$(MAKECMDGOALS)),)
+	PFLAGS += -Dpc
+endif
+ifneq ($(findstring mica2,$(MAKECMDGOALS)),)
+	PFLAGS += -Dmica2
+endif
+MSG_SIZE = 80
+include $(TOSROOT)/tools/make/Makerules
+

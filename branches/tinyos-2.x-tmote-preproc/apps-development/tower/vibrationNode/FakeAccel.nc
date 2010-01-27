@@ -1,0 +1,138 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME
+ * * VERSION
+ * *    $LastChangedRevision: 603 $
+ * * DATE
+ * *    $LastChangedDate: 2008-08-02 04:52:21 -0500 (Sat, 02 Aug 2008) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: lmottola $
+ * *
+ * *	$Id: FakeAccel.nc 603 2008-08-02 09:52:21Z lmottola $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU Lesser General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#warning "*** USING FAKE ACCELERATION ***"
+
+generic module FakeAccel() {
+
+  provides interface Msp430Adc12MultiChannel;
+  provides interface Msp430Adc12SingleChannel;
+  provides interface Resource;
+  uses interface AdcConfigure<const msp430adc12_channel_config_t*>;
+
+}
+
+implementation {
+
+  uint16_t* dataBuffer;
+  uint16_t samples;
+  uint16_t counter = 0;
+
+  bool reserved = FALSE;
+
+  task void returnData() {
+    atomic signal Msp430Adc12MultiChannel.dataReady(dataBuffer, samples);
+  }
+
+ async command error_t 
+ Msp430Adc12MultiChannel.configure(const msp430adc12_channel_config_t *config,
+				   adc12memctl_t *memctl, uint8_t numMemctl, 
+				   uint16_t *buffer, 
+				   uint16_t numSamples, uint16_t jiffies){
+   
+   atomic {
+     samples = numSamples;
+     dataBuffer = buffer;
+   }
+
+   return SUCCESS;
+ }
+
+  async command error_t Msp430Adc12SingleChannel.configureSingle(const 
+					msp430adc12_channel_config_t *config){
+    return SUCCESS;
+  }
+
+  async command error_t Msp430Adc12SingleChannel.
+  configureSingleRepeat(const msp430adc12_channel_config_t *config, 
+			uint16_t jiffies) {
+    return SUCCESS;
+  }
+
+  async command error_t Msp430Adc12SingleChannel.
+  configureMultiple(const msp430adc12_channel_config_t *config, 
+		    uint16_t buffer[], uint16_t numSamples, 
+		    uint16_t jiffies) {
+    return SUCCESS;
+  }
+
+  async command error_t Msp430Adc12SingleChannel.
+  configureMultipleRepeat(const msp430adc12_channel_config_t *config, 
+			  uint16_t buffer[], uint8_t numSamples, uint16_t jiffies) {
+    return SUCCESS;
+  }
+
+  async command error_t Msp430Adc12SingleChannel.getData() {  
+    return SUCCESS;
+  }
+
+  async command error_t Msp430Adc12MultiChannel.getData(){
+    
+    uint16_t i;
+    
+    atomic counter++;
+    atomic {
+      for (i=0; i<samples; i++) {
+	dataBuffer[i] = counter;
+      }
+    }
+
+    if (reserved) post returnData();
+
+    return SUCCESS;
+  }
+
+  task void resourceGranted() {
+    atomic reserved = TRUE;
+    signal Resource.granted();
+  }
+
+  async command error_t Resource.request(){
+    post resourceGranted();
+    return SUCCESS;
+  }
+
+  async command error_t Resource.immediateRequest(){
+    post resourceGranted();
+    return SUCCESS;
+  }
+
+  async command error_t Resource.release(){
+    reserved = FALSE;
+    return SUCCESS;
+  }
+
+  async command bool Resource.isOwner(){
+    return reserved;
+  }  
+}
+

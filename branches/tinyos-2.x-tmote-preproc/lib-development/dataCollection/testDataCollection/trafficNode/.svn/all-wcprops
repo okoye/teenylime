@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/teenylime/!svn/ver/1014/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode
+END
+TrafficCl1Task.nc
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/TrafficCl1Task.nc
+END
+Killer.nc
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/955/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/Killer.nc
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/PrintfClient.java
+END
+TrafficCl2Task.nc
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/teenylime/!svn/ver/918/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/TrafficCl2Task.nc
+END
+TrafficNode.nc
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/teenylime/!svn/ver/955/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/TrafficNode.nc
+END
+TrafficGenerator.nc
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svnroot/teenylime/!svn/ver/913/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/TrafficGenerator.nc
+END
+FakeDataDissemination.nc
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/FakeDataDissemination.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/PrintfMsg.java
+END
+Tuner.nc
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/Tuner.nc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/1014/branches/tinyos-2.x-tmote-preproc/lib-development/dataCollection/testDataCollection/trafficNode/Makefile
+END

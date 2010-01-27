@@ -1,0 +1,759 @@
+/***
+ * * PROJECT
+ * *    TeenyLIME 
+ * * VERSION
+ * *    $LastChangedRevision: 843 $
+ * * DATE
+ * *    $LastChangedDate: 2009-05-18 03:46:04 -0500 (Mon, 18 May 2009) $
+ * * LAST_CHANGE_BY
+ * *    $LastChangedBy: sguna $
+ * *
+ * *	$Id: DistributedTeenyLime.nc 843 2009-05-18 08:46:04Z sguna $
+ * *
+ * *   TeenyLIME - Transiently Shared Tuple Space Middleware for 
+ * *               Wireless Sensor Networks
+ * *
+ * *   This program is free software; you can redistribute it and/or
+ * *   modify it under the terms of the GNU General Public License
+ * *   as published by the Free Software Foundation; either version 2
+ * *   of the License, or (at your option) any later version.
+ * *
+ * *   This program is distributed in the hope that it will be useful,
+ * *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * *   GNU General Public License for more details.
+ * *
+ * *   You should have received a copy of the GNU General Public License
+ * *   along with this program; if not, you may find a copy at the FSF web
+ * *   site at 'www.gnu.org' or 'www.fsf.org', or you may write to the
+ * *   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * *   Boston, MA  02111-1307, USA
+ ***/
+
+#include "TLConf.h"
+
+#ifdef PLATFORM_TELOSB
+#include "TMoteTuning.h"
+#endif
+
+#include "TupleSpace.h"
+#include "TupleMsg.h"
+#include "TLDebug.h"
+#include "tl_objs.h"
+
+#ifdef PRINTF_SUPPORT
+#include "printf.h"
+#endif
+
+#ifndef REMOTE_REACTIONS
+#warning "You are NOT compiling support for remote reactions!"
+#endif
+
+/**
+ * The component implementing distributed operations.
+ * 
+ * @author Luca Mottola 
+ *         <a href="mailto:mottola@elet.polimi.it">mottola@elet.polimi.it</a>
+ * 
+ */
+
+module DistributedTeenyLime {
+
+  provides {
+    interface Init;
+    interface DistributedTupleSpace;
+  }
+
+  uses {
+    interface Timer<TMilli> as RemoteOpsTimer;
+    interface SendTuple;
+    interface ReceiveTuple;
+    interface NeighborSystem;
+    interface BridgeTupleSpace;
+#ifdef PLATFORM_TELOSB
+    interface Tuning;
+#endif
+    interface TLDebug;
+    interface SlabAllocator;
+    interface TLObjects;
+    interface Leds;
+
+#ifdef PRINTF_SUPPORT
+    interface SplitControl as PrintfControl;
+    interface PrintfFlush;
+#endif
+  }
+}
+
+implementation {
+
+#ifdef REMOTE_REACTIONS
+  // Data structure to maintain remote reactions towards other hosts
+  typedef struct {
+    TLOpId_t operationId;
+    TLTarget_t target;
+    tuple *templ;
+  } activeReaction;
+  activeReaction activeReactions[MAX_REACTIONS];
+  uint8_t numberActiveReactions;
+#endif 
+
+  // Data structure representing remote reactions active on this host
+  typedef struct {
+    TLOpId_t operationId;
+    uint16_t lastSeen;
+  } installedReaction;
+  installedReaction installedReactions[MAX_REACTIONS];
+  uint8_t numberInstalledReactions;
+
+  typedef enum {
+    STARTED = 1,
+    IN_PROGRESS = 2,
+  } opStatus;
+
+  // Data structure for pending remote operations
+  typedef struct {
+    bool empty;
+    TLOpId_t operationId; 
+    uint8_t number;
+    bool singleAnswer;
+    opStatus status;
+    uint16_t countDown;
+    TLTarget_t target;
+    char queryTuple[MAX_TUPLE_SIZE];
+    char tuple_data[SLAB_SIZE];
+    char *new_tuple;
+  } pendingOp;
+  pendingOp pendingOps[MAX_PENDING_OPS];
+
+  // Data structure for maintaining the neighbor set
+  TLTarget_t neighborsId[MAX_NEIGHBORS];
+  typedef struct {
+    tuple *nghTuple;
+    uint16_t lastSeen;
+  } neighborData;
+  neighborData neighborSet[MAX_NEIGHBORS];
+
+  // Identifier for TeenyLIME system operations
+  TLOpId_t teenyLimeSystemOp;
+  
+  // Local (logical) time
+  uint16_t localTime = 0;  
+
+#ifdef REMOTE_REACTIONS
+  error_t addActiveReaction(TLOpId_t *operationId, tuple* templ, 
+			    TLTarget_t target) {
+    
+    atomic {
+      if (numberActiveReactions < MAX_REACTIONS) {
+	activeReactions[numberActiveReactions].operationId.msgOrigin = operationId->msgOrigin;
+	activeReactions[numberActiveReactions].operationId.componentId = operationId->componentId;
+	activeReactions[numberActiveReactions].operationId.commandId = operationId->commandId;
+	activeReactions[numberActiveReactions].operationId.reliable = operationId->reliable;
+	activeReactions[numberActiveReactions].templ = 
+	  call SlabAllocator.addTuple(templ, FALSE, FALSE, NULL);
+	if (activeReactions[numberActiveReactions].templ == NULL) {
+	  call TLDebug.triggerErr(TUPLE_SPACE_FULL);
+	  return FAIL;
+	}
+	activeReactions[numberActiveReactions].target = target; 
+	numberActiveReactions++;
+	return SUCCESS;
+      } else {
+	return FAIL;
+      } 
+    } 
+  }
+#endif
+
+#ifdef REMOTE_REACTIONS
+  error_t removeActiveReaction(TLOpId_t operationId) {
+    
+    uint8_t i;    
+    for (i=0; i<numberActiveReactions; i++) {
+      if (activeReactions[i].operationId.commandId == operationId.commandId) {
+	atomic {
+	  call SlabAllocator.removeExactTuple(activeReactions[i].templ);
+	  activeReactions[i] = activeReactions[--numberActiveReactions];
+	}
+	return SUCCESS; 
+      }
+    }
+    return FAIL;
+  }
+#endif
+
+  error_t addInstalledReaction(TLOpId_t operationId) {
+
+    if (numberInstalledReactions < MAX_REACTIONS) {
+      atomic {
+	installedReactions[numberInstalledReactions].operationId = operationId;
+	installedReactions[numberInstalledReactions].lastSeen = localTime;
+	numberInstalledReactions++;
+      }
+      return SUCCESS;
+    } else {
+      return FAIL;
+    } 
+  } 
+
+  bool isInstalledReaction(TLOpId_t operationId) {
+
+    uint8_t i;
+    for (i=0; i<numberInstalledReactions; i++) {
+      if (installedReactions[i].operationId.commandId == operationId.commandId
+	  &&installedReactions[i].operationId.msgOrigin == operationId.msgOrigin) {
+	return TRUE; 
+      }
+    }
+    return FALSE;
+  }  
+
+  void refreshInstalledReaction(TLOpId_t operationId) {
+
+    uint8_t i;    
+    atomic {
+      for (i=0; i<numberInstalledReactions; i++) {
+	if (installedReactions[i].operationId.commandId == operationId.commandId
+	    &&installedReactions[i].operationId.msgOrigin == operationId.msgOrigin) {
+	  installedReactions[i].lastSeen = localTime; 
+	}
+      }
+    }
+  }  
+
+  void pruneExpiredReactions() {
+  
+    installedReaction* aliveReactions[MAX_REACTIONS];
+    uint8_t i, numberAliveReactions = 0;
+    
+    atomic {
+      // Selecting alive reactions
+      for (i=0; i<numberInstalledReactions; i++) {
+	if (localTime <= installedReactions[i].lastSeen + REMOTE_LOST_REFRESH) {
+	  aliveReactions[numberAliveReactions++] = &(installedReactions[i]);
+	} else 
+      call BridgeTupleSpace.removeReaction(installedReactions[i].operationId); 
+      }
+      
+      // Copying back
+      for (i=0; i<numberAliveReactions; i++) {
+	installedReactions[i].operationId.commandId = aliveReactions[i]->operationId.commandId;
+	installedReactions[i].operationId.componentId = aliveReactions[i]->operationId.componentId;
+	installedReactions[i].operationId.reliable = aliveReactions[i]->operationId.reliable;
+	installedReactions[i].operationId.msgOrigin = aliveReactions[i]->operationId.msgOrigin;
+	installedReactions[i].lastSeen = aliveReactions[i]->lastSeen;
+      }
+      numberInstalledReactions = numberAliveReactions;
+    }
+  }  
+
+  int canAddTuple(pendingOp *pending_op, tuple *next_tuple) {
+
+    int tuple_size = call TLObjects.tuple_sizeof(next_tuple);
+    int size = pending_op->new_tuple - pending_op->tuple_data + tuple_size;
+
+    if (tuple_size == 0)
+      return 0;
+    return size <= SLAB_SIZE; 
+  }
+
+  tuple * next_tuple(TupleIterator *iterator, TLOpId_t opId) {
+    tuple *result;
+
+    if (iterator->data.buffer.count >= iterator->data.buffer.max)
+      return NULL;
+    if ((iterator->flags & IT_FINISH) != 0)
+      return NULL;
+
+    result = (tuple *) iterator->data.buffer.tuple;
+    iterator->data.buffer.tuple += call TLObjects.tuple_sizeof(result);
+    if ((iterator->flags & IT_REACTION) != 0)
+      iterator->flags |= IT_FINISH;
+    iterator->data.buffer.count++;
+    return result;
+  }
+
+  void init_iterator(TupleIterator *iterator, char *buffer, int number,
+          int flags) {
+    iterator->flags = IT_REMOTE | flags;
+    iterator->pattern = NULL;
+    iterator->data.buffer.tuple = buffer;
+    iterator->data.buffer.count = 0;
+    iterator->data.buffer.max = number;
+  }
+
+  void addResultTuples(uint8_t commandId, tuple *tuples, uint8_t number) {
+    
+    uint8_t i,j;
+
+    atomic {
+      
+      for (i=0; i<MAX_PENDING_OPS; i++) {
+	if (!pendingOps[i].empty
+	    && pendingOps[i].operationId.commandId == commandId
+	    && (pendingOps[i].status == STARTED 
+		|| pendingOps[i].status == IN_PROGRESS)) {
+
+	  if (pendingOps[i].number == 0) {
+	    pendingOps[i].new_tuple = pendingOps[i].tuple_data;
+	  }
+	  
+	  pendingOps[i].status = IN_PROGRESS;
+
+	  for (j=0; j<number && canAddTuple(pendingOps + i, tuples); j++) {
+	    int size = call TLObjects.copy_tuple((tuple *) pendingOps[i].new_tuple,
+						 tuples);
+	    pendingOps[i].new_tuple += size;
+	    pendingOps[i].number++;
+	    tuples = (tuple *) ((char *) tuples + size);
+	  }
+	  
+	  if (pendingOps[i].singleAnswer) {
+	    TupleIterator iterator;
+	    // The slot can be immediately re-used: 
+	    // if a further operation is issued, it will necessarily overwrite
+	    // the tuple_data field in a different task context
+	    pendingOps[i].empty = TRUE;
+	    init_iterator(&iterator, pendingOps[i].tuple_data,
+			  pendingOps[i].number, IT_DEFAULT);
+	    signal DistributedTupleSpace.operationCompleted(OP_COMPLETED_OK, 
+							    pendingOps[i].operationId, 
+							    pendingOps[i].target,  
+							    (tuple*)pendingOps[i].queryTuple);  
+	    signal DistributedTupleSpace.tupleReady(pendingOps[i].operationId,
+						    &iterator);
+	  } 
+	  return;	
+	}
+      }
+    }
+  }
+
+  void addPendingOp(TLOpId_t operationId, bool singleAnswer, 
+		    tuple* queryTuple, TLTarget_t target){
+    
+    uint8_t i;
+
+    atomic {
+
+      for (i=0; i<MAX_PENDING_OPS; i++) {
+	if (pendingOps[i].empty){
+	  pendingOps[i].empty = FALSE;
+	  pendingOps[i].operationId.reliable = operationId.reliable;
+	  pendingOps[i].operationId.componentId = operationId.componentId;
+	  pendingOps[i].operationId.commandId = operationId.commandId;
+	  pendingOps[i].operationId.msgOrigin = operationId.msgOrigin;
+	  pendingOps[i].number = 0;
+	  pendingOps[i].status = STARTED;
+	  pendingOps[i].singleAnswer = singleAnswer;
+	  pendingOps[i].countDown = 1; 
+	  pendingOps[i].target = target; 
+	  call TLObjects.copy_tuple((tuple *) pendingOps[i].queryTuple, queryTuple); 
+	  if (!call RemoteOpsTimer.isRunning()) {
+#ifdef PLATFORM_TELOSB
+	    call RemoteOpsTimer.startOneShot(call Tuning.get(KEY_REMOTE_OP_TIMEOUT));
+#else
+        call RemoteOpsTimer.startOneShot(REMOTE_OP_TIMEOUT);
+#endif
+	  }
+	  return;
+	}
+      }
+      
+      call TLDebug.triggerErr(PENDING_OPS_OVERFLOW);
+    }
+  }
+
+  bool isPending(TLOpId_t operationId) {
+
+    uint8_t i;
+    
+    atomic {
+      for (i=0; i<MAX_PENDING_OPS; i++) {
+	if (!pendingOps[i].empty
+	    && pendingOps[i].operationId.commandId == operationId.commandId){
+	  return TRUE;
+	}
+      }
+      return FALSE;
+    }
+  }
+
+  command error_t Init.init() {
+
+    uint8_t i;
+    
+    for (i=0; i<MAX_PENDING_OPS; i++) {
+      pendingOps[i].empty = TRUE;
+    }
+    
+#ifdef REMOTE_REACTIONS
+    numberActiveReactions = 0;
+#endif
+    numberInstalledReactions = 0;
+    
+    // Preparing opId for TeenyLIME system
+    teenyLimeSystemOp.commandId = TEENYLIME_SYSTEM_OPERATION;
+    teenyLimeSystemOp.componentId = TEENYLIME_SYSTEM_COMPONENT;
+    
+    // Init neighbor set
+    for (i=0; i<MAX_NEIGHBORS; i++) {
+      neighborsId[i] = NULL_NEIGHBOR_ID;
+    }
+    return SUCCESS;
+  }
+
+  command tuple * DistributedTupleSpace.nextTuple(TupleIterator *iterator,
+          TLOpId_t operationId) {
+    return next_tuple(iterator, operationId);
+  }
+
+  command tuple * DistributedTupleSpace.getTuple(TupleIterator *iterator) {
+    return (tuple *) iterator->data.buffer.tuple;
+  }
+  
+  command void DistributedTupleSpace.out(TLTarget_t target, 
+					 tuple *t, 
+					 TLOpId_t operationId) {
+    if (operationId.reliable 
+	&& target == TL_NEIGHBORHOOD) {
+      call TLDebug.triggerErr(UNSUPPORTED_RELIABLE_OP);
+    } else {
+      call SendTuple.send(target, t, 1, OUT_OP, operationId);
+    }
+  }
+  
+  command void DistributedTupleSpace.rd(TLTarget_t target, 
+					tuple *templ, 
+					TLOpId_t operationId) {
+    if (operationId.reliable 
+	&& target == TL_NEIGHBORHOOD) {
+      call TLDebug.triggerErr(UNSUPPORTED_RELIABLE_OP);
+    } else {
+      atomic {
+	addPendingOp(operationId, TRUE, templ, target);
+	call SendTuple.send(target, templ, 1, RD_OP, operationId);
+      }
+    }
+  }
+  
+  command void DistributedTupleSpace.in(TLTarget_t target, 
+					tuple *templ, 
+					TLOpId_t operationId) {
+    if (operationId.reliable 
+	&& target == TL_NEIGHBORHOOD) {
+      call TLDebug.triggerErr(UNSUPPORTED_RELIABLE_OP);
+    } else {
+      atomic {
+	addPendingOp(operationId, TRUE, templ, target);
+	call SendTuple.send(target, templ, 1, IN_OP, operationId);
+      }
+    }
+  }
+  
+  command void DistributedTupleSpace.rdg(TLTarget_t target, 
+					 tuple *templ, 
+					 TLOpId_t operationId) {
+    if (operationId.reliable 
+	&& target == TL_NEIGHBORHOOD) {
+      call TLDebug.triggerErr(UNSUPPORTED_RELIABLE_OP);
+    } else{
+      atomic {
+	addPendingOp(operationId, FALSE, templ, target);
+	call SendTuple.send(target, templ, 1, RDG_OP, operationId);
+      }
+    }
+  }
+  
+  command void DistributedTupleSpace.ing(TLTarget_t target, 
+					 tuple *templ, 
+					 TLOpId_t operationId) {    
+    if (operationId.reliable 
+	&& target == TL_NEIGHBORHOOD) {
+      call TLDebug.triggerErr(UNSUPPORTED_RELIABLE_OP);
+    } else {
+      atomic {
+	addPendingOp(operationId, FALSE, templ, target);
+	call SendTuple.send(target, templ, 1, ING_OP, operationId);
+      }
+    }
+  }
+  
+  command void DistributedTupleSpace.addReaction(TLTarget_t target, 
+						 tuple *templ, 
+						 TLOpId_t *operationId){
+#ifdef REMOTE_REACTIONS
+    addActiveReaction(operationId, templ, target);    
+#endif
+  }
+  
+  command void DistributedTupleSpace.removeReaction(TLOpId_t operationId) {
+    
+#ifdef REMOTE_REACTIONS
+    removeActiveReaction(operationId);    
+#endif
+  }
+  
+  event void BridgeTupleSpace.tupleReady(TLOpId_t operationId, 
+					 tuple *tuples, 
+					 uint8_t number, 
+					 bool reaction){
+    atomic {
+      if (!reaction) {
+	call SendTuple.send(operationId.msgOrigin, tuples, number, 
+			    QUERY_RESULT, operationId);
+      } else {
+	call SendTuple.send(operationId.msgOrigin, tuples, number, 
+			    REACTION_FIRING, operationId);
+      }        
+    }
+  }
+  
+  bool isNeighbor(TLTarget_t deviceId) {
+    
+    uint8_t i;
+    
+    atomic {
+      
+      for (i=0; i<MAX_NEIGHBORS; i++) {
+	if (neighborsId[i] != NULL_NEIGHBOR_ID
+	    && neighborsId[i] == deviceId) {
+	  return TRUE;
+	}
+      }
+      return FALSE; 
+    }
+  }
+
+  event void RemoteOpsTimer.fired() {
+
+    atomic {
+      
+      uint8_t i;
+      bool needRescheduling = FALSE;
+
+      // Signaling expired operations
+      for (i=0; i<MAX_PENDING_OPS; i++) {
+	if (!pendingOps[i].empty
+	    && pendingOps[i].countDown == 0) {
+	  TupleIterator iterator;
+	  uint8_t completionCode = OP_COMPLETED_OK;
+
+	  if (pendingOps[i].status == IN_PROGRESS) { 
+	    completionCode = OP_COMPLETED_OK;
+	  } else if (pendingOps[i].status == STARTED) {
+	    completionCode = RELIABLE_OP_FAIL;
+	  } 
+	  signal DistributedTupleSpace.operationCompleted(completionCode, 
+							  pendingOps[i].operationId, 
+							  pendingOps[i].target,  
+							  (tuple*)pendingOps[i].queryTuple);  
+	  init_iterator(&iterator, pendingOps[i].tuple_data, pendingOps[i].number,
+			IT_DEFAULT);
+	  signal DistributedTupleSpace.tupleReady(pendingOps[i].operationId,
+						  &iterator);
+	}
+      }
+
+      // Pruning expired pending operations
+      for (i=0; i<MAX_PENDING_OPS; i++) {
+	if (!pendingOps[i].empty) {
+	  if (pendingOps[i].countDown == 0) {
+	    pendingOps[i].empty = TRUE;
+	  } else {
+	    needRescheduling = TRUE;
+	    pendingOps[i].countDown--;
+	  }
+	}
+      }
+      
+      if (needRescheduling) {
+#ifdef PLATFORM_TELOSB
+	call RemoteOpsTimer.startOneShot(call Tuning.get(KEY_REMOTE_OP_TIMEOUT));
+#else
+        call RemoteOpsTimer.startOneShot(REMOTE_OP_TIMEOUT);
+#endif
+      }
+    }
+  }
+  
+  event void BridgeTupleSpace.timeTick() {
+    
+    uint8_t i;
+    
+    atomic {
+      
+      localTime++;         
+      
+      // Refreshing remote reactions
+#ifdef REMOTE_REACTIONS
+      for (i=0; i<numberActiveReactions; i++) {
+        tuple *templ = activeReactions[i].templ;
+        call SendTuple.send(activeReactions[i].target, templ, 1, REACT,
+			    activeReactions[i].operationId); 
+      }
+#endif
+      
+      // Pruning expired reactions
+      pruneExpiredReactions();
+      
+      // Pruning info from the TL system
+      for (i=0; i<MAX_NEIGHBORS; i++) {
+	if (neighborsId[i] != NULL_NEIGHBOR_ID
+	    && localTime > neighborSet[i].lastSeen + REMOTE_LOST_REFRESH) {
+	  call BridgeTupleSpace.remove(neighborSet[i].nghTuple);
+	  neighborsId[i] = NULL_NEIGHBOR_ID;
+	}
+      }
+    }
+  }
+  
+  event void ReceiveTuple.receive(tuple *tuples, uint8_t tupleNumber, 
+				  uint8_t operation, TLOpId_t operationId) {  
+    TupleIterator iterator;
+    atomic {
+      switch (operation) {
+      case OUT_OP:
+	call BridgeTupleSpace.out(tuples, operationId, TRUE, TRUE);
+	break;
+	
+      case RD_OP:
+	call BridgeTupleSpace.rd(tuples, operationId);
+	break;
+	
+      case IN_OP:
+	call BridgeTupleSpace.in(tuples, operationId);
+	break;
+	
+      case RDG_OP:
+	call BridgeTupleSpace.rdg(tuples, operationId);
+	break;
+	
+      case ING_OP:
+	call BridgeTupleSpace.ing(tuples, operationId);
+	break;
+	
+      case REACT:
+	if (!isInstalledReaction(operationId)) {
+	  addInstalledReaction(operationId);
+	  call BridgeTupleSpace.addReaction(tuples, &operationId);
+	}
+	refreshInstalledReaction(operationId);
+	break;
+	
+      case QUERY_RESULT:
+	addResultTuples(operationId.commandId, tuples, tupleNumber);
+	break;
+	
+      case REACTION_FIRING:
+	init_iterator(&iterator, (char *) tuples, tupleNumber,
+		      IT_ONE_TUPLE | IT_REACTION);
+	signal DistributedTupleSpace.tupleReady(operationId, &iterator);
+	break;
+	
+      default:
+#ifdef PRINTF_SUPPORT
+	printf("Unknown op %u\n", operation);
+	call PrintfFlush.flush();
+#endif
+      }
+    }
+  }
+
+  event tuple * NeighborSystem.getNeighborTuple() {
+
+    tuple *neighTuple = call BridgeTupleSpace.getNeighborTuple();
+    return neighTuple;
+  }
+
+  event error_t NeighborSystem.update(TLTarget_t msgOrigin, 
+				      tuple *neighborTuple) {
+    uint8_t i;    
+    bool insertion = FALSE;
+
+    atomic {
+      if (!isNeighbor(msgOrigin)) {
+	for (i=0; i<MAX_NEIGHBORS && !insertion; i++) {
+	  if (neighborsId[i] == NULL_NEIGHBOR_ID) {
+	    neighborsId[i] = msgOrigin;
+	    neighborSet[i].lastSeen = localTime;
+	    neighborSet[i].nghTuple =
+	      call BridgeTupleSpace.out(neighborTuple, teenyLimeSystemOp, 
+					FALSE, TRUE);
+	    insertion = TRUE;
+	  }
+	}
+	if (!insertion) {
+	  call TLDebug.triggerErr(NEIGHBOR_OVERFLOW);
+	}
+      } else {
+	for (i=0; i<MAX_NEIGHBORS; i++) {
+	  if (neighborsId[i] != NULL_NEIGHBOR_ID 
+	      && neighborsId[i] == msgOrigin) {
+	    neighborSet[i].nghTuple = 
+	      call BridgeTupleSpace.replace(neighborSet[i].nghTuple, 
+					    neighborTuple,
+					    FALSE, TRUE);
+	    neighborSet[i].lastSeen = localTime;
+	  } 
+	}
+      }
+      return SUCCESS;
+    }
+  }
+
+  // This is signaled from the TL network stack only for reliable ops
+  event void SendTuple.operationCompleted(uint8_t completionCode,
+					  TLOpId_t operationId, 
+					  TLTarget_t target,  
+					  tuple* returningTuple){
+    uint8_t i;
+
+    signal DistributedTupleSpace.operationCompleted(completionCode, 
+						    operationId, 
+						    target,  
+						    returningTuple);  
+
+    // Checking if it is a query operation and the request message was not delivered
+    for (i=0; i<MAX_PENDING_OPS; i++) {
+      if (!pendingOps[i].empty
+	  && pendingOps[i].operationId.commandId == operationId.commandId
+	  && pendingOps[i].status == STARTED
+	  && completionCode == RELIABLE_OP_FAIL) {
+	TupleIterator iterator;
+	pendingOps[i].empty = TRUE;
+	init_iterator(&iterator, pendingOps[i].tuple_data, pendingOps[i].number,
+		      IT_DEFAULT);
+	signal DistributedTupleSpace.tupleReady(pendingOps[i].operationId,
+						&iterator);	
+	break;
+      }
+    }
+  }
+
+#ifdef PLATFORM_TELOSB
+  event void Tuning.setDone(uint8_t key, uint16_t value) {}
+#endif
+
+#ifdef PRINTF_SUPPORT
+  event void PrintfControl.startDone(error_t error) {
+  }
+  
+  event void PrintfControl.stopDone(error_t error) {
+  }
+
+  event void PrintfFlush.flushDone(error_t error) {
+  }
+#endif
+
+  event void SlabAllocator.slabInitDone() { } 
+  
+  event void SlabAllocator.clearDone() { } 
+
+  event void SlabAllocator.addTupleDone(error_t error, tuple *t,
+          TupleIterator *iterator) { }
+  
+  event void SlabAllocator.nextPositionDone(TupleIterator *iterator, 
+          TLOpId_t opId, bool found, error_t error) { }
+}

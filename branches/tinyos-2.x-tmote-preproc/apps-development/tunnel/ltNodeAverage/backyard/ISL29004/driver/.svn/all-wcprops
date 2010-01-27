@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver
+END
+PrintfClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/PrintfClient.java
+END
+TestC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/TestC.nc
+END
+TestAppC.nc
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/TestAppC.nc
+END
+radio.h
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/radio.h
+END
+ISL29004.nc
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/ISL29004.nc
+END
+ISL29004C.nc
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/ISL29004C.nc
+END
+PrintfMsg.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/PrintfMsg.java
+END
+ISL29004.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/ISL29004.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/teenylime/!svn/ver/906/branches/tinyos-2.x-tmote-preproc/apps-development/tunnel/ltNodeAverage/backyard/ISL29004/driver/Makefile
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/interfaces
+END
+DirectModify.nc
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/interfaces/DirectModify.nc
+END
+VolumeSettings.nc
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/interfaces/VolumeSettings.nc
+END
+DirectStorage.nc
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/teenylime/!svn/ver/870/branches/tinyos-2.x-tmote-preproc/apps-development/tower/vibrationNode/rincon/tos/interfaces/DirectStorage.nc
+END
